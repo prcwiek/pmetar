@@ -2,13 +2,22 @@
 % Please edit documentation in R/metar_temp.R
 \name{metar_temp}
 \alias{metar_temp}
-\title{metar_temp}
+\title{Extract temperature.}
 \usage{
 metar_temp(x)
 }
 \arguments{
-\item{x}{}
+\item{x}{Input character vector}
+}
+\value{
+A numeric vector. A temperature in degrees Celsius.
 }
 \description{
-metar_temp
+Function extract a temperature value from METAR weather report.
+}
+\examples{
+metar_temp("EPWA 281830Z 18009KT 140V200 9999 SCT037 03/M01 Q1008 NOSIG")
+metar_temp("CYUL 281800Z 13008KT 30SM BKN240 01/M06 A3005 RMK CI5 SLP180")
+metar_temp("201711271930 METAR LEMD 271930Z 02002KT CAVOK 04/M03 Q1025 NOSIG= NOSIG=")
+
 }
