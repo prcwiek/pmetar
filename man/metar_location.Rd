@@ -2,13 +2,22 @@
 % Please edit documentation in R/metar_location.R
 \name{metar_location}
 \alias{metar_location}
-\title{metar_location}
+\title{Extract approximated airport location.}
 \usage{
 metar_location(x)
 }
 \arguments{
-\item{x}{}
+\item{x}{Input character vector}
+}
+\value{
+A data frame with three columns longitude, latitude, elevation in meters and one row.
 }
 \description{
-metar_location
+Function extract approximated airport lattitude, longitude and elevation for a given airport code.
+}
+\examples{
+metar_location("EPWA")
+metar_location("CYUL")
+metar_location("LEMD")
+
 }
