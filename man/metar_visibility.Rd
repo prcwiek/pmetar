@@ -2,13 +2,22 @@
 % Please edit documentation in R/metar_visibility.R
 \name{metar_visibility}
 \alias{metar_visibility}
-\title{metar_visibility}
+\title{Extract visibility.}
 \usage{
 metar_visibility(x)
 }
 \arguments{
-\item{x}{}
+\item{x}{Input character vector.}
+}
+\value{
+A character vector.
 }
 \description{
-metar_visibility
+Function extract a visibility from METAR weather report.
+}
+\examples{
+metar_visibility("EPWA 281830Z 18009KT 140V200 9999 SCT037 03/M01 Q1008 NOSIG")
+metar_visibility("CYUL 281800Z 13008KT 30SM BKN240 01/M06 A3005 RMK CI5 SLP180")
+metar_visibility("201711271930 METAR LEMD 271930Z 02002KT CAVOK 04/M03 Q1025 NOSIG= NOSIG=")
+
 }

@@ -2,7 +2,7 @@
 #'
 #' Function extract a name of airport from METAR weather report.
 #'
-#' @param x Input character vector
+#' @param x Input character vector.
 #'
 #' @return A character vector.
 #'
@@ -14,7 +14,7 @@
 #' metar_airport("201711271930 METAR LEMD 271930Z 02002KT CAVOK 04/M03 Q1025 NOSIG= NOSIG=")
 #'
 metar_airport <- function(x) {
-  if(str_detect(x, pattern = START %R% one_or_more(DGT) %R% " METAR")){
+  if(sum(str_detect(x, pattern = START %R% one_or_more(DGT) %R% " METAR")) > 0){
     out <- str_extract(x, pattern = "METAR " %R% one_or_more(WRD))
     str_sub(out, nchar(out)-3, nchar(out))
   } else {

@@ -1,13 +1,23 @@
-#' metar_get_historical
+#' Get historical METAR reports.
 #'
-#' @param airport
-#' @param start_date
-#' @param end_date
+#' Function download a  a set of historical METAR weather reports\cr
+#' is is downloaded from the web page http://www.ogimet.com/
 #'
-#' @return
+#' @param airport Input character vector
+#' @param start_date Input character vector
+#' @param end_date Input character vector
+#'
+#' @return A character vector for a current METAR weather report.
+#' @return A data frame character vectors with historical METAR weather report.
+#'
 #' @export
 #'
 #' @examples
+#' metar_get_historical("EPWA", start_date = "2017-11-20", end_date = "2017-11-25")
+#' metar_get_historical("CYUL", start_date = "2016-07-01", end_date = "2016-07-10")
+#' metar_get_historical("LEMD", start_date = "2000-06-01", end_date = "2000-06-02")
+#'
+#'
 metar_get_historical <- function(airport, start_date = "2017-11-21", end_date = "2017-11-22"){
   syear <- str_sub(start_date, 1, 4)
   smonth <- str_sub(start_date, 6, 7)
@@ -23,7 +33,7 @@ metar_get_historical <- function(airport, start_date = "2017-11-21", end_date = 
     sday, "&hora=00&anof=",
     eyear, "&mesf=",
     emonth, "&dayf=",
-    eday, "&horaf=23&minf=59&send=send",
+    eday, "&horaf=23&minf=59&enviar=Ver",
     sep = ""
   )
   myfile <- getURL(link, ssl.verifyhost = FALSE, ssl.verifypeer = FALSE)
@@ -35,12 +45,17 @@ metar_get_historical <- function(airport, start_date = "2017-11-21", end_date = 
   ds <- as.data.frame(ds[ids:ide,1], stringsAsFactors = FALSE)
   colnames(ds) <- c("x")
   pattern <- START %R% one_or_more(DGT) %R% SPC %R% one_or_more(WRD)
-  idx <- which(is.na(str_match(ds$x, pattern = pattern)))
-  idy <- which(!is.na(str_match(ds$x, pattern = pattern)))
-  ds$y <- ds$x
-  ds[idy,2] <- paste(str_trim(ds[idy,2]), str_trim(ds[idx,1]))
-  dl <- !is.na(as.data.frame((str_match(ds$y, pattern = pattern))))
-  out <- as.data.frame(ds[dl,2], stringsAsFactors = FALSE)
-  colnames(out) <- c("metar")
-  out
+  ds$x <- str_trim(ds$x)
+  idd <- str_detect(ds$x, pattern = pattern)
+  i <- 1
+  out <- data.frame(metar = "empty", stringsAsFactors = FALSE)
+  metartext <- "empty"
+  while(i < length(idd)){
+    if(idd[i]){
+      out <- rbind(out, metartext)
+      metartext <- ds[i,1]
+    } else metartext <- paste(metartext, ds[i,1])
+    i <- i + 1
+  }
+  out <- out[3:nrow(out),]
 }

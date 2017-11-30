@@ -2,14 +2,31 @@
 % Please edit documentation in R/metar_get_historical.R
 \name{metar_get_historical}
 \alias{metar_get_historical}
-\title{metar_get_historical}
+\title{Get historical METAR reports.}
 \usage{
 metar_get_historical(airport, start_date = "2017-11-21",
   end_date = "2017-11-22")
 }
 \arguments{
-\item{end_date}{}
+\item{airport}{Input character vector}
+
+\item{start_date}{Input character vector}
+
+\item{end_date}{Input character vector}
+}
+\value{
+A character vector for a current METAR weather report.
+
+A data frame character vectors with historical METAR weather report.
 }
 \description{
-metar_get_historical
+Function download a  a set of historical METAR weather reports\cr
+is is downloaded from the web page http://www.ogimet.com/
+}
+\examples{
+metar_get_historical("EPWA", start_date = "2017-11-20", end_date = "2017-11-25")
+metar_get_historical("CYUL", start_date = "2016-07-01", end_date = "2016-07-10")
+metar_get_historical("LEMD", start_date = "2000-06-01", end_date = "2000-06-02")
+
+
 }

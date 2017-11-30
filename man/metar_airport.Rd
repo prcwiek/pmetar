@@ -7,7 +7,7 @@
 metar_airport(x)
 }
 \arguments{
-\item{x}{Input character vector}
+\item{x}{Input character vector.}
 }
 \value{
 A character vector.
