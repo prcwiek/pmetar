@@ -40,8 +40,8 @@ metar_get <- function(airport, start_date = "", end_date = ""){
     if(str_detect(metar, pattern = "No METAR found")){
       cat(paste("No METAR found for ", airport, "!\n", sep = ""))
     } else str_split(metar, "<br", simplify = TRUE)[1]
-  } else if(str_detect(start_date, pattern = START %R% one_or_more(DGT) %R% "-" %R% one_or_more(DGT) %R% "-" %R% one_or_more(DGT)) &
-            str_detect(end_date, pattern = START %R% one_or_more(DGT) %R% "-" %R% one_or_more(DGT) %R% "-" %R% one_or_more(DGT)) &
+  } else if(str_detect(start_date, pattern = "^[\\d]+-[\\d]+-[\\d]+") &
+            str_detect(end_date, "^[\\d]+-[\\d]+-[\\d]+") &
             airport != "" &
             as.Date(end_date) > as.Date(start_date)) {
     #cat("History\n")
@@ -70,7 +70,7 @@ metar_get <- function(airport, start_date = "", end_date = ""){
     ide <- which(ds[,1] == "</pre>") - 1
     ds <- as.data.frame(ds[ids:ide,1], stringsAsFactors = FALSE)
     colnames(ds) <- c("x")
-    pattern <- START %R% one_or_more(DGT) %R% SPC %R% one_or_more(WRD)
+    pattern <- "^[\\d]+\\s(?:METAR|SPECI)"
     ds$x <- str_trim(ds$x)
     idd <- str_detect(ds$x, pattern = pattern)
     i <- 1

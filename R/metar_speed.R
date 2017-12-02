@@ -14,11 +14,11 @@
 #' metar_speed("201711271930 METAR LEMD 271930Z 02002KT CAVOK 04/M03 Q1025 NOSIG= NOSIG=")
 #'
 metar_speed <- function(x){
-  if(str_detect(x, pattern = one_or_more(DGT) %R% "MPS")) {
-    speed <- str_extract(x, pattern = one_or_more(DGT) %R% "MPS")
+  if(str_detect(x, pattern = "[\\d]+MPS")) {
+    speed <- str_extract(x, pattern = "[\\d]+MPS")
     as.numeric(str_sub(speed, 1, 2))
-  } else if(str_detect(x, pattern = one_or_more(DGT) %R% "KT")) {
-    speed <- str_extract(x, pattern = one_or_more(DGT) %R% "KT")
+  } else if(str_detect(x, pattern = "[\\d]+KT")) {
+    speed <- str_extract(x, pattern = "[\\d]+KT")
     as.numeric(str_sub(speed, 1, 2)) * 0.514444
   }
 }

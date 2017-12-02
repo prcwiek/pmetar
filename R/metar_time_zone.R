@@ -14,7 +14,6 @@
 #' metar_time_zone("201711271930 METAR LEMD 271930Z 02002KT CAVOK 04/M03 Q1025 NOSIG= NOSIG=")
 #'
 metar_time_zone <- function(x){
-  pattern_t <- one_or_more(DGT) %R% ANY_CHAR %R% SPC
-  mt <- str_extract(x, pattern = pattern_t)
+  mt <- str_extract(x, pattern = "[\\d]+.\\s")
   if(str_sub(mt, 7, 7) == "Z") "UTC" else "local time"
 }

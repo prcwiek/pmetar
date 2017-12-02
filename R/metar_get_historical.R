@@ -44,7 +44,7 @@ metar_get_historical <- function(airport, start_date = "2017-11-21", end_date = 
   ide <- which(ds[,1] == "</pre>") - 1
   ds <- as.data.frame(ds[ids:ide,1], stringsAsFactors = FALSE)
   colnames(ds) <- c("x")
-  pattern <- START %R% one_or_more(DGT) %R% SPC %R% one_or_more(WRD)
+  pattern <- "^[\\d]+\\s(?:METAR|SPECI)"
   ds$x <- str_trim(ds$x)
   idd <- str_detect(ds$x, pattern = pattern)
   i <- 1

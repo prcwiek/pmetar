@@ -14,14 +14,14 @@
 #' metar_dir("201711271930 METAR LEMD 271930Z 02002KT CAVOK 04/M03 Q1025 NOSIG= NOSIG=")
 #'
 metar_dir <- function(x){
-  if(str_detect(x, pattern = one_or_more(DGT) %R% "G" %R% one_or_more(DGT) %R% "KT")){
-    dirw <- str_extract(x, pattern = one_or_more(DGT) %R% "G" %R% one_or_more(DGT) %R% "KT")
+  if(str_detect(x, pattern = "[\\d]+G[\\d]+KT")){
+    dirw <- str_extract(x, pattern = "[\\d]+G[\\d]+KT")
     as.numeric(str_sub(dirw, 1, 3))
-  } else if(str_detect(x, pattern = "VRB" %R% one_or_more(DGT) %R% "KT")){
+  } else if(str_detect(x, pattern = "VRB[\\d]+KT")){
     dirw <- NA
     dirw
   } else {
-    dirw <- str_extract(x, pattern = one_or_more(DGT) %R% "KT")
+    dirw <- str_extract(x, pattern = "[\\d]+KT")
     as.numeric(str_sub(dirw, 1, 3))
   }
 }

@@ -1,15 +1,14 @@
 Package: pmetar
 Type: Package
 Title: Processing METAR weather reports
-Version: 0.2.0
+Version: 0.2.1
 Author: Pawel Cwiek <prcwiek@users.noreply.github.com> [aut,cre]
 Maintainer: Pawel Cwiek <prcwiek@users.noreply.github.com> 
 Description: Package allows to download current and historical METAR weather reports and decode basic parameters.
     Use four spaces when indenting paragraphs within the Description.
-Imports:
+Depends:
   lubridate,
   RCurl,
-  rebus,
   stringr
 License: GPL-3
 Encoding: UTF-8

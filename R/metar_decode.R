@@ -63,8 +63,8 @@ metar_decode <- function(x, as_data_frame = TRUE){
   # location of a metar station
   lmt <- sapply(ap, metar_location, USE.NAMES = FALSE)
   # check if a date of a metar is available
-  if(str_detect(x, pattern = START %R% one_or_more(DGT) %R% " METAR")[1]) {
-    td <- str_extract(x, pattern = START %R% one_or_more(DGT) %R% " METAR")
+  if(str_detect(x, pattern = "^[\\d]+ METAR")[1]) {
+    td <- str_extract(x, pattern = "^[\\d]+ METAR")
     myear <- as.numeric(str_sub(td, 1, 4))
     mmonth <- as.numeric(str_sub(td, 5, 6))
     mday <- as.numeric(str_sub(td, 7, 8))
