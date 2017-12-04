@@ -14,11 +14,17 @@
 #' metar_pressure("201711271930 METAR LEMD 271930Z 02002KT CAVOK 04/M03 Q1025 NOSIG= NOSIG=")
 #'
 metar_pressure <- function(x){
-  if(str_detect(x, pattern = "Q[\\d]+")){
-    pressure <- str_extract(x, pattern = "Q[\\d]+")
-    as.numeric(str_sub(pressure, 2, nchar(pressure)))
-  } else {
-    pressure <- str_extract(x, pattern = "A[\\d]+")
-    as.numeric(str_sub(pressure, 2, nchar(pressure))) * 0.3386389
-  }
+  pressure <- c(1:length(x))
+  fP <- str_detect(x, pattern = "Q[\\d]+")
+  pressure[fP] <- as.numeric(str_sub(str_extract(x[fP], pattern = "Q[\\d]+"), 2, 5))
+  fP <- str_detect(x, pattern = "A[\\d]+")
+  pressure[fP] <- as.numeric(str_sub(str_extract(x[fP], pattern = "A[\\d]+"), 2, 5)) * 0.3386389
+  pressure
+  # if(str_detect(x, pattern = "Q[\\d]+")){
+  #   pressure <- str_extract(x, pattern = "Q[\\d]+")
+  #   as.numeric(str_sub(pressure, 2, nchar(pressure)))
+  # } else {
+  #   pressure <- str_extract(x, pattern = "A[\\d]+")
+  #   as.numeric(str_sub(pressure, 2, nchar(pressure))) * 0.3386389
+  # }
 }

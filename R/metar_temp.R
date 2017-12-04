@@ -14,11 +14,18 @@
 #' metar_temp("201711271930 METAR LEMD 271930Z 02002KT CAVOK 04/M03 Q1025 NOSIG= NOSIG=")
 #'
 metar_temp <- function(x){
-  if(str_detect(x, pattern = "M[\\d]+/")) {
-    temp <- str_extract(x, pattern = "M[\\d]+/")
-    as.numeric(str_sub(temp, 2, 3)) * -1
-  } else {
-    temp <- str_extract(x, pattern = "[\\d]+/")
-    as.numeric(str_sub(temp, 1, 2))
-  }
+  outtemp <- c(1:length(x))
+  outtemp[1:length(x)] <- -273
+  fT <- str_detect(x, pattern = "M[\\d]+/")
+  outtemp[fT] <- as.numeric(str_sub(str_extract(x[fT], pattern = "M[\\d]+/"), 2, 3)) * -1
+  fT <- str_detect(x, pattern = "[\\d]+/")
+  outtemp[fT] <- as.numeric(str_sub(str_extract(x[fT], pattern = "[\\d]+/"), 1, 2))
+  outtemp
+  # if(str_detect(x, pattern = "M[\\d]+/")) {
+  #   temp <- str_extract(x, pattern = "M[\\d]+/")
+  #   as.numeric(str_sub(temp, 2, 3)) * -1
+  # } else {
+  #   temp <- str_extract(x, pattern = "[\\d]+/")
+  #   as.numeric(str_sub(temp, 1, 2))
+  # }
 }

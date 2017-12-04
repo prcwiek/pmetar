@@ -10,7 +10,7 @@ metar_decode(x, as_data_frame = TRUE)
 \item{x}{Input character vector}
 }
 \value{
-A character vector.
+A character vector or a tibble.
 }
 \description{
 Function extract information from METAR weather report. Depending of an input vector format

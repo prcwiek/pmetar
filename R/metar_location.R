@@ -14,7 +14,8 @@
 #' metar_location("LEMD")
 #'
 metar_location <- function(x) {
-  if(nchar(x) == 0){
+  x <- x[1]
+  if(nchar(x[1]) == 0){
     cat("Airport not specified!\n")
   } else if (sum(str_count(mst, pattern = x)) < 1) {
     cat(paste("Airport ", x, " not found!\n", sep = ""))
