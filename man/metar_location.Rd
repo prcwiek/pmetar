@@ -4,13 +4,14 @@
 \alias{metar_location}
 \title{Extract approximated airport location.}
 \usage{
-metar_location(x)
+metar_location(x, ICAO = FALSE)
 }
 \arguments{
 \item{x}{Input character vector}
 }
 \value{
-A data frame with three columns longitude, latitude, elevation in meters and one row.
+A tible with three columns longitude, latitude, elevation in meters and one row
+or with four columns longitude, latitude, elevation in meters.
 }
 \description{
 Function extract approximated airport lattitude, longitude and elevation for a given airport code.
