@@ -47,7 +47,9 @@ metar_location <- function(x, ICAO = FALSE) {
     if(ICAO){
       data_frame(name = x, longitude = lon, latitude = lat, elevation = ele)
     } else{
-      data_frame(longitude = lon, latitude = lat, elevation = ele)
+      data_frame(longitude = lon, latitude = lat, elevation = ele,
+                 Source = "www.aviationweather.gov/docs/metar/stations.txt",
+                 Author.of.Source = "Greg ThompsonNCAR/RAP")
     }
   }
 }
