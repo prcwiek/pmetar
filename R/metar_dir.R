@@ -22,6 +22,8 @@ metar_dir <- function(x){
   dirw[fDIR] <- NA
   fDIR <- str_detect(x, pattern = "[\\d]+KT")
   dirw[fDIR] <- as.numeric(str_sub(str_extract(x[fDIR], pattern = "\\d\\d\\d\\d\\dKT"), 1, 3))
+  fDIR <- str_detect(x, pattern = "[\\d]+MPS")
+  dirw[fDIR] <- as.numeric(str_sub(str_extract(x[fDIR], pattern = "\\d\\d\\d\\d\\dMPS"), 1, 3))
   dirw
     #
   # if(str_detect(x, pattern = "[\\d]+G[\\d]+KT")){
