@@ -29,6 +29,9 @@ metar_location <- function(x, ICAO = FALSE, apname = FALSE) {
     # extract string with information
     m_t <- str_extract(mst, pattern = paste(x, "(?:[\\s]+[\\d]+[\\s]+|\\s\\s...[\\s]+[\\d]+[\\s]+|\\s\\s...[\\s]+)[\\d]+\\s[\\d]+(?:N|S)[\\s]+[\\d]+\\s[\\d]+(?:E|W)[\\s]+[\\d]+", sep = ""))
     m_t <- m_t[!is.na(m_t)]
+    if(length(m_t) > 1){
+      m_t <- m_t[1]
+    }
     # extract latitude
     lat <- str_extract(m_t, pattern = "[\\d]+\\s[\\d]+(?:N|S)")
     if(str_sub(lat, nchar(lat), nchar(lat)) == "N"){
@@ -58,8 +61,11 @@ metar_location <- function(x, ICAO = FALSE, apname = FALSE) {
                  Author.of.Source = "Greg ThompsonNCAR/RAP")
     } else if(apname & !ICAO){
       # extract airport name
-      m_t <- str_extract(mst, pattern = paste("(?:^[\\ww/\\w\\s]+|^[\\s\\w\\s\\ww/\\w\\s]+)",x, sep = ""))
+      m_t <- str_extract(mst, pattern = paste("^(.*?)", x, sep = ""))
       m_t <- m_t[!is.na(m_t)]
+      if(length(m_t) > 1){
+        m_t <- m_t[1]
+      }
       m_t <- str_trim(m_t)
       m_t <- str_split(m_t, pattern = " ", simplify = TRUE)
       m_t <- m_t[,1:ncol(m_t) - 1]
@@ -70,8 +76,11 @@ metar_location <- function(x, ICAO = FALSE, apname = FALSE) {
                  Author.of.Source = "Greg ThompsonNCAR/RAP")
     } else if(ICAO & apname){
       # extract airport name
-      m_t <- str_extract(mst, pattern = paste("(?:^[\\ww/\\w\\s]+|^[\\s\\w\\s\\ww/\\w\\s]+)",x, sep = ""))
+      m_t <- str_extract(mst, pattern = paste("^(.*?)", x, sep = ""))
       m_t <- m_t[!is.na(m_t)]
+      if(length(m_t) > 1){
+        m_t <- m_t[1]
+      }
       m_t <- str_trim(m_t)
       m_t <- str_split(m_t, pattern = " ", simplify = TRUE)
       m_t <- m_t[,1:ncol(m_t) - 1]
