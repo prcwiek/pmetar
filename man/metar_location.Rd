@@ -4,17 +4,21 @@
 \alias{metar_location}
 \title{Extract approximated airport location.}
 \usage{
-metar_location(x, ICAO = FALSE)
+metar_location(x, ICAO = FALSE, apname = FALSE)
 }
 \arguments{
-\item{x}{Input character vector}
+\item{x}{Input character vector, an airport ICAO code}
+
+\item{ICAO}{if TRUE an airport ICAO code is added to an output tibble}
+
+\item{apname}{if TRUE an airport name is added to an output tibble}
 }
 \value{
-A tible with three columns longitude, latitude, elevation in meters and one row
-or with four columns longitude, latitude, elevation in meters.
+A tibble with columns which consists of airport ICAO code, airport name, longitude, latitude,
+ elevation in meters, source of information, author of source
 }
 \description{
-Function extract approximated airport lattitude, longitude and elevation for a given airport code.
+Function extract approximated lattitude, longitude and elevation for a given airport code.
 }
 \examples{
 metar_location("EPWA")

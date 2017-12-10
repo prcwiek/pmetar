@@ -18,7 +18,7 @@ a returned data frame consists of different values.
 }
 \details{
 For a current METAR report:\cr
-- Airport\cr
+- Airport.ICAO\cr
 - Day.of.month\cr
 - Hour (HH:mm)\cr
 - Time.zone\cr
@@ -26,10 +26,13 @@ For a current METAR report:\cr
 - Wind.direction (degrees)\cr
 - Temperature (degrees Celsius)\cr
 - Pressure (hPa)\cr
+- Airport.name\cr
 - Longitude\cr
 - Latitude\cr
 - Elevation\cr
-- Decode.Date\cr\cr
+- Decode.Date\cr
+- Source of information\cr
+- Licence\cr\cr
 
 For a historical METAR report:\cr
 - Airport\cr
@@ -41,10 +44,13 @@ For a historical METAR report:\cr
 - Wind.direction (degrees)\cr
 - Temperature (degrees Celsius)\cr
 - Pressure (hPa)\cr
+- Airport.name\cr
 - Longitude\cr
 - Latitude\cr
 - Elevation\cr
 - Decode.Date\cr
+- Source of information\cr
+- Licence\cr
 }
 \examples{
 metar_decode("EPWA 281830Z 18009KT 140V200 9999 SCT037 03/M01 Q1008 NOSIG")

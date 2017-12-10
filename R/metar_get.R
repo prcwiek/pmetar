@@ -27,6 +27,7 @@
 #'
 metar_get <- function(airport, start_date = "", end_date = ""){
   if((start_date == "" | end_date == "") & airport != "") {
+    cat("Getting information from Aviation Weather Center www.aviationweather.gov/metar\n")
     link <- paste(
       "https://aviationweather.gov/metar/data?ids=",
       airport,
@@ -44,7 +45,8 @@ metar_get <- function(airport, start_date = "", end_date = ""){
             str_detect(end_date, "^[\\d]+-[\\d]+-[\\d]+") &
             airport != "" &
             as.Date(end_date) > as.Date(start_date)) {
-    #cat("History\n")
+    cat("Getting information from Weather Information Service http://www.ogimet.com/\n")
+    cat("developed by Guillermo Ballester Valor\n")
     syear <- str_sub(start_date, 1, 4)
     smonth <- str_sub(start_date, 6, 7)
     sday <- str_sub(start_date, 9, 10)
@@ -84,6 +86,7 @@ metar_get <- function(airport, start_date = "", end_date = ""){
       i <- i + 1
     }
     out <- out[3:nrow(out),]
+    out
   } else {
     cat("Incorrect input parameters!\nPlease check!\n")
   }

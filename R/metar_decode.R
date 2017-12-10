@@ -4,7 +4,7 @@
 #' a returned data frame consists of different values.
 #'
 #'  For a current METAR report:\cr
-#' - Airport\cr
+#' - Airport.ICAO\cr
 #' - Day.of.month\cr
 #' - Hour (HH:mm)\cr
 #' - Time.zone\cr
@@ -12,10 +12,13 @@
 #' - Wind.direction (degrees)\cr
 #' - Temperature (degrees Celsius)\cr
 #' - Pressure (hPa)\cr
+#' - Airport.name\cr
 #' - Longitude\cr
 #' - Latitude\cr
 #' - Elevation\cr
-#' - Decode.Date\cr\cr
+#' - Decode.Date\cr
+#' - Source of information\cr
+#' - Licence\cr\cr
 #'
 #' For a historical METAR report:\cr
 #' - Airport\cr
@@ -27,10 +30,13 @@
 #' - Wind.direction (degrees)\cr
 #' - Temperature (degrees Celsius)\cr
 #' - Pressure (hPa)\cr
+#' - Airport.name\cr
 #' - Longitude\cr
 #' - Latitude\cr
 #' - Elevation\cr
 #' - Decode.Date\cr
+#' - Source of information\cr
+#' - Licence\cr
 #'
 #' @param x Input character vector
 #'
@@ -55,7 +61,7 @@ metar_decode <- function(x, as_data_frame = TRUE){
     metar_date <- make_datetime(myear, mmonth, mday, mhour, mminute, tz = "UTC")
     out <- tibble(x)
     out <- out %>%
-      mutate(Airport = metar_airport(out$x)) %>%
+      mutate(Airport.ICAO = metar_airport(out$x)) %>%
       mutate(Metar.Date = metar_date) %>%
       mutate(Day.of.month = metar_day(out$x)) %>%
       mutate(Hour = metar_hour(out$x)) %>%
@@ -64,8 +70,9 @@ metar_decode <- function(x, as_data_frame = TRUE){
       mutate(Wind.direction = metar_dir(out$x)) %>%
       mutate(Temperature = metar_temp(out$x)) %>%
       mutate(Pressure = metar_pressure(out$x))
-    apl <- metar_location(out$Airport)
+    apl <- metar_location(out$Airport.ICAO, apname = TRUE)
     out <- out %>%
+      mutate(Airport.name = apl$airport.name) %>%
       mutate(Longitude = apl$longitude) %>%
       mutate(Latitude = apl$latitude) %>%
       mutate(Elevation = apl$elevation) %>%
@@ -76,7 +83,7 @@ metar_decode <- function(x, as_data_frame = TRUE){
   } else {
     out <- tibble(x)
     out <- out %>%
-      mutate(Airport = metar_airport(out$x)) %>%
+      mutate(Airport.ICAO = metar_airport(out$x)) %>%
       mutate(Day.of.month = metar_day(out$x)) %>%
       mutate(Hour = metar_hour(out$x)) %>%
       mutate(Time.zone = metar_time_zone(out$x)) %>%
@@ -84,8 +91,9 @@ metar_decode <- function(x, as_data_frame = TRUE){
       mutate(Wind.direction = metar_dir(out$x)) %>%
       mutate(Temperature = metar_temp(out$x)) %>%
       mutate(Pressure = metar_pressure(out$x))
-    apl <- metar_location(out$Airport)
+    apl <- metar_location(out$Airport.ICAO, apname = TRUE)
     out <- out %>%
+      mutate(Airport.name = apl$airport.name) %>%
       mutate(Longitude = apl$longitude) %>%
       mutate(Latitude = apl$latitude) %>%
       mutate(Elevation = apl$elevation) %>%
