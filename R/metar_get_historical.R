@@ -18,7 +18,7 @@
 #' metar_get_historical("LEMD", start_date = "2000-06-01", end_date = "2000-06-02")
 #'
 #'
-metar_get_historical <- function(airport, start_date = "2017-11-21", end_date = "2017-11-22"){
+metar_get_historical <- function(airport = "EPWA", start_date = "2017-11-21", end_date = "2017-11-22"){
   syear <- str_sub(start_date, 1, 4)
   smonth <- str_sub(start_date, 6, 7)
   sday <- str_sub(start_date, 9, 10)
