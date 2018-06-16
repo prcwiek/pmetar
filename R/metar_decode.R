@@ -77,7 +77,7 @@ metar_decode <- function(x, as_data_frame = TRUE){
       mutate(Latitude = apl$latitude) %>%
       mutate(Elevation = apl$elevation) %>%
       mutate(Decode.Date = Sys.time()) %>%
-      mutate(Source = "www.ogimet.com") %>%
+      mutate(Source = "mesonet.agron.iastate.edu/AWOS or www.ogimet.com") %>%
       mutate(Licence = "ANNEX 1 TO WMO RESOLUTION 40 (Cg-XII) http://www.nws.noaa.gov/im/wmor40a1.htm") %>%
       select(-x)
   } else {

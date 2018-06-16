@@ -4,8 +4,8 @@
 \alias{metar_get_historical}
 \title{Get historical METAR reports.}
 \usage{
-metar_get_historical(airport, start_date = "2017-11-21",
-  end_date = "2017-11-22")
+metar_get_historical(airport = "EPWA", start_date = "2017-11-21",
+  end_date = "2017-11-22", from = "iastate")
 }
 \arguments{
 \item{airport}{Input character vector}
@@ -13,6 +13,8 @@ metar_get_historical(airport, start_date = "2017-11-21",
 \item{start_date}{Input character vector}
 
 \item{end_date}{Input character vector}
+
+\item{from}{Input character vector, allowed values are "iastate" and "ogimet"}
 }
 \value{
 A character vector for a current METAR weather report.
@@ -20,13 +22,15 @@ A character vector for a current METAR weather report.
 A data frame character vectors with historical METAR weather report.
 }
 \description{
-Function download a  a set of historical METAR weather reports\cr
-is is downloaded from the web page http://www.ogimet.com/
+Function download a set of historical METAR weather reports.
+The default source the Iowa Environmental Mesonet web page of Iowa State University
+ASOS-AWOS-METAR http://mesonet.agron.iastate.edu/AWOS/ \cr
+The secondary source is Weather Information Service provided by Ogimet http://www.ogimet.com/
 }
 \examples{
 metar_get_historical("EPWA", start_date = "2017-11-20", end_date = "2017-11-25")
-metar_get_historical("CYUL", start_date = "2016-07-01", end_date = "2016-07-10")
-metar_get_historical("LEMD", start_date = "2000-06-01", end_date = "2000-06-02")
+metar_get_historical("CYUL", start_date = "2016-07-01", end_date = "2016-07-10", from = "ogimet")
+metar_get_historical("LEMD", start_date = "2000-06-01", end_date = "2000-06-02", from = "iastate")
 
 
 }
