@@ -45,16 +45,15 @@ metar_get_historical <- function(airport = "EPWA",
       eday, "&horaf=23&minf=59&enviar=Ver",
       sep = "")
   } else if(from == "iastate"){
-    eday <- as.numeric(eday) + 1
     link <- paste(
       "mesonet.agron.iastate.edu/cgi-bin/request/asos.py?station=", airport,
       "&data=metar",
       "&year1=", syear,
-      "&month1=", smonth,
-      "&day1=", sday,
+      "&month1=", as.numeric(smonth),
+      "&day1=", as.numeric(sday),
       "&year2=", eyear,
-      "&month2=", emonth,
-      "&day2=", eday,
+      "&month2=", as.numeric(emonth),
+      "&day2=", as.numeric(eday),
       "&tz=Etc%2FUTC&format=onlycomma&latlon=no&direct=no&report_type=1&report_type=2",
       sep = "")
   } else {
@@ -63,6 +62,10 @@ metar_get_historical <- function(airport = "EPWA",
   }
 
   myfile <- getURL(link, ssl.verifyhost = FALSE, ssl.verifypeer = FALSE)
+
+  if(myfile == "ERROR: Malformed Date!"){
+    stop(paste("Message from mesonet.agron.iastate.edu :", "ERROR: Malformed Date!"), call. = FALSE)
+  }
 
   ds <- read.csv((textConnection(myfile)), stringsAsFactors = FALSE)
 
