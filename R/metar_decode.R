@@ -11,12 +11,17 @@
 #' - Wind.speed (m/s)\cr
 #' - Wind.direction (degrees)\cr
 #' - Temperature (degrees Celsius)\cr
+#' - Dew point (degrees Celsius)\cr
 #' - Pressure (hPa)\cr
+#' - Visibility\cr
+#' - Cloud coverage\cr
+#' - Weather information from METAR WX codes\cr
 #' - Airport.name\cr
 #' - Longitude\cr
 #' - Latitude\cr
 #' - Elevation\cr
 #' - Decode.Date\cr
+#' - Original METAR text\cr
 #' - Source of information\cr
 #' - Licence\cr\cr
 #'
@@ -29,12 +34,17 @@
 #' - Wind.speed (m/s)\cr
 #' - Wind.direction (degrees)\cr
 #' - Temperature (degrees Celsius)\cr
+#' - Dew point (degrees Celsius)\cr
 #' - Pressure (hPa)\cr
+#' - Visibility\cr
+#' - Cloud coverage\cr
+#' - Weather information from METAR WX codes\cr
 #' - Airport.name\cr
 #' - Longitude\cr
 #' - Latitude\cr
 #' - Elevation\cr
 #' - Decode.Date\cr
+#' - Original METAR text\cr
 #' - Source of information\cr
 #' - Licence\cr
 #'
@@ -69,7 +79,11 @@ metar_decode <- function(x, as_data_frame = TRUE){
       mutate(Wind.speed = metar_speed(out$x)) %>%
       mutate(Wind.direction = metar_dir(out$x)) %>%
       mutate(Temperature = metar_temp(out$x)) %>%
-      mutate(Pressure = metar_pressure(out$x))
+      mutate(Dew.point = metar_dew_point(out$x)) %>%
+      mutate(Pressure = metar_pressure(out$x)) %>%
+      mutate(Visibility = metar_visibility(out$x)) %>%
+      mutate(Cloud.coverage = metar_cloud_coverage(out$x)) %>%
+      mutate(Weather.information = metar_wx_codes(out$x))
     apl <- metar_location(out$Airport.ICAO, apname = TRUE)
     out <- out %>%
       mutate(Airport.name = apl$airport.name) %>%
@@ -77,6 +91,7 @@ metar_decode <- function(x, as_data_frame = TRUE){
       mutate(Latitude = apl$latitude) %>%
       mutate(Elevation = apl$elevation) %>%
       mutate(Decode.Date = Sys.time()) %>%
+      mutate(Original.METAR = out$x) %>%
       mutate(Source = "mesonet.agron.iastate.edu/AWOS or www.ogimet.com") %>%
       mutate(Licence = "ANNEX 1 TO WMO RESOLUTION 40 (Cg-XII) http://www.nws.noaa.gov/im/wmor40a1.htm") %>%
       select(-x)
@@ -90,7 +105,11 @@ metar_decode <- function(x, as_data_frame = TRUE){
       mutate(Wind.speed = metar_speed(out$x)) %>%
       mutate(Wind.direction = metar_dir(out$x)) %>%
       mutate(Temperature = metar_temp(out$x)) %>%
-      mutate(Pressure = metar_pressure(out$x))
+      mutate(Dew.point = metar_dew_point(out$x)) %>%
+      mutate(Pressure = metar_pressure(out$x)) %>%
+      mutate(Visibility = metar_visibility(out$x)) %>%
+      mutate(Cloud.coverage = metar_cloud_coverage(out$x)) %>%
+      mutate(Weather.information = metar_wx_codes(out$x))
     apl <- metar_location(out$Airport.ICAO, apname = TRUE)
     out <- out %>%
       mutate(Airport.name = apl$airport.name) %>%
@@ -98,6 +117,7 @@ metar_decode <- function(x, as_data_frame = TRUE){
       mutate(Latitude = apl$latitude) %>%
       mutate(Elevation = apl$elevation) %>%
       mutate(Decode.Date = Sys.time()) %>%
+      mutate(Original.METAR = out$x) %>%
       mutate(Source = "www.aviationweather.gov/metar") %>%
       mutate(Licence = "ANNEX 1 TO WMO RESOLUTION 40 (Cg-XII) http://www.nws.noaa.gov/im/wmor40a1.htm") %>%
       select(-x)

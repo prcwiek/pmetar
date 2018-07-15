@@ -25,12 +25,17 @@ For a current METAR report:\cr
 - Wind.speed (m/s)\cr
 - Wind.direction (degrees)\cr
 - Temperature (degrees Celsius)\cr
+- Dew point (degrees Celsius)\cr
 - Pressure (hPa)\cr
+- Visibility\cr
+- Cloud coverage\cr
+- Weather information from METAR WX codes\cr
 - Airport.name\cr
 - Longitude\cr
 - Latitude\cr
 - Elevation\cr
 - Decode.Date\cr
+- Original METAR text\cr
 - Source of information\cr
 - Licence\cr\cr
 
@@ -43,12 +48,17 @@ For a historical METAR report:\cr
 - Wind.speed (m/s)\cr
 - Wind.direction (degrees)\cr
 - Temperature (degrees Celsius)\cr
+- Dew point (degrees Celsius)\cr
 - Pressure (hPa)\cr
+- Visibility\cr
+- Cloud coverage\cr
+- Weather information from METAR WX codes\cr
 - Airport.name\cr
 - Longitude\cr
 - Latitude\cr
 - Elevation\cr
 - Decode.Date\cr
+- Original METAR text\cr
 - Source of information\cr
 - Licence\cr
 }
