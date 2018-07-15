@@ -1,21 +1,25 @@
 #' Extract visibility.
 #'
-#' Function extract a visibility from METAR weather report.
+#' Function extract a visibility value from METAR weather report.
 #'
-#' @param x Input character vector.
+#' @param x Input character vector
 #'
-#' @return A character vector.
+#' @return A numeric vector. A visibility in meters.
 #'
 #' @export
 #'
 #' @examples
-#' metar_visibility("EPWA 281830Z 18009KT 140V200 9999 SCT037 03/M01 Q1008 NOSIG")
-#' metar_visibility("CYUL 281800Z 13008KT 30SM BKN240 01/M06 A3005 RMK CI5 SLP180")
-#' metar_visibility("201711271930 METAR LEMD 271930Z 02002KT CAVOK 04/M03 Q1025 NOSIG= NOSIG=")
+#' metar_visiblity("EPWA 281830Z 18009KT 140V200 9999 SCT037 03/M01 Q1008 NOSIG")
+#' metar_visiblity("CYUL 281800Z 13008KT 30SM BKN240 01/M06 A3005 RMK CI5 SLP180")
+#' metar_visiblity("201711271930 METAR LEMD 271930Z 02002KT CAVOK 04/M03 Q1025 NOSIG= NOSIG=")
 #'
 metar_visibility <- function(x) {
-  # correction needed!!!
-  ap <- str_extract(x, pattern = "\\s[\\d]+\\s")
-  cat("Not exact values!\n")
-  as.numeric(str_sub(ap, 2, 5))
+  outvis <- c(1:length(x))
+  outvis[1:length(x)] <- NA
+  fT <- str_detect(x, pattern = "\\s[\\d]+\\s")
+  outvis[fT] <- as.numeric(str_sub(str_extract(x[fT], pattern = "\\s[\\d]+\\s"), 2, 5))
+  fT <- str_detect(x, pattern = "\\s[\\d]+SM\\s")
+  outvis[fT] <- as.numeric(str_sub(str_extract(x[fT], pattern = "\\s[\\d]+SM\\s"), 2, 3)) * 1609.344
+  outvis
 }
+
