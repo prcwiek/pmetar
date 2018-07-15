@@ -21,11 +21,4 @@ metar_temp <- function(x){
   fT <- str_detect(x, pattern = "\\s[\\d]+/")
   outtemp[fT] <- as.numeric(str_sub(str_extract(x[fT], pattern = "\\s[\\d]+/"), 2, 3))
   outtemp
-  # if(str_detect(x, pattern = "M[\\d]+/")) {
-  #   temp <- str_extract(x, pattern = "M[\\d]+/")
-  #   as.numeric(str_sub(temp, 2, 3)) * -1
-  # } else {
-  #   temp <- str_extract(x, pattern = "[\\d]+/")
-  #   as.numeric(str_sub(temp, 1, 2))
-  # }
 }
