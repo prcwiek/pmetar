@@ -26,6 +26,17 @@ metar_get_historical <- function(airport = "EPWA",
                                  end_date = "2017-11-22",
                                  from = "iastate"){
 
+  # check if dates have correct format
+  if(!str_detect(start_date, pattern = "^\\d\\d\\d\\d[-]\\d\\d[-]\\d\\d$") |
+     !str_detect(end_date, pattern = "^\\d\\d\\d\\d[-]\\d\\d[-]\\d\\d$")){
+    stop("ERROR: invalid format of start_date and/or end_date!", call. = FALSE)
+  }
+
+  # check if dates range is correct
+  if(as.Date(start_date) >= as.Date(end_date)){
+    stop("ERROR: star_date is equal or later than end_date!", call. = FALSE)
+  }
+
   syear <- str_sub(start_date, 1, 4)
   smonth <- str_sub(start_date, 6, 7)
   sday <- str_sub(start_date, 9, 10)
