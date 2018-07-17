@@ -28,11 +28,6 @@ metar_cloud_coverage <- function(x) {
   # Not used in North America.
   fT <- str_detect(x, pattern = "NSC")
   outcc[fT] <- paste0(outcc[fT], "No (nil) significant cloud, ")
-  # CAVOK - Ceiling And Visibility OK, indicating no cloud below 5,000 ft (1,500 m) or
-  # the highest minimum sector altitude and no cumulonimbus or towering cumulus at any level,
-  # a visibility of 10 km (6 mi) or more and no significant weather change
-  fT <- str_detect(x, pattern = "CAVOK")
-  outcc[fT] <- paste0(outcc[fT], "Ceiling And Visibility OK")
   # FEW
   fT <- str_detect(x, pattern = "FEW[\\d]+\\s")
   dist <- as.numeric(str_sub(str_extract(x[fT], pattern = "FEW[\\d]+\\s"), 4, 6)) * 100
