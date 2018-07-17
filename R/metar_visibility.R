@@ -20,6 +20,11 @@ metar_visibility <- function(x) {
   outvis[fT] <- as.numeric(str_sub(str_extract(x[fT], pattern = "\\s[\\d]+\\s"), 2, 5))
   fT <- str_detect(x, pattern = "\\s[\\d]+SM\\s")
   outvis[fT] <- as.numeric(str_sub(str_extract(x[fT], pattern = "\\s[\\d]+SM\\s"), 2, 3)) * 1609.344
+  # CAVOK - Ceiling And Visibility OK, indicating no cloud below 5,000 ft (1,500 m) or
+  # the highest minimum sector altitude and no cumulonimbus or towering cumulus at any level,
+  # a visibility of 10 km (6 mi) or more and no significant weather change
+  fT <- str_detect(x, pattern = "CAVOK")
+  outvis[fT] <- "Ceiling And Visibility OK"
   outvis
 }
 
