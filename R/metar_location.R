@@ -23,7 +23,7 @@ metar_location <- function(x, ICAO = FALSE, apname = FALSE) {
   } else if (sum(str_count(mst, pattern = x)) < 1) {
     cat(paste("Airport ", x, " not found!\n", sep = ""))
   } else {
-    cat("Getting informaiton from the file downloaded form\n")
+    cat("Getting airport informaiton from the file downloaded form\n")
     cat("www.aviationweather.gov/docs/metar/stations.txt\n")
     cat("prepared by Greg Thompson NCAR/RAP\n")
     # extract string with information

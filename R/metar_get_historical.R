@@ -1,11 +1,11 @@
-#' Get historical METAR reports.
+#' Get historical METAR reports fro an airport.
 #'
 #' Function download a set of historical METAR weather reports.
 #' The default source the Iowa Environmental Mesonet web page of Iowa State University
 #' ASOS-AWOS-METAR http://mesonet.agron.iastate.edu/AWOS/ \cr
 #' The secondary source is Weather Information Service provided by Ogimet http://www.ogimet.com/
 #'
-#' @param airport Input character vector
+#' @param airport Input character vector with an ICAO airport code
 #' @param start_date Input character vector
 #' @param end_date Input character vector
 #' @param from Input character vector, allowed values are "iastate" and "ogimet"
@@ -26,9 +26,13 @@ metar_get_historical <- function(airport = "EPWA",
                                  end_date = "2017-11-22",
                                  from = "iastate"){
 
+  # check if airport has the correct format
+  if(!str_detect(airport, pattern = "^[A-Za-z]{4}$")){
+    stop("ERROR: invalid format of an airport ICAO code!", call. = FALSE)
+  }
   # check if dates have correct format
-  if(!str_detect(start_date, pattern = "^\\d\\d\\d\\d[-]\\d\\d[-]\\d\\d$") |
-     !str_detect(end_date, pattern = "^\\d\\d\\d\\d[-]\\d\\d[-]\\d\\d$")){
+  if(!str_detect(start_date, pattern = "^\\d{4}[-]\\d\\d[-]\\d\\d$") |
+     !str_detect(end_date, pattern = "^\\d{4}[-]\\d\\d[-]\\d\\d$")){
     stop("ERROR: invalid format of start_date and/or end_date!", call. = FALSE)
   }
 
@@ -45,28 +49,28 @@ metar_get_historical <- function(airport = "EPWA",
   eday <- str_sub(end_date, 9, 10)
 
   if(from == "ogimet"){
-    link <- paste(
-      "http://www.ogimet.com/display_metars2.php?lang=en&lugar=",
-      airport,"&tipo=SA&ord=DIR&nil=NO&fmt=txt&ano=",
-      syear, "&mes=",
-      smonth, "&day=",
-      sday, "&hora=00&anof=",
-      eyear, "&mesf=",
-      emonth, "&dayf=",
-      eday, "&horaf=23&minf=59&enviar=Ver",
-      sep = "")
+    link <- paste0("http://www.ogimet.com/display_metars2.php?lang=en&lugar=",
+                   airport,"&tipo=SA&ord=DIR&nil=NO&fmt=txt&ano=",
+                   syear, "&mes=",
+                   smonth, "&day=",
+                   sday, "&hora=00&anof=",
+                   eyear, "&mesf=",
+                   emonth, "&dayf=",
+                   eday, "&horaf=23&minf=59&enviar=Ver")
+    cat("Getting information from Weather Information Service http://www.ogimet.com/\n")
+    cat("developed by Guillermo Ballester Valor\n")
   } else if(from == "iastate"){
-    link <- paste(
-      "mesonet.agron.iastate.edu/cgi-bin/request/asos.py?station=", airport,
-      "&data=metar",
-      "&year1=", syear,
-      "&month1=", as.numeric(smonth),
-      "&day1=", as.numeric(sday),
-      "&year2=", eyear,
-      "&month2=", as.numeric(emonth),
-      "&day2=", as.numeric(eday),
-      "&tz=Etc%2FUTC&format=onlycomma&latlon=no&direct=no&report_type=1&report_type=2",
-      sep = "")
+    link <- paste0("mesonet.agron.iastate.edu/cgi-bin/request/asos.py?station=", airport,
+                   "&data=metar",
+                   "&year1=", syear,
+                   "&month1=", as.numeric(smonth),
+                   "&day1=", as.numeric(sday),
+                   "&year2=", eyear,
+                   "&month2=", as.numeric(emonth),
+                   "&day2=", as.numeric(eday),
+                   "&tz=Etc%2FUTC&format=onlycomma&latlon=no&direct=no&report_type=1&report_type=2")
+    cat("Iowa Environmental Mesonet web page of Iowa State University\n")
+    cat("ASOS-AWOS-METAR http://mesonet.agron.iastate.edu/AWOS/\n")
   } else {
     stop(paste("Incorrect input parameters from = '" ,from ,
                "'. Please use 'ogimet' or 'iastate'.", sep = ""), call. = FALSE)
@@ -106,4 +110,5 @@ metar_get_historical <- function(airport = "EPWA",
     ds[,3] <- str_trim(ds[,3])
     out <- paste(ds[,2], "METAR", ds[,3], sep = " ")
   }
+  out
 }

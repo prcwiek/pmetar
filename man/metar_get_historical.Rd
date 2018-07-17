@@ -2,13 +2,13 @@
 % Please edit documentation in R/metar_get_historical.R
 \name{metar_get_historical}
 \alias{metar_get_historical}
-\title{Get historical METAR reports.}
+\title{Get historical METAR reports fro an airport.}
 \usage{
 metar_get_historical(airport = "EPWA", start_date = "2017-11-21",
   end_date = "2017-11-22", from = "iastate")
 }
 \arguments{
-\item{airport}{Input character vector}
+\item{airport}{Input character vector with an ICAO airport code}
 
 \item{start_date}{Input character vector}
 

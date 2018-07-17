@@ -2,21 +2,15 @@
 % Please edit documentation in R/metar_get.R
 \name{metar_get}
 \alias{metar_get}
-\title{Get a current METAR reports or historical METAR reports.}
+\title{Get a current METAR report for an airport.}
 \usage{
-metar_get(airport, start_date = "", end_date = "")
+metar_get(airport = "EPWA")
 }
 \arguments{
-\item{airport}{Input character vector}
-
-\item{start_date}{Input character vector}
-
-\item{end_date}{Input character vector}
+\item{airport}{Input character vector with an ICAO airport code}
 }
 \value{
-A character vector for a current METAR weather report.
-
-A data frame character vectors with historical METAR weather report.
+A character vector with a current METAR weather report.
 }
 \description{
 Function geta metar report from a web page.\cr
@@ -24,15 +18,10 @@ Function geta metar report from a web page.\cr
 If only airport is passed as an argument, a current METAR weather report is donwloaded from\cr
 the web page https://aviationweather.gov/metar/\cr
 \cr
-If a start date and an end date are specified, a set of historical METAR weather reports\cr
-is is downloaded from the web page http://www.ogimet.com/
 }
 \examples{
 metar_get("EPWA")
 metar_get("CYUL")
 metar_get("LEMD")
-metar_get("EPWA", start_date = "2017-11-20", end_date = "2017-11-25")
-metar_get("CYUL", start_date = "2016-07-01", end_date = "2016-07-10")
-metar_get("LEMD", start_date = "2000-06-01", end_date = "2000-06-02")
 
 }
