@@ -14,14 +14,11 @@
 #' metar_dir("201711271930 METAR LEMD 271930Z 02002KT CAVOK 04/M03 Q1025 NOSIG= NOSIG=")
 #'
 metar_dir <- function(x){
-  oldwarn <- getOption("warn")
-  options(warn = -1)
   dirw <- c(1:length(x))
-  dirw[1:length(x)] <- -1
-  fDIR <- str_detect(x, pattern = "([\\d]+G[\\d]+KT|[\\d]+KT|[\\d]+MPS)")
-  dirw[fDIR] <- as.numeric(str_sub(str_extract(x[fDIR], pattern = "([\\d]+G[\\d]+KT|[\\d]+KT|[\\d]+MPS)"), 1, 3))
-  fDIR <- str_detect(x, pattern = "VRB[\\d]+KT")
-  dirw[fDIR] <- NA
-  options(warn = oldwarn)
+  dirw[1:length(x)] <- ""
+  fDIR <- str_detect(x, pattern = "([\\d]{5}G[\\d]+KT|[\\d]{5}KT|[\\d]{5}MPS)")
+  dirw[fDIR] <- as.numeric(str_sub(str_extract(x[fDIR], pattern = "([\\d]+G[\\d]+KT|[\\d]{5}KT|[\\d]{5}MPS)"), 1, 3))
+  fDIR <- str_detect(x, pattern = "(VRB[\\d]+KT|[\\d]+MPS|VRB[\\d]+G[\\d]+KT|VRB[\\d]+G[\\d]+MPS)")
+  dirw[fDIR] <- "Variable"
   dirw
 }
