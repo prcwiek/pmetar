@@ -13,7 +13,7 @@
 #'
 metar_gust <- function(x) {
   gw <- c(1:length(x))
-  gw[1:length(x)] <- NA
+  gw[1:length(x)] <- 0
   fGW <- str_detect(x, pattern = "\\d\\dG")
   gw[fGW] <- as.numeric(str_sub(str_extract(x[fGW], pattern = "\\d\\dG"), 1, 2))
   fKT <- str_detect(x, pattern = "\\d\\dKT")
