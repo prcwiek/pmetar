@@ -31,32 +31,38 @@ metar_cloud_coverage <- function(x) {
   # FEW
   fT <- str_detect(x, pattern = "FEW[\\d]+\\s")
   dist <- as.numeric(str_sub(str_extract(x[fT], pattern = "FEW[\\d]+\\s"), 4, 6)) * 100
-  outcc[fT] <- paste0(outcc[fT], "Few (1–2 oktas) at ", dist, " ft, ")
+  dist_m <- dist * 0.3048
+  outcc[fT] <- paste0(outcc[fT], "Few (1–2 oktas) at ", dist, " ft (", dist_m, " m), ")
   # SCT
   fT <- str_detect(x, pattern = "SCT[\\d]+\\s")
   dist <- as.numeric(str_sub(str_extract(x[fT], pattern = "SCT[\\d]+\\s"), 4, 6)) * 100
-  outcc[fT] <- paste0(outcc[fT], "Scattered (3–4 oktas) at ", dist, " ft, ")
+  dist_m <- dist * 0.3048
+  outcc[fT] <- paste0(outcc[fT], "Scattered (3–4 oktas) at ", dist, " ft (", dist_m, " m), ")
   # SCTnnnCB
   fT <- str_detect(x, pattern = "SCT[\\d]+CB")
   dist <- as.numeric(str_sub(str_extract(x[fT], pattern = "SCT[\\d]+CB"), 4, 6)) * 100
-  outcc[fT] <- paste0(outcc[fT], "Scattered (3–4 oktas) cumulonimbus clouds at ", dist, " ft, ")
+  dist_m <- dist * 0.3048
+  outcc[fT] <- paste0(outcc[fT], "Scattered (3–4 oktas) cumulonimbus clouds at ", dist,  " ft (", dist_m, " m), ")
   # BKN
   fT <- str_detect(x, pattern = "BKN[\\d]+\\s")
   dist <- as.numeric(str_sub(str_extract(x[fT], pattern = "BKN[\\d]+\\s"), 4, 6)) * 100
-  outcc[fT] <- paste0(outcc[fT], "Broken (5–7 oktas) at ", dist, " ft, ")
+  dist_m <- dist * 0.3048
+  outcc[fT] <- paste0(outcc[fT], "Broken (5–7 oktas) at ", dist,  " ft (", dist_m, " m), ")
   # BKNnnnCB
   fT <- str_detect(x, pattern = "BKN[\\d]+CB")
   dist <- as.numeric(str_sub(str_extract(x[fT], pattern = "BKN[\\d]+CB"), 4, 6)) * 100
-  outcc[fT] <- paste0(outcc[fT], "Broken (5–7 oktas) cumulonimbus clouds at ", dist, " ft, ")
+  dist_m <- dist * 0.3048
+  outcc[fT] <- paste0(outcc[fT], "Broken (5–7 oktas) cumulonimbus clouds at ", dist, " ft (", dist_m, " m), ")
   # OVC
   fT <- str_detect(x, pattern = "OVC[\\d]+\\s")
   dist <- as.numeric(str_sub(str_extract(x[fT], pattern = "OVC[\\d]+\\s"), 4, 6)) * 100
-  outcc[fT] <- paste0(outcc[fT], "Overcast (8 oktas, full cloud coverage) at  ", dist, " ft, ")
+  dist_m <- dist * 0.3048
+  outcc[fT] <- paste0(outcc[fT], "Overcast (8 oktas, full cloud coverage) at  ", dist, " ft (", dist_m, " m), ")
   # VV - Clouds cannot be seen because of fog or heavy precipitation, so vertical visibility is given instead.
   fT <- str_detect(x, pattern = "\\sVV\\s")
   outcc[fT] <- paste0(outcc[fT], "Clouds cannot be seen because of fog or heavy precipitation")
   fT <- str_detect(outcc, pattern = ", $")
   outcc[fT] <- str_sub(outcc[fT], 1, (nchar(outcc[fT]) - 2))
-  outcc[outcc == ""] <- NA
+  #outcc[outcc == ""] <- NA
   outcc
 }
