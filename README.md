@@ -14,4 +14,4 @@ ASOS-AWOS-METAR http://mesonet.agron.iastate.edu/AWOS/</li>
 </ul></ol>
 Please take into consideration that the http://www.ogimet.com/ can block too frequent requests for data due to the server overload. <br>
 <br><h4><b>Locations of METAR stations</b></h4>
-Information about the locations of the METAR stations were taken from the ADDS Station Table prepared by Greg Thompson NCAR/RAP. The file is available on the web page of Aviation Weather Center https://www.aviationweather.gov/docs/metar/stations.txt The file stations.txt is stored in the vector mst.
+Information about the locations of the METAR stations / ariports were taken from the file http://ourairports.com/data/airports.csv available on the web page http://ourairports.com 
