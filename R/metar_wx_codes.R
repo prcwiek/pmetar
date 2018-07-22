@@ -38,8 +38,8 @@ metar_wx_codes <- function(x) {
                                                        pattern_abbrev,
                                                        ")]+\\s")))
 
-    outwx[str_detect(x, pattern = paste0("[+](", pattern_abbrev, ")"))] <- "Heavy intensity, "
-    outwx[str_detect(x, pattern = paste0("[-](", pattern_abbrev, ")"))] <- "Light intensity, "
+    outwx[str_detect(x, pattern = paste0("[+](", pattern_abbrev, ")"))] <- "Heavy intensity: "
+    outwx[str_detect(x, pattern = paste0("[-](", pattern_abbrev, ")"))] <- "Light intensity: "
     #outwx[str_detect(x, pattern = paste0("\\s(", pattern_abbrev, ")"))] <- "Moderate intensity, "
 
     tempwx[fT] <- str_replace(tempwx[fT], "[+]", "")
