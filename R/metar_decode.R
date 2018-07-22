@@ -85,9 +85,10 @@ metar_decode <- function(x, as_data_frame = TRUE){
       mutate(Visibility = metar_visibility(out$x)) %>%
       mutate(Cloud.coverage = metar_cloud_coverage(out$x)) %>%
       mutate(Weather.information = metar_wx_codes(out$x))
-    apl <- metar_location(out$Airport.ICAO, apname = TRUE)
+    apl <- metar_location(out$Airport.ICAO)
     out <- out %>%
       mutate(Airport.name = apl$airport.name) %>%
+      mutate(Airport.IATA = apl$IATA.code) %>%
       mutate(Longitude = apl$longitude) %>%
       mutate(Latitude = apl$latitude) %>%
       mutate(Elevation = apl$elevation) %>%
@@ -112,9 +113,10 @@ metar_decode <- function(x, as_data_frame = TRUE){
       mutate(Visibility = metar_visibility(out$x)) %>%
       mutate(Cloud.coverage = metar_cloud_coverage(out$x)) %>%
       mutate(Weather.information = metar_wx_codes(out$x))
-    apl <- metar_location(out$Airport.ICAO, apname = TRUE)
+    apl <- metar_location(out$Airport.ICAO)
     out <- out %>%
       mutate(Airport.name = apl$airport.name) %>%
+      mutate(Airport.IATA = apl$IATA.code) %>%
       mutate(Longitude = apl$longitude) %>%
       mutate(Latitude = apl$latitude) %>%
       mutate(Elevation = apl$elevation) %>%
