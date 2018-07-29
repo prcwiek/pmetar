@@ -28,11 +28,16 @@ metar_location <- function(x) {
     stop("All ICAO or/and IATA airport code are incorrect!\n", call. = FALSE)
   }
 
-  data_frame(ICAO.code = ourairports$ident[nmatched],
-             IATA.code = ourairports$iata_code[nmatched],
-             airport.name = ourairports$name[nmatched],
-             longitude = ourairports$longitude_deg[nmatched],
-             latitude = ourairports$latitude_deg[nmatched],
-             elevation = ourairports$elevation_m[nmatched],
-             Source = "http://ourairports.com/data/airports.csv")
+  if(!is.na(nmatched)){
+    data_frame(ICAO.code = ourairports$ident[nmatched],
+               IATA.code = ourairports$iata_code[nmatched],
+               airport.name = ourairports$name[nmatched],
+               longitude = ourairports$longitude_deg[nmatched],
+               latitude = ourairports$latitude_deg[nmatched],
+               elevation = ourairports$elevation_m[nmatched],
+               Source = "http://ourairports.com/data/airports.csv")
+  } else{
+    cat("Getting airport informaiton from the file downloaded from\n")
+
+  }
 }
