@@ -108,15 +108,6 @@ metar_location <- function(x) {
     outlocation$latitude[nmissing] <- unlist(m_l[2, nmissing])
     outlocation$elevation[nmissing] <- unlist(m_l[4, nmissing])
     outlocation$Source[nmissing] <- "www.aviationweather.gov/docs/metar/stations.txt"
-
-    # outlocation <- data_frame(ICAO.code = x,
-    #                           IATA.code = "not found",
-    #                           airport.name = "pending",
-    #                           longitude = unlist(m_l[][2]),
-    #                           latitude = unlist(m_l[][1]),
-    #                           elevation = unlist(m_l[][3]),
-    #                           Source = "www.aviationweather.gov/docs/metar/stations.txt")
-
   }
 
   outlocation
