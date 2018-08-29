@@ -24,9 +24,12 @@ metar_get <- function(airport = "EPWA"){
                    airport,
                    "&format=raw&date=0&hours=0")
     myfile <- getURL(link, ssl.verifyhost = FALSE, ssl.verifypeer = FALSE)
-    mydata <- read.csv((textConnection(myfile)))
-    ind <- which(mydata[,1] == "<!-- Data starts here -->") + 1
-    metar <- as.character(mydata[ind,1])
+    #mydata <- read.csv((textConnection(myfile)))
+    #ind <- which(mydata[,1] == "<!-- Data starts here -->") + 1
+    #metar <- as.character(mydata[ind,1])
+    metar <- str_extract(myfile, pattern = "<code>[:print:]+</code>")
+    metar <- str_replace(metar, "<code>", "")
+    metar <- str_replace(metar, "</code>", "")
     if(str_detect(metar, pattern = "No METAR found")){
       cat(paste("No METAR found for ", airport, "!\n", sep = ""))
     } else str_split(metar, "<br", simplify = TRUE)[1]
