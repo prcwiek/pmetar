@@ -39,6 +39,7 @@ metar_location <- function(x) {
       elevation = ourairports$elevation_m[nmatched],
       Source = "http://ourairports.com/data/airports.csv"
     )
+    return(outlocation)
   } else{
     outlocation <- data_frame(
       ICAO.code = ourairports$ident[nmatched],
@@ -49,6 +50,7 @@ metar_location <- function(x) {
       elevation = ourairports$elevation_m[nmatched],
       Source = "http://ourairports.com/data/airports.csv"
     )
+    return(outlocation)
   }
 
   # try to use the other source of airports locations
