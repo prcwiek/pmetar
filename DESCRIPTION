@@ -1,7 +1,7 @@
 Package: pmetar
 Type: Package
 Title: Processing METAR weather reports
-Version: 0.2.5
+Version: 0.2.6
 Author: Pawel Cwiek <prcwiek@users.noreply.github.com> [aut,cre]
 Maintainer: Pawel Cwiek <prcwiek@users.noreply.github.com> 
 Description: Package allows to download current and historical METAR weather reports and decode basic parameters.
