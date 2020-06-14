@@ -30,20 +30,22 @@ metar_wx_codes <- function(x) {
 
   pattern_abbrev <- apply(wx_codes, 2, paste, collapse = "|")[2]
 
-  fT <- str_detect(x, pattern = paste0("(\\s|[+]|[-])[(",
+  fT <- str_detect(x, pattern = paste0("(\\s|[+]|[-]|RE)[(",
                                        pattern_abbrev,
                                        ")]+\\s"))
   if(sum(fT) > 0){
-    tempwx <- str_trim(str_extract(x, pattern = paste0("(\\s|[+]|[-])[(",
+    tempwx <- str_trim(str_extract(x, pattern = paste0("(\\s|[+]|[-]|RE)[(",
                                                        pattern_abbrev,
                                                        ")]+\\s")))
 
     outwx[str_detect(x, pattern = paste0("[+](", pattern_abbrev, ")"))] <- "Heavy intensity: "
     outwx[str_detect(x, pattern = paste0("[-](", pattern_abbrev, ")"))] <- "Light intensity: "
+    outwx[str_detect(x, pattern = paste0("RE(", pattern_abbrev, ")"))] <- "Recent "
     #outwx[str_detect(x, pattern = paste0("\\s(", pattern_abbrev, ")"))] <- "Moderate intensity, "
 
     tempwx[fT] <- str_replace(tempwx[fT], "[+]", "")
     tempwx[fT] <- str_replace(tempwx[fT], "[-]", "")
+    tempwx[fT] <- str_replace(tempwx[fT], "RE", "")
 
     tempwx[fT] <- str_extract_all(tempwx[fT], ".{2}")
 
