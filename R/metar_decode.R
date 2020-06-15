@@ -59,7 +59,7 @@
 #' metar_decode("CYUL 281800Z 13008KT 30SM BKN240 01/M06 A3005 RMK CI5 SLP180")
 #' metar_decode("201711271930 METAR LEMD 271930Z 02002KT CAVOK 04/M03 Q1025 NOSIG= NOSIG=")
 #'
-metar_decode <- function(x, as_data_frame = TRUE){
+metar_decode <- function(x){
   if(str_detect(x, pattern = "^[\\d]+ METAR")[1]) {
     td <- c(1:length(x))
     td <- str_extract(x, pattern = "^[\\d]+ METAR")
