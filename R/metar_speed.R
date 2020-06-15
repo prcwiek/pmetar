@@ -17,9 +17,9 @@
 metar_speed <- function(x, metric = TRUE){
   if(metric){
     cfm <- 1
-    cfi <- 0.514444
+    cfi <- 0.5144447
   } else {
-    cfm <- 1/0.514444
+    cfm <- 1/0.5144447
     cfi <- 1
   }
   speed <- c(1:length(x))
