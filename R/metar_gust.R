@@ -1,6 +1,7 @@
 #' Function extract a gust speed from METAR weather report.
 #'
 #' @param x Input character vector
+#' @param metric Selection between the metric system and the imperial system. As default metric = TRUE.
 #'
 #' @return A numeric vector. A gust speed.
 #'
@@ -11,12 +12,19 @@
 #' metar_gust("CYUL 101900Z 27015G25KT 15SM DRSN SCT028 BKN090 OVC110 M04/M10 A2973 RMK")
 #' metar_gust("201711271930 METAR LEMD 271930Z 02002KT CAVOK 04/M03 Q1025 NOSIG= NOSIG=")
 #'
-metar_gust <- function(x) {
+metar_gust <- function(x, metric = TRUE) {
+  if(metric){
+    cfm <- 1
+    cfi <- 0.5144447
+  } else {
+    cfm <- 1/0.5144447
+    cfi <- 1
+  }
   gw <- c(1:length(x))
   gw[1:length(x)] <- 0
-  fGW <- str_detect(x, pattern = "\\d\\dG")
-  gw[fGW] <- as.numeric(str_sub(str_extract(x[fGW], pattern = "\\d\\dG"), 1, 2))
-  fKT <- str_detect(x, pattern = "\\d\\dKT")
-  gw[fKT] <- gw[fKT] * 0.514444
+  fKT <- str_detect(x, pattern = "G\\d\\dKT")
+  gw[fKT] <- as.numeric(str_sub(str_extract(x[fKT], pattern = "G\\d+KT"), 2, 3)) * cfi
+  fMPS <- str_detect(x, pattern = "G\\d\\dMPS")
+  gw[fMPS] <- as.numeric(str_sub(str_extract(x[fMPS], pattern = "G\\d\\dMPS"), 2, 3)) * cfm
   gw
 }

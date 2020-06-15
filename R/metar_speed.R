@@ -24,9 +24,9 @@ metar_speed <- function(x, metric = TRUE){
   }
   speed <- c(1:length(x))
   speed[c(1:length(x))] <- 0
-  fMPS <- str_detect(x, pattern = "\\d\\dMPS")
-  fKT <- str_detect(x, pattern = "\\d\\dKT")
-  speed[fMPS] <- as.numeric(str_sub(str_extract(x[fMPS], pattern = "\\d\\dMPS"), 1, 2)) * cfm
-  speed[fKT] <- as.numeric(str_sub(str_extract(x[fKT], pattern = "\\d\\dKT"), 1, 2)) * cfi
+  fMPS <- str_detect(x, pattern = "\\d{5}(MPS|G\\d{2}MPS)")
+  fKT <- str_detect(x, pattern = "\\d{5}(KT|G\\d{2}KT)")
+  speed[fMPS] <- as.numeric(str_sub(str_extract(x[fMPS], pattern = "\\d{5}(MPS|G\\d{2}MPS)"), 4, 5)) * cfm
+  speed[fKT] <- as.numeric(str_sub(str_extract(x[fKT], pattern = "\\d{5}(KT|G\\d{2}KT)"), 4, 5)) * cfi
   speed
 }
