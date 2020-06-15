@@ -8,7 +8,7 @@
 #' - Day.of.month\cr
 #' - Hour (HH:mm)\cr
 #' - Time.zone\cr
-#' - Wind.speed (m/s)\cr
+#' - Wind.speed (m/s or kt)\cr
 #' - Wind.direction (degrees)\cr
 #' - Temperature (degrees Celsius)\cr
 #' - Dew point (degrees Celsius)\cr
@@ -49,6 +49,7 @@
 #' - Licence\cr
 #'
 #' @param x Input character vector
+#' @param metric Selection between the metric system and the imperial system. As default metric = TRUE.
 #'
 #' @return A character vector or a tibble.
 #'
@@ -59,7 +60,7 @@
 #' metar_decode("CYUL 281800Z 13008KT 30SM BKN240 01/M06 A3005 RMK CI5 SLP180")
 #' metar_decode("201711271930 METAR LEMD 271930Z 02002KT CAVOK 04/M03 Q1025 NOSIG= NOSIG=")
 #'
-metar_decode <- function(x){
+metar_decode <- function(x, metric = TRUE){
   if(str_detect(x, pattern = "^[\\d]+ METAR")[1]) {
     td <- c(1:length(x))
     td <- str_extract(x, pattern = "^[\\d]+ METAR")
@@ -76,8 +77,8 @@ metar_decode <- function(x){
       mutate(Day.of.month = metar_day(out$x)) %>%
       mutate(Hour = metar_hour(out$x)) %>%
       mutate(Time.zone = metar_time_zone(out$x)) %>%
-      mutate(Wind.speed = metar_speed(out$x)) %>%
-      mutate(Gust = metar_gust(out$x)) %>%
+      mutate(Wind.speed = metar_speed(out$x, metric)) %>%
+      mutate(Gust = metar_gust(out$x, metric)) %>%
       mutate(Wind.direction = metar_dir(out$x)) %>%
       mutate(Temperature = metar_temp(out$x)) %>%
       mutate(Dew.point = metar_dew_point(out$x)) %>%
@@ -104,8 +105,8 @@ metar_decode <- function(x){
       mutate(Day.of.month = metar_day(out$x)) %>%
       mutate(Hour = metar_hour(out$x)) %>%
       mutate(Time.zone = metar_time_zone(out$x)) %>%
-      mutate(Wind.speed = metar_speed(out$x)) %>%
-      mutate(Gust = metar_gust(out$x)) %>%
+      mutate(Wind.speed = metar_speed(out$x, metric)) %>%
+      mutate(Gust = metar_gust(out$x, metric)) %>%
       mutate(Wind.direction = metar_dir(out$x)) %>%
       mutate(Temperature = metar_temp(out$x)) %>%
       mutate(Dew.point = metar_dew_point(out$x)) %>%
