@@ -7,8 +7,6 @@
 metar_iata_icao(x)
 }
 \arguments{
-\item{x}{Input character vector, an airport ICAO four letters code or IATA three letters code}
-
 \item{x}{Input character vector.}
 }
 \value{

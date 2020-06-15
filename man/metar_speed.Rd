@@ -4,10 +4,12 @@
 \alias{metar_speed}
 \title{Extract wind speed}
 \usage{
-metar_speed(x)
+metar_speed(x, metric = TRUE)
 }
 \arguments{
-\item{x}{Input character vector}
+\item{x}{Input character vector.}
+
+\item{metric}{Selection between the metric system and the imperial system. As default metric = TRUE.}
 }
 \value{
 A numeric vector. A wind speed in m/s.
