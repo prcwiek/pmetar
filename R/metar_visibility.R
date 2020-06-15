@@ -30,6 +30,10 @@ metar_visibility <- function(x) {
   outvis[fT] <- (as.numeric(str_extract(str_extract(x[fT], pattern = "\\s\\d\\s\\d\\/\\dSM\\s"), pattern = "\\s\\d\\s")) +
     as.numeric(str_sub(str_extract(str_extract(x[fT], pattern = "\\s\\d\\s\\d\\/\\dSM\\s"), pattern = "\\d\\/"), 1, 1)) /
     as.numeric(str_sub(str_extract(str_extract(x[fT], pattern = "\\s\\d\\s\\d\\/\\dSM\\s"), pattern = "\\/\\d"), -1, -1))) * 1609.344
+  # cases like 3/4SM
+  fT <- str_detect(x, pattern = "KT\\s\\d\\/\\dSM\\s")
+  outvis[fT] <- (as.numeric(str_sub(str_extract(x[fT], pattern = "KT\\s\\d\\/\\dSM\\s"), 4, 4)) /
+                 as.numeric(str_sub(str_extract(x[fT], pattern = "KT\\s\\d\\/\\dSM\\s"), 6, 6))) * 1609.344
   outvis
 }
 
