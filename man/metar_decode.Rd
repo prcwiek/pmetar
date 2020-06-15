@@ -4,10 +4,12 @@
 \alias{metar_decode}
 \title{Decode METAR report.}
 \usage{
-metar_decode(x, as_data_frame = TRUE)
+metar_decode(x, metric = TRUE)
 }
 \arguments{
 \item{x}{Input character vector}
+
+\item{metric}{Selection between the metric system and the imperial system. As default metric = TRUE.}
 }
 \value{
 A character vector or a tibble.
@@ -22,7 +24,7 @@ For a current METAR report:\cr
 - Day.of.month\cr
 - Hour (HH:mm)\cr
 - Time.zone\cr
-- Wind.speed (m/s)\cr
+- Wind.speed (m/s or kt)\cr
 - Wind.direction (degrees)\cr
 - Temperature (degrees Celsius)\cr
 - Dew point (degrees Celsius)\cr

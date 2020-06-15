@@ -12,7 +12,7 @@ metar_get_historical(
 )
 }
 \arguments{
-\item{airport}{Input character vector with an ICAO airport code}
+\item{airport}{Input character vector with an ICAO or IATA airport code}
 
 \item{start_date}{Input character vector}
 

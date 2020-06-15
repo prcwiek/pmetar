@@ -4,10 +4,12 @@
 \alias{metar_gust}
 \title{Function extract a gust speed from METAR weather report.}
 \usage{
-metar_gust(x)
+metar_gust(x, metric = TRUE)
 }
 \arguments{
 \item{x}{Input character vector}
+
+\item{metric}{Selection between the metric system and the imperial system. As default metric = TRUE.}
 }
 \value{
 A numeric vector. A gust speed.
