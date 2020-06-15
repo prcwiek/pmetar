@@ -5,7 +5,7 @@
 #' ASOS-AWOS-METAR http://mesonet.agron.iastate.edu/AWOS/ \cr
 #' The secondary source is Weather Information Service provided by Ogimet http://www.ogimet.com/
 #'
-#' @param airport Input character vector with an ICAO airport code
+#' @param airport Input character vector with an ICAO or IATA airport code
 #' @param start_date Input character vector
 #' @param end_date Input character vector
 #' @param from Input character vector, allowed values are "iastate" and "ogimet"
@@ -25,6 +25,11 @@ metar_get_historical <- function(airport = "EPWA",
                                  start_date = "2017-11-21",
                                  end_date = "2017-11-22",
                                  from = "iastate"){
+
+  # try to find ICAO based on IATA
+  if(str_detect(airport, pattern = "^[A-Za-z]{3}$")){
+    airport <- metar_iata_icao(airport)
+  }
 
   # check if airport has the correct format
   if(!str_detect(airport, pattern = "^[A-Za-z]{4}$")){
