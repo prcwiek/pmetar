@@ -2,7 +2,8 @@
 #'
 #' Function extract a wind speed value from METAR weather report.
 #'
-#' @param x Input character vector
+#' @param x Input character vector.
+#' @param metric Selection between the metric system and the imperial system. As default metric = TRUE.
 #'
 #' @return A numeric vector. A wind speed in m/s.
 #'
@@ -13,12 +14,19 @@
 #' metar_speed("CYUL 281800Z 13008KT 30SM BKN240 01/M06 A3005 RMK CI5 SLP180")
 #' metar_speed("201711271930 METAR LEMD 271930Z 02002KT CAVOK 04/M03 Q1025 NOSIG= NOSIG=")
 #'
-metar_speed <- function(x){
+metar_speed <- function(x, metric = TRUE){
+  if(metric){
+    cfm <- 1
+    cfi <- 0.514444
+  } else {
+    cfm <- 1/0.514444
+    cfi <- 1
+  }
   speed <- c(1:length(x))
   speed[c(1:length(x))] <- 0
   fMPS <- str_detect(x, pattern = "\\d\\dMPS")
   fKT <- str_detect(x, pattern = "\\d\\dKT")
-  speed[fMPS] <- as.numeric(str_sub(str_extract(x[fMPS], pattern = "\\d\\dMPS"), 1, 2))
-  speed[fKT] <- as.numeric(str_sub(str_extract(x[fKT], pattern = "\\d\\dKT"), 1, 2)) * 0.514444
+  speed[fMPS] <- as.numeric(str_sub(str_extract(x[fMPS], pattern = "\\d\\dMPS"), 1, 2)) * cfm
+  speed[fKT] <- as.numeric(str_sub(str_extract(x[fKT], pattern = "\\d\\dKT"), 1, 2)) * cfi
   speed
 }
