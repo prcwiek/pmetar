@@ -1,6 +1,6 @@
 #' Extract dew point temperature.
 #'
-#' Function extract a dew point temperature value from METAR weather report.
+#' Function extracts a dew point temperature value from METAR weather report.
 #'
 #' @param x Input character vector
 #'

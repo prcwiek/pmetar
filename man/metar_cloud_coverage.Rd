@@ -13,7 +13,7 @@ metar_cloud_coverage(x)
 A character vector with cloud coverage information.
 }
 \description{
-Function extract cloud coverage information from METAR weather report.
+Function extracts cloud coverage information from METAR weather report.
 }
 \examples{
 metar_cloud_coverage("EPWA 281830Z 18009KT 140V200 9999 SCT037 03/M01 Q1008 NOSIG")

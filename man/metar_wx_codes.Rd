@@ -13,7 +13,7 @@ metar_wx_codes(x)
 A charcter vector. with METAR WX codes.
 }
 \description{
-Function extract METAR WX codes from METAR weather report.
+Function extracts METAR WX codes from METAR weather report.
 }
 \examples{
 metar_wx_codes("201807132100 METAR EPWA 132100Z 29006KT 260V320 8000 SHRA SCT009 BKN025CB 18/17 Q1011 NOSIG")

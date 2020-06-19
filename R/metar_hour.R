@@ -1,6 +1,6 @@
 #' Extract hour and minutes.
 #'
-#' Function extract an hour and minutes from METAR weather report.
+#' Function extracts an hour and minutes from METAR weather report.
 #'
 #' @param x Input character vector
 #'

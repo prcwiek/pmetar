@@ -1,6 +1,6 @@
 #' Extract METAR WX codes.
 #'
-#' Function extract METAR WX codes from METAR weather report.
+#' Function extracts METAR WX codes from METAR weather report.
 #'
 #' @param x Input character vector
 #'

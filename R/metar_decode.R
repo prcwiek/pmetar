@@ -1,6 +1,6 @@
 #' Decode METAR report.
 #'
-#' Function extract information from METAR weather report. Depending of an input vector format
+#' Function extracts information from METAR weather report. Depending of an input vector format
 #' a returned data frame consists of different values.
 #'
 #'  For a current METAR report:\cr

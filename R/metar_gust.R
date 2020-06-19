@@ -1,4 +1,6 @@
-#' Function extract a gust speed from METAR weather report.
+#' Extract gust wind speed.
+#'
+#' Function extracts a gust speed from METAR weather report.
 #'
 #' @param x Input character vector
 #' @param metric Selection between the metric system and the imperial system. As default metric = TRUE.

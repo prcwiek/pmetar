@@ -13,7 +13,7 @@ metar_time_zone(x)
 A character vector.
 }
 \description{
-Function extract a name of airport from METAR weather report.
+Function extracts a name of airport from METAR weather report.
 }
 \examples{
 metar_time_zone("EPWA 281830Z 18009KT 140V200 9999 SCT037 03/M01 Q1008 NOSIG")

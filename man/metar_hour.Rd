@@ -13,7 +13,7 @@ metar_hour(x)
 A character vector HH:mm.
 }
 \description{
-Function extract an hour and minutes from METAR weather report.
+Function extracts an hour and minutes from METAR weather report.
 }
 \examples{
 metar_hour("EPWA 281830Z 18009KT 140V200 9999 SCT037 03/M01 Q1008 NOSIG")

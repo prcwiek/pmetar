@@ -26,7 +26,7 @@ A character vector for a current METAR weather report.
 A data frame character vectors with historical METAR weather report.
 }
 \description{
-Function download a set of historical METAR weather reports.
+Function downloads a set of historical METAR weather reports.
 The default source the Iowa Environmental Mesonet web page of Iowa State University
 ASOS-AWOS-METAR http://mesonet.agron.iastate.edu/AWOS/ \cr
 The secondary source is Weather Information Service provided by Ogimet http://www.ogimet.com/

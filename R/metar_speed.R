@@ -1,6 +1,6 @@
 #' Extract wind speed
 #'
-#' Function extract a wind speed value from METAR weather report.
+#' Function extracts a wind speed value from METAR weather report.
 #'
 #' @param x Input character vector.
 #' @param metric Selection between the metric system and the imperial system. As default metric = TRUE.

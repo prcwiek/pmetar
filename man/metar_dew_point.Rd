@@ -13,7 +13,7 @@ metar_dew_point(x)
 A numeric vector. A dew point temperature in degrees Celsius.
 }
 \description{
-Function extract a dew point temperature value from METAR weather report.
+Function extracts a dew point temperature value from METAR weather report.
 }
 \examples{
 metar_dew_point("EPWA 281830Z 18009KT 140V200 9999 SCT037 03/M01 Q1008 NOSIG")

@@ -13,7 +13,7 @@ metar_airport(x)
 A character vector.
 }
 \description{
-Function extract an ICAO code of an airport from METAR weather report.
+Function extracts an ICAO code of an airport from METAR weather report.
 }
 \examples{
 metar_airport("EPWA 281830Z 18009KT 140V200 9999 SCT037 03/M01 Q1008 NOSIG")

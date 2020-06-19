@@ -13,7 +13,7 @@ metar_visibility(x)
 A numeric vector. A visibility in meters.
 }
 \description{
-Function extract a visibility value from METAR weather report.
+Function extracts a visibility value from METAR weather report.
 }
 \examples{
 metar_visiblity("EPWA 281830Z 18009KT 140V200 9999 SCT037 03/M01 Q1008 NOSIG")

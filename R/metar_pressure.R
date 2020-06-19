@@ -1,6 +1,6 @@
 #' Extract pressure.
 #'
-#' Function extract an air pressure value from METAR weather report.
+#' Function extracts an air pressure value from METAR weather report.
 #'
 #' @param x Input character vector
 #'

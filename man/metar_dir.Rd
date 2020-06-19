@@ -13,7 +13,7 @@ metar_dir(x)
 A numeric vector. A wind direction in degrees.
 }
 \description{
-Function extract a wind direction value from METAR weather report.
+Function extracts a wind direction value from METAR weather report.
 }
 \examples{
 metar_dir("EPWA 281830Z 18009KT 140V200 9999 SCT037 03/M01 Q1008 NOSIG")

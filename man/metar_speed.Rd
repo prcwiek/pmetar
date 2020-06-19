@@ -15,7 +15,7 @@ metar_speed(x, metric = TRUE)
 A numeric vector. A wind speed in m/s.
 }
 \description{
-Function extract a wind speed value from METAR weather report.
+Function extracts a wind speed value from METAR weather report.
 }
 \examples{
 metar_speed("EPWA 281830Z 18009KT 140V200 9999 SCT037 03/M01 Q1008 NOSIG")

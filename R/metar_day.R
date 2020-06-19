@@ -1,6 +1,6 @@
 #' Extract day.
 #'
-#' Function extract a day of a month from METAR weather report.
+#' Function extracts a day of a month from METAR weather report.
 #'
 #' @param x Input character vector
 #'

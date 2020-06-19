@@ -1,6 +1,6 @@
 #' Extract cloud coverage information.
 #'
-#' Function extract cloud coverage information from METAR weather report.
+#' Function extracts cloud coverage information from METAR weather report.
 #'
 #' @param x Input character vector
 #'

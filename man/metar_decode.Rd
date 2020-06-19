@@ -15,7 +15,7 @@ metar_decode(x, metric = TRUE)
 A character vector or a tibble.
 }
 \description{
-Function extract information from METAR weather report. Depending of an input vector format
+Function extracts information from METAR weather report. Depending of an input vector format
 a returned data frame consists of different values.
 }
 \details{

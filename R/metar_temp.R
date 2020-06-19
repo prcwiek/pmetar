@@ -1,6 +1,6 @@
 #' Extract temperature.
 #'
-#' Function extract a temperature value from METAR weather report.
+#' Function extracts a temperature value from METAR weather report.
 #'
 #' @param x Input character vector
 #'

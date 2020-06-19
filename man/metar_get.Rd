@@ -13,7 +13,7 @@ metar_get(airport = "EPWA")
 A character vector with a current METAR weather report.
 }
 \description{
-Function geta metar report from a web page.\cr
+Function gets metar report from a web page.\cr
 \cr
 If only airport is passed as an argument, a current METAR weather report is donwloaded from\cr
 the web page https://aviationweather.gov/metar/\cr

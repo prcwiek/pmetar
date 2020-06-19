@@ -14,7 +14,7 @@ A tibble with columns which consists of airport ICAO code, IATA code airport nam
  elevation in meters, source of information
 }
 \description{
-Function extract approximated lattitude, longitude and elevation for a given airport code.
+Function extracts approximated lattitude, longitude and elevation for a given airport code.
 }
 \examples{
 metar_location("EPWA")

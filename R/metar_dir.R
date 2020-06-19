@@ -1,6 +1,6 @@
 #' Extract wind direction.
 #'
-#' Function extract a wind direction value from METAR weather report.
+#' Function extracts a wind direction value from METAR weather report.
 #'
 #' @param x Input character vector
 #'

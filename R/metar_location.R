@@ -1,6 +1,6 @@
 #' Extract approximated airport location.
 #'
-#' Function extract approximated lattitude, longitude and elevation for a given airport code.
+#' Function extracts approximated lattitude, longitude and elevation for a given airport code.
 #'
 #' @param x Input character vector, an airport ICAO four letters code or IATA three letters code
 #'

@@ -1,6 +1,6 @@
 #' Extract visibility.
 #'
-#' Function extract a visibility value from METAR weather report.
+#' Function extracts a visibility value from METAR weather report.
 #'
 #' @param x Input character vector
 #'

@@ -1,6 +1,6 @@
 #' Extract time zone.
 #'
-#' Function extract a name of airport from METAR weather report.
+#' Function extracts a name of airport from METAR weather report.
 #'
 #' @param x Input character vector
 #'

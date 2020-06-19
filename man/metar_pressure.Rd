@@ -13,7 +13,7 @@ metar_pressure(x)
 A numeric vector. An air pressure in hPa.
 }
 \description{
-Function extract an air pressure value from METAR weather report.
+Function extracts an air pressure value from METAR weather report.
 }
 \examples{
 metar_pressure("EPWA 281830Z 18009KT 140V200 9999 SCT037 03/M01 Q1008 NOSIG")

@@ -13,7 +13,7 @@ metar_day(x)
 A numeric vector.
 }
 \description{
-Function extract a day of a month from METAR weather report.
+Function extracts a day of a month from METAR weather report.
 }
 \examples{
 metar_day("EPWA 281830Z 18009KT 140V200 9999 SCT037 03/M01 Q1008 NOSIG")
