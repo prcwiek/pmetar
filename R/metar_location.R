@@ -40,7 +40,7 @@ metar_location <- function(x) {
       Source = "http://ourairports.com/data/airports.csv"
     )
     return(outlocation)
-  } else{
+  } else {
     outlocation <- tibble(
       ICAO.code = ourairports$ident[nmatched],
       IATA.code = x,

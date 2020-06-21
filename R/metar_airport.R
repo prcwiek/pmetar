@@ -18,7 +18,7 @@ metar_airport <- function(x) {
     out <- str_extract(x, pattern = "(?:METAR |SPECI )[\\w]+")
     str_sub(out, nchar(out)-3, nchar(out))
   } else {
-    ap <- str_extract(x, pattern = "^[\\w]+\\s")
-    str_sub(ap, 1, 4)
+    out <- str_extract(x, pattern = "^[\\w]+\\s")
+    str_sub(out, 1, 4)
   }
 }

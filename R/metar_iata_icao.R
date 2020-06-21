@@ -28,7 +28,7 @@ metar_iata_icao <- function(x) {
     out <- ourairports %>%
       filter(iata_code == x) %>%
       select(ident)
-  } else{
+  } else {
     stop("Incorrect ICAO or IATA airport code!\n", call. = FALSE)
   }
 

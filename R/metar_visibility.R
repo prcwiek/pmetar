@@ -24,26 +24,26 @@ metar_visibility <- function(x, metric = TRUE) {
     cfi_height <- 1
     cfi <- 1
   }
-  outvis <- c(1:length(x))
-  outvis[1:length(x)] <- NA
+  out <- c(1:length(x))
+  out[1:length(x)] <- NA
   # cases like 1 3/4SM
   fT <- str_detect(x, pattern = "\\s\\d\\s\\d\\/\\dSM\\s")
-  outvis[fT] <- (as.numeric(str_extract(str_extract(x[fT], pattern = "\\s\\d\\s\\d\\/\\dSM\\s"), pattern = "\\s\\d\\s")) +
+  out[fT] <- (as.numeric(str_extract(str_extract(x[fT], pattern = "\\s\\d\\s\\d\\/\\dSM\\s"), pattern = "\\s\\d\\s")) +
                    as.numeric(str_sub(str_extract(str_extract(x[fT], pattern = "\\s\\d\\s\\d\\/\\dSM\\s"), pattern = "\\d\\/"), 1, 1)) /
                    as.numeric(str_sub(str_extract(str_extract(x[fT], pattern = "\\s\\d\\s\\d\\/\\dSM\\s"), pattern = "\\/\\d"), -1, -1))) * cfi
   # cases like 3/4SM
   fT2 <- str_detect(x, pattern = "\\s\\d\\/\\dSM\\s")
   fT <- !(fT & fT2)
-  outvis[fT] <- (as.numeric(str_sub(str_extract(x[fT], pattern = "\\s\\d\\/\\dSM\\s"), 2, 2)) /
+  out[fT] <- (as.numeric(str_sub(str_extract(x[fT], pattern = "\\s\\d\\/\\dSM\\s"), 2, 2)) /
                    as.numeric(str_sub(str_extract(x[fT], pattern = "\\s\\d\\/\\dSM\\s"), 4, 4))) * cfi
   fT <- str_detect(x, pattern = "\\s\\d{4}\\s")
-  outvis[fT] <- as.numeric(str_sub(str_extract(x[fT], pattern = "\\s[\\d]{4}\\s"), 2, 5)) * cfm
+  out[fT] <- as.numeric(str_sub(str_extract(x[fT], pattern = "\\s[\\d]{4}\\s"), 2, 5)) * cfm
   fT <- str_detect(x, pattern = "\\s[\\d]+SM\\s")
-  outvis[fT] <- as.numeric(str_sub(str_extract(x[fT], pattern = "\\s[\\d]+SM\\s"), 1, -4)) * cfi
+  out[fT] <- as.numeric(str_sub(str_extract(x[fT], pattern = "\\s[\\d]+SM\\s"), 1, -4)) * cfi
   # CAVOK - Ceiling And Visibility OK, indicating no cloud below 5,000 ft (1,500 m) or
   # the highest minimum sector altitude and no cumulonimbus or towering cumulus at any level,
   # a visibility of 10 km (6 mi) or more and no significant weather change
   fT <- str_detect(x, pattern = "CAVOK")
-  outvis[fT] <- "Ceiling And Visibility OK"
-  outvis
+  out[fT] <- "Ceiling And Visibility OK"
+  out
 }

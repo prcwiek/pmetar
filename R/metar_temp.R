@@ -14,22 +14,15 @@
 #' metar_temp("201711271930 METAR LEMD 271930Z 02002KT CAVOK 04/M03 Q1025 NOSIG= NOSIG=")
 #'
 metar_temp <- function(x){
-  outtemp <- c(1:length(x))
-  outtemp[1:length(x)] <- NA
+  out <- c(1:length(x))
+  out[1:length(x)] <- NA
   fT <- str_detect(x, pattern = "M[\\d]+/")
-  outtemp[fT] <- as.numeric(str_sub(str_extract(x[fT], pattern = "M[\\d]+/"), 2, 3)) * -1
+  out[fT] <- as.numeric(str_sub(str_extract(x[fT], pattern = "M[\\d]+/"), 2, 3)) * -1
   fT <- str_detect(x, pattern = "\\s[\\d]+/(?!\\dSM)")
-  outtemp[fT] <- as.numeric(str_sub(str_extract(x[fT], pattern = "\\s[\\d]+/(?!\\dSM)"), 2, 3))
+  out[fT] <- as.numeric(str_sub(str_extract(x[fT], pattern = "\\s[\\d]+/(?!\\dSM)"), 2, 3))
   fT <- str_detect(x, pattern = "T0[\\d]{3}")
-  outtemp[fT] <- as.numeric(str_sub(str_extract(x[fT], pattern = "T0[\\d]{3}"), 3, 5)) / 10.0
+  out[fT] <- as.numeric(str_sub(str_extract(x[fT], pattern = "T0[\\d]{3}"), 3, 5)) / 10.0
   fT <- str_detect(x, pattern = "T1[\\d]{3}")
-  outtemp[fT] <- -1.0 * as.numeric(str_sub(str_extract(x[fT], pattern = "T1[\\d]{3}"), 3, 5)) / 10.0
-  # if(fT){
-  #   if(str_extract(x[fT], pattern = "T[\\d]") == "T0"){
-  #     outtemp[fT] <- as.numeric(str_sub(str_extract(x[fT], pattern = "T[\\d]{4}"), 3, 5)) / 10.0
-  #   } else {
-  #     outtemp[fT] <- -1.0 * as.numeric(str_sub(str_extract(x[fT], pattern = "T[\\d]{4}"), 3, 5)) / 10.0
-  #   }
-  #}
-  outtemp
+  out[fT] <- -1.0 * as.numeric(str_sub(str_extract(x[fT], pattern = "T1[\\d]{3}"), 3, 5)) / 10.0
+  out
 }

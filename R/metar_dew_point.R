@@ -14,22 +14,15 @@
 #' metar_dew_point("201711271930 METAR LEMD 271930Z 02002KT CAVOK 04/M03 Q1025 NOSIG= NOSIG=")
 #'
 metar_dew_point <- function(x) {
-  outtemp <- c(1:length(x))
-  outtemp[1:length(x)] <- NA
+  out <- c(1:length(x))
+  out[1:length(x)] <- NA
   fT <- str_detect(x, pattern = "/M[\\d]+\\s")
-  outtemp[fT] <- as.numeric(str_sub(str_extract(x[fT], pattern = "/M[\\d]+\\s"), 3, 4)) * -1
+  out[fT] <- as.numeric(str_sub(str_extract(x[fT], pattern = "/M[\\d]+\\s"), 3, 4)) * -1
   fT <- str_detect(x, pattern = "/[\\d]+\\s")
-  outtemp[fT] <- as.numeric(str_sub(str_extract(x[fT], pattern = "/[\\d]+\\s"), 2, 3))
+  out[fT] <- as.numeric(str_sub(str_extract(x[fT], pattern = "/[\\d]+\\s"), 2, 3))
   fT <- str_detect(x, pattern = "T\\d{4}0\\d{3}")
-  outtemp[fT] <- as.numeric(str_sub(str_extract(x[fT], pattern = "T\\d{4}0\\d{3}"), 7, 9)) / 10.0
+  out[fT] <- as.numeric(str_sub(str_extract(x[fT], pattern = "T\\d{4}0\\d{3}"), 7, 9)) / 10.0
   fT <- str_detect(x, pattern = "T\\d{4}1\\d{3}")
-  outtemp[fT] <- -1.0 * as.numeric(str_sub(str_extract(x[fT], pattern = "T\\d{4}1\\d{3}"), 7, 9)) / 10.0
-  # if(fT){
-  #   if(str_sub(str_extract(x[fT], pattern = "T[\\d]{8}"), 6, 6) == "0") {
-  #     outtemp[fT] <- as.numeric(str_sub(str_extract(x[fT], pattern = "T[\\d]{8}"), 7, 9)) / 10.0
-  #   } else {
-  #     outtemp[fT] <- -1.0 * as.numeric(str_sub(str_extract(x[fT], pattern = "T[\\d]{8}"), 7, 9)) / 10.0
-  #   }
-  # }
-  outtemp
+  out[fT] <- -1.0 * as.numeric(str_sub(str_extract(x[fT], pattern = "T\\d{4}1\\d{3}"), 7, 9)) / 10.0
+  out
 }
