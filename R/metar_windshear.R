@@ -27,7 +27,7 @@ metar_windshear <- function(x, metric = TRUE) {
     tspeed <- " kt "
   }
   out <- c(1:length(x))
-  out[c(1:length(x))] <- NA
+  out[c(1:length(x))] <- ""
   fT <- str_detect(x, pattern = "WS\\d{3}\\/\\d{5}(KT|MPS)")
   out[fT] <- paste0("Wind shear layer ",
                          as.numeric(str_sub(str_extract(x[fT], pattern = "WS\\d{3}"), 3, 5)) * 100 * cfi,
