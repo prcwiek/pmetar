@@ -1,11 +1,10 @@
 Package: pmetar
 Type: Package
 Title: Processing METAR weather reports
-Version: 0.2.6
-Author: Pawel Cwiek <prcwiek@users.noreply.github.com> [aut,cre]
-Maintainer: Pawel Cwiek <prcwiek@users.noreply.github.com> 
+Version: 0.2.6.01
+AuthorS@R: person("Pawel", "Cwiek", email = "",
+                  role = c("aut", "cre"))
 Description: Package allows to download current and historical METAR weather reports and decode basic parameters.
-    Use four spaces when indenting paragraphs within the Description.
 Depends:
   dplyr,
   lubridate,
