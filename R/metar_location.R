@@ -31,23 +31,23 @@ metar_location <- function(x) {
 
   if (sum(str_count(x, pattern = "^[A-Za-z]{4}$")) >= 1) {
     outlocation <- tibble(
-      ICAO.code = x,
-      IATA.code = ourairports$iata_code[nmatched],
-      airport.name = ourairports$name[nmatched],
-      longitude = ourairports$longitude_deg[nmatched],
-      latitude = ourairports$latitude_deg[nmatched],
-      elevation = ourairports$elevation_m[nmatched],
+      ICAO_Code = x,
+      IATA_Code = ourairports$iata_code[nmatched],
+      Airport_Name = ourairports$name[nmatched],
+      Longitude = ourairports$longitude_deg[nmatched],
+      Latitude = ourairports$latitude_deg[nmatched],
+      Elevation = ourairports$elevation_m[nmatched],
       Source = "http://ourairports.com/data/airports.csv"
     )
     return(outlocation)
   } else {
     outlocation <- tibble(
-      ICAO.code = ourairports$ident[nmatched],
-      IATA.code = x,
-      airport.name = ourairports$name[nmatched],
-      longitude = ourairports$longitude_deg[nmatched],
-      latitude = ourairports$latitude_deg[nmatched],
-      elevation = ourairports$elevation_m[nmatched],
+      ICAO_Code = ourairports$ident[nmatched],
+      IATA_Code = x,
+      Airport_Name = ourairports$name[nmatched],
+      Longitude = ourairports$longitude_deg[nmatched],
+      Latitude = ourairports$latitude_deg[nmatched],
+      Elevation = ourairports$elevation_m[nmatched],
       Source = "http://ourairports.com/data/airports.csv"
     )
     return(outlocation)
