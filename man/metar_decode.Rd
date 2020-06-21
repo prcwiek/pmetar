@@ -20,35 +20,35 @@ a returned data frame consists of different values.
 }
 \details{
 For a current METAR report:\cr
-- Airport.ICAO\cr
-- Day.of.month\cr
+- Airport ICAO\cr
+- Day of Month\cr
 - Hour (HH:mm)\cr
-- Time.zone\cr
-- Wind.speed (m/s or kt)\cr
-- Wind.direction (degrees)\cr
+- Time zone\cr
+- Wind speed (m/s or kt)\cr
+- Wind direction (degrees)\cr
 - Temperature (degrees Celsius)\cr
 - Dew point (degrees Celsius)\cr
 - Pressure (hPa)\cr
 - Visibility\cr
 - Cloud coverage\cr
 - Weather information from METAR WX codes\cr
-- Airport.name\cr
+- Airport Name\cr
 - Longitude\cr
 - Latitude\cr
 - Elevation\cr
-- Decode.Date\cr
+- Decode Date\cr
 - Original METAR text\cr
 - Source of information\cr
 - Licence\cr\cr
 
 For a historical METAR report:\cr
 - Airport\cr
-- Metar.Date\cr
-- Day.of.month\cr
+- MetarDate\cr
+- Day of Month\cr
 - Hour (HH:mm)\cr
-- Time.zone\cr
-- Wind.speed (m/s)\cr
-- Wind.direction (degrees)\cr
+- Time zone\cr
+- Wind speed (m/s)\cr
+- Wind direction (degrees)\cr
 - Temperature (degrees Celsius)\cr
 - Dew point (degrees Celsius)\cr
 - Pressure (hPa)\cr
