@@ -6,6 +6,8 @@ AuthorS@R: person("Pawel", "Cwiek", email = "",
                   role = c("aut", "cre"))
 Description: Package allows to download current and historical METAR weather reports and decode basic parameters.
 Depends:
+  R (>= 3.1)
+Imports:
   dplyr,
   lubridate,
   RCurl,
