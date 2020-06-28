@@ -30,7 +30,7 @@ metar_location <- function(x) {
 
 
   if (sum(stringr::str_count(x, pattern = "^[A-Za-z]{4}$")) >= 1) {
-    outlocation <- tibble(
+    outlocation <- dplyr::tibble(
       ICAO_Code = x,
       IATA_Code = ourairports$iata_code[nmatched],
       Airport_Name = ourairports$name[nmatched],
@@ -41,7 +41,7 @@ metar_location <- function(x) {
     )
     return(outlocation)
   } else {
-    outlocation <- tibble(
+    outlocation <- dplyr::tibble(
       ICAO_Code = ourairports$ident[nmatched],
       IATA_Code = x,
       Airport_Name = ourairports$name[nmatched],

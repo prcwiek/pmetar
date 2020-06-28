@@ -63,6 +63,8 @@
 #'
 #' @return A character vector or a tibble.
 #'
+#' @importFrom magrittr %>%
+#'
 #' @export
 #'
 #' @examples
@@ -84,68 +86,68 @@ metar_decode <- function(x, metric = TRUE){
         metar_date <- lubridate::make_datetime(myear, mmonth, mday, mhour, mminute, tz = "UTC")
         out <- dplyr::tibble(x)
         out <- out %>%
-          mutate(Airport_ICAO = metar_airport(out$x)) %>%
-          mutate(Metar_Date = metar_date) %>%
-          mutate(Day_of_Month = metar_day(out$x)) %>%
-          mutate(Hour = metar_hour(out$x)) %>%
-          mutate(Time_zone = metar_time_zone(out$x)) %>%
-          mutate(Wind_speed = metar_speed(out$x, metric)) %>%
-          mutate(Wind_speed_unit = ifelse(metric, "m/s", "kn")) %>%
-          mutate(Gust = metar_gust(out$x, metric)) %>%
-          mutate(Gust_unit = ifelse(metric, "m/s", "kn")) %>%
-          mutate(Wind_shear = metar_windshear(out$x, metric)) %>%
-          mutate(Wind_direction = metar_dir(out$x)) %>%
-          mutate(Temperature = metar_temp(out$x)) %>%
-          mutate(Dew_point = metar_dew_point(out$x)) %>%
-          mutate(Pressure = metar_pressure(out$x)) %>%
-          mutate(Visibility = metar_visibility(out$x, metric)) %>%
-          mutate(Visibility_unit = ifelse(metric, "m", "mile")) %>%
-          mutate(Cloud_coverage = metar_cloud_coverage(out$x)) %>%
-          mutate(Weather_information = metar_wx_codes(out$x))
+          dplyr::mutate(Airport_ICAO = metar_airport(out$x)) %>%
+          dplyr::mutate(Metar_Date = metar_date) %>%
+          dplyr::mutate(Day_of_Month = metar_day(out$x)) %>%
+          dplyr::mutate(Hour = metar_hour(out$x)) %>%
+          dplyr::mutate(Time_zone = metar_time_zone(out$x)) %>%
+          dplyr::mutate(Wind_speed = metar_speed(out$x, metric)) %>%
+          dplyr::mutate(Wind_speed_unit = ifelse(metric, "m/s", "kn")) %>%
+          dplyr::mutate(Gust = metar_gust(out$x, metric)) %>%
+          dplyr::mutate(Gust_unit = ifelse(metric, "m/s", "kn")) %>%
+          dplyr::mutate(Wind_shear = metar_windshear(out$x, metric)) %>%
+          dplyr::mutate(Wind_direction = metar_dir(out$x)) %>%
+          dplyr::mutate(Temperature = metar_temp(out$x)) %>%
+          dplyr::mutate(Dew_point = metar_dew_point(out$x)) %>%
+          dplyr::mutate(Pressure = metar_pressure(out$x)) %>%
+          dplyr::mutate(Visibility = metar_visibility(out$x, metric)) %>%
+          dplyr::mutate(Visibility_unit = ifelse(metric, "m", "mile")) %>%
+          dplyr::mutate(Cloud_coverage = metar_cloud_coverage(out$x)) %>%
+          dplyr::mutate(Weather_information = metar_wx_codes(out$x))
         apl <- metar_location(out$Airport_ICAO)
         out <- out %>%
-          mutate(Airport_Name = apl$Airport_Name) %>%
-          mutate(Airport_IATA = apl$IATA_Code) %>%
-          mutate(Longitude = apl$Longitude) %>%
-          mutate(Latitude = apl$Latitude) %>%
-          mutate(Elevation = apl$Elevation) %>%
-          mutate(Decode_Date = Sys.time()) %>%
-          mutate(Original_METAR = out$x) %>%
-          mutate(Source = "mesonet.agron.iastate.edu/AWOS or www.ogimet.com") %>%
-          mutate(Licence = "ANNEX 1 TO WMO RESOLUTION 40 (Cg-XII) http://www.nws.noaa.gov/im/wmor40a1.htm") %>%
-          select(-x)
+          dplyr::mutate(Airport_Name = apl$Airport_Name) %>%
+          dplyr::mutate(Airport_IATA = apl$IATA_Code) %>%
+          dplyr::mutate(Longitude = apl$Longitude) %>%
+          dplyr::mutate(Latitude = apl$Latitude) %>%
+          dplyr::mutate(Elevation = apl$Elevation) %>%
+          dplyr::mutate(Decode_Date = Sys.time()) %>%
+          dplyr::mutate(Original_METAR = out$x) %>%
+          dplyr::mutate(Source = "mesonet.agron.iastate.edu/AWOS or www.ogimet.com") %>%
+          dplyr::mutate(Licence = "ANNEX 1 TO WMO RESOLUTION 40 (Cg-XII) http://www.nws.noaa.gov/im/wmor40a1.htm") %>%
+          dplyr::select(-x)
       } else {
         out <- dplyr::tibble(x)
         out <- out %>%
-          mutate(Airport_ICAO = metar_airport(out$x)) %>%
-          mutate(Day_of_Month = metar_day(out$x)) %>%
-          mutate(Hour = metar_hour(out$x)) %>%
-          mutate(Time_zone = metar_time_zone(out$x)) %>%
-          mutate(Wind_speed = metar_speed(out$x, metric)) %>%
-          mutate(Wind_speed_unit = ifelse(metric, "m/s", "kn")) %>%
-          mutate(Gust = metar_gust(out$x, metric)) %>%
-          mutate(Gust_unit = ifelse(metric, "m/s", "kn")) %>%
-          mutate(Wind_shear = metar_windshear(out$x, metric)) %>%
-          mutate(Wind_direction = metar_dir(out$x)) %>%
-          mutate(Temperature = metar_temp(out$x)) %>%
-          mutate(Dew_point = metar_dew_point(out$x)) %>%
-          mutate(Pressure = metar_pressure(out$x)) %>%
-          mutate(Visibility = metar_visibility(out$x, metric)) %>%
-          mutate(Visibility_unit = ifelse(metric, "m", "mile")) %>%
-          mutate(Cloud_coverage = metar_cloud_coverage(out$x)) %>%
-          mutate(Weather_information = metar_wx_codes(out$x))
+          dplyr::mutate(Airport_ICAO = metar_airport(out$x)) %>%
+          dplyr::mutate(Day_of_Month = metar_day(out$x)) %>%
+          dplyr::mutate(Hour = metar_hour(out$x)) %>%
+          dplyr::mutate(Time_zone = metar_time_zone(out$x)) %>%
+          dplyr::mutate(Wind_speed = metar_speed(out$x, metric)) %>%
+          dplyr::mutate(Wind_speed_unit = ifelse(metric, "m/s", "kn")) %>%
+          dplyr::mutate(Gust = metar_gust(out$x, metric)) %>%
+          dplyr::mutate(Gust_unit = ifelse(metric, "m/s", "kn")) %>%
+          dplyr::mutate(Wind_shear = metar_windshear(out$x, metric)) %>%
+          dplyr::mutate(Wind_direction = metar_dir(out$x)) %>%
+          dplyr::mutate(Temperature = metar_temp(out$x)) %>%
+          dplyr::mutate(Dew_point = metar_dew_point(out$x)) %>%
+          dplyr::mutate(Pressure = metar_pressure(out$x)) %>%
+          dplyr::mutate(Visibility = metar_visibility(out$x, metric)) %>%
+          dplyr::mutate(Visibility_unit = ifelse(metric, "m", "mile")) %>%
+          dplyr::mutate(Cloud_coverage = metar_cloud_coverage(out$x)) %>%
+          dplyr::mutate(Weather_information = metar_wx_codes(out$x))
         apl <- metar_location(out$Airport_ICAO)
         out <- out %>%
-          mutate(Airport_Name = apl$Airport_Name) %>%
-          mutate(Airport_IATA = apl$IATA_Code) %>%
-          mutate(Longitude = apl$Longitude) %>%
-          mutate(Latitude = apl$Latitude) %>%
-          mutate(Elevation = apl$Elevation) %>%
-          mutate(Decode_Date = Sys.time()) %>%
-          mutate(Original_METAR = out$x) %>%
-          mutate(Source = "www.aviationweather.gov/metar") %>%
-          mutate(Licence = "ANNEX 1 TO WMO RESOLUTION 40 (Cg-XII) http://www.nws.noaa.gov/im/wmor40a1.htm") %>%
-          select(-x)
+          dplyr::mutate(Airport_Name = apl$Airport_Name) %>%
+          dplyr::mutate(Airport_IATA = apl$IATA_Code) %>%
+          dplyr::mutate(Longitude = apl$Longitude) %>%
+          dplyr::mutate(Latitude = apl$Latitude) %>%
+          dplyr::mutate(Elevation = apl$Elevation) %>%
+          dplyr::mutate(Decode_Date = Sys.time()) %>%
+          dplyr::mutate(Original_METAR = out$x) %>%
+          dplyr::mutate(Source = "www.aviationweather.gov/metar") %>%
+          dplyr::mutate(Licence = "ANNEX 1 TO WMO RESOLUTION 40 (Cg-XII) http://www.nws.noaa.gov/im/wmor40a1.htm") %>%
+          dplyr::select(-x)
       }
       out
     },

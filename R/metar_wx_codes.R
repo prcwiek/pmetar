@@ -6,6 +6,8 @@
 #'
 #' @return A charcter vector. with METAR WX codes.
 #'
+#' @importFrom magrittr %>%
+#'
 #' @export
 #'
 #' @examples
@@ -24,9 +26,9 @@ metar_wx_codes <- function(x) {
   tempwx <- c(1:length(x))
   tempwx[1:length(x)] <- ""
   wx_codes <- metarWXcodes %>%
-    filter(Type != "Intensity") %>%
-    filter(Type != "Time") %>%
-    filter(Abbreviation != "")
+    dplyr::filter(Type != "Intensity") %>%
+    dplyr::filter(Type != "Time") %>%
+    dplyr::filter(Abbreviation != "")
 
   pattern_abbrev <- apply(wx_codes, 2, paste, collapse = "|")[2]
 
@@ -41,7 +43,6 @@ metar_wx_codes <- function(x) {
     outwx[stringr::str_detect(x, pattern = paste0("[+](", pattern_abbrev, ")"))] <- "Heavy intensity: "
     outwx[stringr::str_detect(x, pattern = paste0("[-](", pattern_abbrev, ")"))] <- "Light intensity: "
     outwx[stringr::str_detect(x, pattern = paste0("RE(", pattern_abbrev, ")"))] <- "Recent "
-    #outwx[stringr::str_detect(x, pattern = paste0("\\s(", pattern_abbrev, ")"))] <- "Moderate intensity, "
 
     tempwx[fT] <- stringr::str_replace(tempwx[fT], "[+]", "")
     tempwx[fT] <- stringr::str_replace(tempwx[fT], "[-]", "")
