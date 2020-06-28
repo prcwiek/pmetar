@@ -8,12 +8,17 @@
 #' - Day of Month\cr
 #' - Hour (HH:mm)\cr
 #' - Time zone\cr
-#' - Wind speed (m/s or kt)\cr
+#' - Wind speed \cr
+#' - Wind speed unit (m/s or kn)\cr
+#' - Gust \cr
+#' - Gust unit (m/s or kn) \cr
+#' - Wind shear\cr
 #' - Wind direction (degrees)\cr
 #' - Temperature (degrees Celsius)\cr
 #' - Dew point (degrees Celsius)\cr
 #' - Pressure (hPa)\cr
 #' - Visibility\cr
+#' - Visibility unit (m or miles)\cr
 #' - Cloud coverage\cr
 #' - Weather information from METAR WX codes\cr
 #' - Airport Name\cr
@@ -31,18 +36,23 @@
 #' - Day of Month\cr
 #' - Hour (HH:mm)\cr
 #' - Time zone\cr
-#' - Wind speed (m/s)\cr
+#' - Wind speed\cr
+#' - Wind speed unit (m/s or kn)\cr
+#' - Gust\cr
+#' - Gust unit (m/s or kn)\cr
+#' - Wind shear\cr
 #' - Wind direction (degrees)\cr
 #' - Temperature (degrees Celsius)\cr
 #' - Dew point (degrees Celsius)\cr
 #' - Pressure (hPa)\cr
 #' - Visibility\cr
+#' - Visibility unit (m or miles)\cr
 #' - Cloud coverage\cr
 #' - Weather information from METAR WX codes\cr
 #' - Airport.name\cr
 #' - Longitude\cr
 #' - Latitude\cr
-#' - Elevation\cr
+#' - Elevatio (m)\cr
 #' - Decode.Date\cr
 #' - Original METAR text\cr
 #' - Source of information\cr
@@ -61,79 +71,87 @@
 #' metar_decode("201711271930 METAR LEMD 271930Z 02002KT CAVOK 04/M03 Q1025 NOSIG= NOSIG=")
 #'
 metar_decode <- function(x, metric = TRUE){
-  if(str_detect(x, pattern = "^[\\d]+ METAR")[1]) {
-    td <- c(1:length(x))
-    td <- str_extract(x, pattern = "^[\\d]+ METAR")
-    myear <- as.numeric(str_sub(td, 1, 4))
-    mmonth <- as.numeric(str_sub(td, 5, 6))
-    mday <- as.numeric(str_sub(td, 7, 8))
-    mhour <- as.numeric(str_sub(td, 9, 10))
-    mminute <- as.numeric(str_sub(td, 11, 12))
-    metar_date <- make_datetime(myear, mmonth, mday, mhour, mminute, tz = "UTC")
-    out <- tibble(x)
-    out <- out %>%
-      mutate(Airport_ICAO = metar_airport(out$x)) %>%
-      mutate(Metar_Date = metar_date) %>%
-      mutate(Day_of_Month = metar_day(out$x)) %>%
-      mutate(Hour = metar_hour(out$x)) %>%
-      mutate(Time_zone = metar_time_zone(out$x)) %>%
-      mutate(Wind_speed = metar_speed(out$x, metric)) %>%
-      mutate(Wind_speed_unit = ifelse(metric, "m/s", "kn")) %>%
-      mutate(Gust = metar_gust(out$x, metric)) %>%
-      mutate(Gust_unit = ifelse(metric, "m/s", "kn")) %>%
-      mutate(Wind_shear = metar_windshear(out$x, metric)) %>%
-      mutate(Wind_direction = metar_dir(out$x)) %>%
-      mutate(Temperature = metar_temp(out$x)) %>%
-      mutate(Dew_point = metar_dew_point(out$x)) %>%
-      mutate(Pressure = metar_pressure(out$x)) %>%
-      mutate(Visibility = metar_visibility(out$x, metric)) %>%
-      mutate(Visibility_unit = ifelse(metric, "m", "mile")) %>%
-      mutate(Cloud_coverage = metar_cloud_coverage(out$x)) %>%
-      mutate(Weather_information = metar_wx_codes(out$x))
-    apl <- metar_location(out$Airport_ICAO)
-    out <- out %>%
-      mutate(Airport_Name = apl$Airport_Name) %>%
-      mutate(Airport_IATA = apl$IATA_Code) %>%
-      mutate(Longitude = apl$Longitude) %>%
-      mutate(Latitude = apl$Latitude) %>%
-      mutate(Elevation = apl$Elevation) %>%
-      mutate(Decode_Date = Sys.time()) %>%
-      mutate(Original_METAR = out$x) %>%
-      mutate(Source = "mesonet.agron.iastate.edu/AWOS or www.ogimet.com") %>%
-      mutate(Licence = "ANNEX 1 TO WMO RESOLUTION 40 (Cg-XII) http://www.nws.noaa.gov/im/wmor40a1.htm") %>%
-      select(-x)
-  } else {
-    out <- tibble(x)
-    out <- out %>%
-      mutate(Airport_ICAO = metar_airport(out$x)) %>%
-      mutate(Day_of_Month = metar_day(out$x)) %>%
-      mutate(Hour = metar_hour(out$x)) %>%
-      mutate(Time_zone = metar_time_zone(out$x)) %>%
-      mutate(Wind_speed = metar_speed(out$x, metric)) %>%
-      mutate(Wind_speed_unit = ifelse(metric, "m/s", "kn")) %>%
-      mutate(Gust = metar_gust(out$x, metric)) %>%
-      mutate(Gust_unit = ifelse(metric, "m/s", "kn")) %>%
-      mutate(Wind_shear = metar_windshear(out$x, metric)) %>%
-      mutate(Wind_direction = metar_dir(out$x)) %>%
-      mutate(Temperature = metar_temp(out$x)) %>%
-      mutate(Dew_point = metar_dew_point(out$x)) %>%
-      mutate(Pressure = metar_pressure(out$x)) %>%
-      mutate(Visibility = metar_visibility(out$x, metric)) %>%
-      mutate(Visibility_unit = ifelse(metric, "m", "mile")) %>%
-      mutate(Cloud_coverage = metar_cloud_coverage(out$x)) %>%
-      mutate(Weather_information = metar_wx_codes(out$x))
-    apl <- metar_location(out$Airport_ICAO)
-    out <- out %>%
-      mutate(Airport_Name = apl$Airport_Name) %>%
-      mutate(Airport_IATA = apl$IATA_Code) %>%
-      mutate(Longitude = apl$Longitude) %>%
-      mutate(Latitude = apl$Latitude) %>%
-      mutate(Elevation = apl$Elevation) %>%
-      mutate(Decode_Date = Sys.time()) %>%
-      mutate(Original_METAR = out$x) %>%
-      mutate(Source = "www.aviationweather.gov/metar") %>%
-      mutate(Licence = "ANNEX 1 TO WMO RESOLUTION 40 (Cg-XII) http://www.nws.noaa.gov/im/wmor40a1.htm") %>%
-      select(-x)
-  }
-  out
+  tryCatch(
+    expr = {
+      if(str_detect(x, pattern = "^[\\d]+ METAR")[1]) {
+        td <- c(1:length(x))
+        td <- str_extract(x, pattern = "^[\\d]+ METAR")
+        myear <- as.numeric(str_sub(td, 1, 4))
+        mmonth <- as.numeric(str_sub(td, 5, 6))
+        mday <- as.numeric(str_sub(td, 7, 8))
+        mhour <- as.numeric(str_sub(td, 9, 10))
+        mminute <- as.numeric(str_sub(td, 11, 12))
+        metar_date <- make_datetime(myear, mmonth, mday, mhour, mminute, tz = "UTC")
+        out <- tibble(x)
+        out <- out %>%
+          mutate(Airport_ICAO = metar_airport(out$x)) %>%
+          mutate(Metar_Date = metar_date) %>%
+          mutate(Day_of_Month = metar_day(out$x)) %>%
+          mutate(Hour = metar_hour(out$x)) %>%
+          mutate(Time_zone = metar_time_zone(out$x)) %>%
+          mutate(Wind_speed = metar_speed(out$x, metric)) %>%
+          mutate(Wind_speed_unit = ifelse(metric, "m/s", "kn")) %>%
+          mutate(Gust = metar_gust(out$x, metric)) %>%
+          mutate(Gust_unit = ifelse(metric, "m/s", "kn")) %>%
+          mutate(Wind_shear = metar_windshear(out$x, metric)) %>%
+          mutate(Wind_direction = metar_dir(out$x)) %>%
+          mutate(Temperature = metar_temp(out$x)) %>%
+          mutate(Dew_point = metar_dew_point(out$x)) %>%
+          mutate(Pressure = metar_pressure(out$x)) %>%
+          mutate(Visibility = metar_visibility(out$x, metric)) %>%
+          mutate(Visibility_unit = ifelse(metric, "m", "mile")) %>%
+          mutate(Cloud_coverage = metar_cloud_coverage(out$x)) %>%
+          mutate(Weather_information = metar_wx_codes(out$x))
+        apl <- metar_location(out$Airport_ICAO)
+        out <- out %>%
+          mutate(Airport_Name = apl$Airport_Name) %>%
+          mutate(Airport_IATA = apl$IATA_Code) %>%
+          mutate(Longitude = apl$Longitude) %>%
+          mutate(Latitude = apl$Latitude) %>%
+          mutate(Elevation = apl$Elevation) %>%
+          mutate(Decode_Date = Sys.time()) %>%
+          mutate(Original_METAR = out$x) %>%
+          mutate(Source = "mesonet.agron.iastate.edu/AWOS or www.ogimet.com") %>%
+          mutate(Licence = "ANNEX 1 TO WMO RESOLUTION 40 (Cg-XII) http://www.nws.noaa.gov/im/wmor40a1.htm") %>%
+          select(-x)
+      } else {
+        out <- tibble(x)
+        out <- out %>%
+          mutate(Airport_ICAO = metar_airport(out$x)) %>%
+          mutate(Day_of_Month = metar_day(out$x)) %>%
+          mutate(Hour = metar_hour(out$x)) %>%
+          mutate(Time_zone = metar_time_zone(out$x)) %>%
+          mutate(Wind_speed = metar_speed(out$x, metric)) %>%
+          mutate(Wind_speed_unit = ifelse(metric, "m/s", "kn")) %>%
+          mutate(Gust = metar_gust(out$x, metric)) %>%
+          mutate(Gust_unit = ifelse(metric, "m/s", "kn")) %>%
+          mutate(Wind_shear = metar_windshear(out$x, metric)) %>%
+          mutate(Wind_direction = metar_dir(out$x)) %>%
+          mutate(Temperature = metar_temp(out$x)) %>%
+          mutate(Dew_point = metar_dew_point(out$x)) %>%
+          mutate(Pressure = metar_pressure(out$x)) %>%
+          mutate(Visibility = metar_visibility(out$x, metric)) %>%
+          mutate(Visibility_unit = ifelse(metric, "m", "mile")) %>%
+          mutate(Cloud_coverage = metar_cloud_coverage(out$x)) %>%
+          mutate(Weather_information = metar_wx_codes(out$x))
+        apl <- metar_location(out$Airport_ICAO)
+        out <- out %>%
+          mutate(Airport_Name = apl$Airport_Name) %>%
+          mutate(Airport_IATA = apl$IATA_Code) %>%
+          mutate(Longitude = apl$Longitude) %>%
+          mutate(Latitude = apl$Latitude) %>%
+          mutate(Elevation = apl$Elevation) %>%
+          mutate(Decode_Date = Sys.time()) %>%
+          mutate(Original_METAR = out$x) %>%
+          mutate(Source = "www.aviationweather.gov/metar") %>%
+          mutate(Licence = "ANNEX 1 TO WMO RESOLUTION 40 (Cg-XII) http://www.nws.noaa.gov/im/wmor40a1.htm") %>%
+          select(-x)
+      }
+      out
+    },
+    error = function(e){
+      cat("It is not a METAR weather report!\n")
+      return(NA)
+    }
+  )
 }

@@ -23,5 +23,6 @@ the web page https://aviationweather.gov/metar/\cr
 metar_get("EPWA")
 metar_get("CYUL")
 metar_get("LEMD")
+metar_get("WAW")
 
 }

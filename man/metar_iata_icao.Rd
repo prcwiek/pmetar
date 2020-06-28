@@ -4,7 +4,7 @@
 \alias{metar_iata_icao}
 \title{Convert IATA airport code to ICAO airport code and vice versa.}
 \usage{
-metar_iata_icao(x)
+metar_iata_icao(x = "WAW")
 }
 \arguments{
 \item{x}{Input character vector.}

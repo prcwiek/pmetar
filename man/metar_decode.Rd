@@ -24,12 +24,17 @@ For a current METAR report:\cr
 - Day of Month\cr
 - Hour (HH:mm)\cr
 - Time zone\cr
-- Wind speed (m/s or kt)\cr
+- Wind speed \cr
+- Wind speed unit (m/s or kn)\cr
+- Gust \cr
+- Gust unit (m/s or kn) \cr
+- Wind shear\cr
 - Wind direction (degrees)\cr
 - Temperature (degrees Celsius)\cr
 - Dew point (degrees Celsius)\cr
 - Pressure (hPa)\cr
 - Visibility\cr
+- Visibility unit (m or miles)\cr
 - Cloud coverage\cr
 - Weather information from METAR WX codes\cr
 - Airport Name\cr
@@ -47,18 +52,23 @@ For a historical METAR report:\cr
 - Day of Month\cr
 - Hour (HH:mm)\cr
 - Time zone\cr
-- Wind speed (m/s)\cr
+- Wind speed\cr
+- Wind speed unit (m/s or kn)\cr
+- Gust\cr
+- Gust unit (m/s or kn)\cr
+- Wind shear\cr
 - Wind direction (degrees)\cr
 - Temperature (degrees Celsius)\cr
 - Dew point (degrees Celsius)\cr
 - Pressure (hPa)\cr
 - Visibility\cr
+- Visibility unit (m or miles)\cr
 - Cloud coverage\cr
 - Weather information from METAR WX codes\cr
 - Airport.name\cr
 - Longitude\cr
 - Latitude\cr
-- Elevation\cr
+- Elevatio (m)\cr
 - Decode.Date\cr
 - Original METAR text\cr
 - Source of information\cr
