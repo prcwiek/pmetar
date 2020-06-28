@@ -49,3 +49,4 @@ others/
 
 # ignore all files in a directory others
 rsconnect/
+inst/doc
