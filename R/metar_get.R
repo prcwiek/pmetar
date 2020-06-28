@@ -16,9 +16,14 @@
 #' metar_get("EPWA")
 #' metar_get("CYUL")
 #' metar_get("LEMD")
+#' metar_get("WAW")
 #'
 metar_get <- function(airport = "EPWA"){
-  if(str_detect(airport, pattern = "^[A-Za-z]{4}$")) {
+  airport <- str_to_upper(airport)
+  if(str_detect(airport, pattern = "^[A-Z]{3}$")) {
+    airport <- metar_iata_icao(airport)
+  }
+  if(str_detect(airport, pattern = "^[A-Z]{4}$")) {
     cat("Getting information from Aviation Weather Center www.aviationweather.gov/metar\n")
     link <- paste0("https://aviationweather.gov/metar/data?ids=",
                    airport,
