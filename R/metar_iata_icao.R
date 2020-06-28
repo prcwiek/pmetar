@@ -19,12 +19,12 @@
 metar_iata_icao <- function(x = "WAW") {
   cat("Getting airport informaiton from the file downloaded from\n")
   cat("http://ourairports.com/data/airports.csv\n")
-  x <- str_to_upper(x)
-  if(str_detect(x, pattern = "^[A-Z]{4}$")){
+  x <- stringr::str_to_upper(x)
+  if(stringr::str_detect(x, pattern = "^[A-Z]{4}$")){
     out <- ourairports %>%
       filter(ident == x) %>%
       select(iata_code)
-  } else if(str_detect(x, pattern = "^[A-Z]{3}$")){
+  } else if(stringr::str_detect(x, pattern = "^[A-Z]{3}$")){
     out <- ourairports %>%
       filter(iata_code == x) %>%
       select(ident)

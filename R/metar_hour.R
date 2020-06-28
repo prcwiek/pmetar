@@ -14,6 +14,6 @@
 #' metar_hour("201711271930 METAR LEMD 271930Z 02002KT CAVOK 04/M03 Q1025 NOSIG= NOSIG=")
 #'
 metar_hour <- function(x){
-  out <- str_extract(x, pattern = "[\\w]+\\s\\d{6}.\\s")
-  paste(str_sub(out, 8, 9), str_sub(out, 10, 11), sep = ":")
+  out <- stringr::str_extract(x, pattern = "[\\w]+\\s\\d{6}.\\s")
+  paste(stringr::str_sub(out, 8, 9), stringr::str_sub(out, 10, 11), sep = ":")
 }

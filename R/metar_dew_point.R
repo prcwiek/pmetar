@@ -17,13 +17,13 @@
 metar_dew_point <- function(x) {
   out <- c(1:length(x))
   out[1:length(x)] <- NA
-  fT <- str_detect(x, pattern = "/M[\\d]+\\s")
-  out[fT] <- as.numeric(str_sub(str_extract(x[fT], pattern = "/M\\d{2}\\s"), 3, 4)) * -1
-  fT <- str_detect(x, pattern = "/[\\d]+\\s")
-  out[fT] <- as.numeric(str_sub(str_extract(x[fT], pattern = "/\\d{2}\\s"), 2, 3))
-  fT <- str_detect(x, pattern = "T\\d{4}0\\d{3}")
-  out[fT] <- as.numeric(str_sub(str_extract(x[fT], pattern = "T\\d{4}0\\d{3}"), 7, 9)) / 10.0
-  fT <- str_detect(x, pattern = "T\\d{4}1\\d{3}")
-  out[fT] <- -1.0 * as.numeric(str_sub(str_extract(x[fT], pattern = "T\\d{4}1\\d{3}"), 7, 9)) / 10.0
+  fT <- stringr::str_detect(x, pattern = "/M[\\d]+\\s")
+  out[fT] <- as.numeric(stringr::str_sub(stringr::str_extract(x[fT], pattern = "/M\\d{2}\\s"), 3, 4)) * -1
+  fT <- stringr::str_detect(x, pattern = "/[\\d]+\\s")
+  out[fT] <- as.numeric(stringr::str_sub(stringr::str_extract(x[fT], pattern = "/\\d{2}\\s"), 2, 3))
+  fT <- stringr::str_detect(x, pattern = "T\\d{4}0\\d{3}")
+  out[fT] <- as.numeric(stringr::str_sub(stringr::str_extract(x[fT], pattern = "T\\d{4}0\\d{3}"), 7, 9)) / 10.0
+  fT <- stringr::str_detect(x, pattern = "T\\d{4}1\\d{3}")
+  out[fT] <- -1.0 * as.numeric(stringr::str_sub(stringr::str_extract(x[fT], pattern = "T\\d{4}1\\d{3}"), 7, 9)) / 10.0
   out
 }

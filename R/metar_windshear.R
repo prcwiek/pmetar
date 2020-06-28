@@ -28,17 +28,17 @@ metar_windshear <- function(x, metric = TRUE) {
   }
   out <- c(1:length(x))
   out[c(1:length(x))] <- ""
-  fT <- str_detect(x, pattern = "WS\\d{3}\\/\\d{5}(KT|MPS)")
+  fT <- stringr::str_detect(x, pattern = "WS\\d{3}\\/\\d{5}(KT|MPS)")
   out[fT] <- paste0("Wind shear layer ",
-                         as.numeric(str_sub(str_extract(x[fT], pattern = "WS\\d{3}"), 3, 5)) * 100 * cfi,
+                         as.numeric(stringr::str_sub(stringr::str_extract(x[fT], pattern = "WS\\d{3}"), 3, 5)) * 100 * cfi,
                          theight,
-                         round(metar_speed(str_sub(str_extract(x[fT], pattern = "WS\\d{3}\\/\\d{5}(KT|MPS)"), 7, -1), metric), 1),
+                         round(metar_speed(stringr::str_sub(stringr::str_extract(x[fT], pattern = "WS\\d{3}\\/\\d{5}(KT|MPS)"), 7, -1), metric), 1),
                          tspeed,
-                         metar_dir(str_sub(str_extract(x[fT], pattern = "WS\\d{3}\\/\\d{5}(KT|MPS)"), 7, -1)),
+                         metar_dir(stringr::str_sub(stringr::str_extract(x[fT], pattern = "WS\\d{3}\\/\\d{5}(KT|MPS)"), 7, -1)),
                          " degrees.")
-  fT <- str_detect(x, pattern = "WS R")
-  out[fT] <- paste0("Wind shear runway ", str_sub(str_extract(x[fT], pattern = "WS (R|RWY)\\d+\\w+"), 4, -1))
-  fT <- str_detect(x, pattern = "WS ALL RWY")
+  fT <- stringr::str_detect(x, pattern = "WS R")
+  out[fT] <- paste0("Wind shear runway ", stringr::str_sub(stringr::str_extract(x[fT], pattern = "WS (R|RWY)\\d+\\w+"), 4, -1))
+  fT <- stringr::str_detect(x, pattern = "WS ALL RWY")
   out[fT] <- "Wind shear all runways"
   out
 }

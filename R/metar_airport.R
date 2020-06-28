@@ -14,11 +14,11 @@
 #' metar_airport("201711271930 METAR LEMD 271930Z 02002KT CAVOK 04/M03 Q1025 NOSIG= NOSIG=")
 #'
 metar_airport <- function(x) {
-  if(sum(str_detect(x, pattern = "^[\\d]+(?: METAR| SPECI)")) > 0){
-    out <- str_extract(x, pattern = "(?:METAR |SPECI )[\\w]+")
-    str_sub(out, nchar(out)-3, nchar(out))
+  if(sum(stringr::str_detect(x, pattern = "^[\\d]+(?: METAR| SPECI)")) > 0){
+    out <- stringr::str_extract(x, pattern = "(?:METAR |SPECI )[\\w]+")
+    stringr::str_sub(out, nchar(out)-3, nchar(out))
   } else {
-    out <- str_extract(x, pattern = "^[\\w]+\\s")
-    str_sub(out, 1, 4)
+    out <- stringr::str_extract(x, pattern = "^[\\w]+\\s")
+    stringr::str_sub(out, 1, 4)
   }
 }

@@ -19,22 +19,22 @@
 #' metar_get("WAW")
 #'
 metar_get <- function(airport = "EPWA"){
-  airport <- str_to_upper(airport)
-  if(str_detect(airport, pattern = "^[A-Z]{3}$")) {
+  airport <- stringr::str_to_upper(airport)
+  if(stringr::str_detect(airport, pattern = "^[A-Z]{3}$")) {
     airport <- metar_iata_icao(airport)
   }
-  if(str_detect(airport, pattern = "^[A-Z]{4}$")) {
+  if(stringr::str_detect(airport, pattern = "^[A-Z]{4}$")) {
     cat("Getting information from Aviation Weather Center www.aviationweather.gov/metar\n")
     link <- paste0("https://aviationweather.gov/metar/data?ids=",
                    airport,
                    "&format=raw&date=0&hours=0")
-    myfile <- getURL(link, ssl.verifyhost = FALSE, ssl.verifypeer = FALSE)
-    metar <- str_extract(myfile, pattern = "<code>[:print:]+</code>")
-    metar <- str_replace(metar, "<code>", "")
-    metar <- str_replace(metar, "</code>", "")
-    if(str_detect(metar, pattern = "No METAR found")){
+    myfile <- RCurl::getURL(link, ssl.verifyhost = FALSE, ssl.verifypeer = FALSE)
+    metar <- stringr::str_extract(myfile, pattern = "<code>[:print:]+</code>")
+    metar <- stringr::str_replace(metar, "<code>", "")
+    metar <- stringr::str_replace(metar, "</code>", "")
+    if(stringr::str_detect(metar, pattern = "No METAR found")){
       cat(paste("No METAR found for ", airport, "!\n", sep = ""))
-    } else str_split(metar, "<br", simplify = TRUE)[1]
+    } else stringr::str_split(metar, "<br", simplify = TRUE)[1]
   } else {
     cat("Incorrect ICAO airport code!\n")
   }

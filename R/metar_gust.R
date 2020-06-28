@@ -24,9 +24,9 @@ metar_gust <- function(x, metric = TRUE) {
   }
   out <- c(1:length(x))
   out[1:length(x)] <- 0
-  fKT <- str_detect(x, pattern = "G\\d\\dKT")
-  out[fKT] <- as.numeric(str_sub(str_extract(x[fKT], pattern = "G\\d+KT"), 2, 3)) * cfi
-  fMPS <- str_detect(x, pattern = "G\\d\\dMPS")
-  out[fMPS] <- as.numeric(str_sub(str_extract(x[fMPS], pattern = "G\\d\\dMPS"), 2, 3)) * cfm
+  fKT <- stringr::str_detect(x, pattern = "G\\d\\dKT")
+  out[fKT] <- as.numeric(stringr::str_sub(stringr::str_extract(x[fKT], pattern = "G\\d+KT"), 2, 3)) * cfi
+  fMPS <- stringr::str_detect(x, pattern = "G\\d\\dMPS")
+  out[fMPS] <- as.numeric(stringr::str_sub(stringr::str_extract(x[fMPS], pattern = "G\\d\\dMPS"), 2, 3)) * cfm
   out
 }

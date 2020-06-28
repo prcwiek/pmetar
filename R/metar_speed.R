@@ -11,7 +11,7 @@
 #'
 #' @examples
 #' metar_speed("EPWA 281830Z 18009KT 140V200 9999 SCT037 03/M01 Q1008 NOSIG")
-#' metar_speed("CYUL 281800Z 13008KT 30SM BKN240 01/M06 A3005 RMK CI5 SLP180")
+#' metar_speed("CYUL 281800Z 13008KT 30SM BKN240 01/M06 A3005 RMK CI5 SLP180", metric = FALSE)
 #' metar_speed("201711271930 METAR LEMD 271930Z 02002KT CAVOK 04/M03 Q1025 NOSIG= NOSIG=")
 #'
 metar_speed <- function(x, metric = TRUE){
@@ -24,9 +24,9 @@ metar_speed <- function(x, metric = TRUE){
   }
   out <- c(1:length(x))
   out[c(1:length(x))] <- 0
-  fMPS <- str_detect(x, pattern = "\\d{5}(MPS|G\\d{2}MPS)")
-  fKT <- str_detect(x, pattern = "\\d{5}(KT|G\\d{2}KT)")
-  out[fMPS] <- as.numeric(str_sub(str_extract(x[fMPS], pattern = "\\d{5}(MPS|G\\d{2}MPS)"), 4, 5)) * cfm
-  out[fKT] <- as.numeric(str_sub(str_extract(x[fKT], pattern = "\\d{5}(KT|G\\d{2}KT)"), 4, 5)) * cfi
+  fMPS <- stringr::str_detect(x, pattern = "\\d{5}(MPS|G\\d{2}MPS)")
+  fKT <- stringr::str_detect(x, pattern = "\\d{5}(KT|G\\d{2}KT)")
+  out[fMPS] <- as.numeric(stringr::str_sub(stringr::str_extract(x[fMPS], pattern = "\\d{5}(MPS|G\\d{2}MPS)"), 4, 5)) * cfm
+  out[fKT] <- as.numeric(stringr::str_sub(stringr::str_extract(x[fKT], pattern = "\\d{5}(KT|G\\d{2}KT)"), 4, 5)) * cfi
   out
 }

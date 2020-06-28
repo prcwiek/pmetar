@@ -27,17 +27,17 @@ metar_get_historical <- function(airport = "EPWA",
                                  from = "iastate"){
 
   # try to find ICAO based on IATA
-  if(str_detect(airport, pattern = "^[A-Za-z]{3}$")){
+  if(stringr::str_detect(airport, pattern = "^[A-Za-z]{3}$")){
     airport <- metar_iata_icao(airport)
   }
 
   # check if airport has the correct format
-  if(!str_detect(airport, pattern = "^[A-Za-z]{4}$")){
+  if(!stringr::str_detect(airport, pattern = "^[A-Za-z]{4}$")){
     stop("ERROR: invalid format of an airport ICAO code!", call. = FALSE)
   }
   # check if dates have correct format
-  if(!str_detect(start_date, pattern = "^\\d{4}[-]\\d\\d[-]\\d\\d$") |
-     !str_detect(end_date, pattern = "^\\d{4}[-]\\d\\d[-]\\d\\d$")){
+  if(!stringr::str_detect(start_date, pattern = "^\\d{4}[-]\\d\\d[-]\\d\\d$") |
+     !stringr::str_detect(end_date, pattern = "^\\d{4}[-]\\d\\d[-]\\d\\d$")){
     stop("ERROR: invalid format of start_date and/or end_date!", call. = FALSE)
   }
 
@@ -46,12 +46,12 @@ metar_get_historical <- function(airport = "EPWA",
     stop("ERROR: star_date is equal or later than end_date!", call. = FALSE)
   }
 
-  syear <- str_sub(start_date, 1, 4)
-  smonth <- str_sub(start_date, 6, 7)
-  sday <- str_sub(start_date, 9, 10)
-  eyear <- str_sub(end_date, 1, 4)
-  emonth <- str_sub(end_date, 6, 7)
-  eday <- str_sub(end_date, 9, 10)
+  syear <- stringr::str_sub(start_date, 1, 4)
+  smonth <- stringr::str_sub(start_date, 6, 7)
+  sday <- stringr::str_sub(start_date, 9, 10)
+  eyear <- stringr::str_sub(end_date, 1, 4)
+  emonth <- stringr::str_sub(end_date, 6, 7)
+  eday <- stringr::str_sub(end_date, 9, 10)
 
   if(from == "ogimet"){
     link <- paste0("http://www.ogimet.com/display_metars2.php?lang=en&lugar=",
@@ -81,7 +81,7 @@ metar_get_historical <- function(airport = "EPWA",
                "'. Please use 'ogimet' or 'iastate'.", sep = ""), call. = FALSE)
   }
 
-  myfile <- getURL(link, ssl.verifyhost = FALSE, ssl.verifypeer = FALSE)
+  myfile <- RCurl::getURL(link, ssl.verifyhost = FALSE, ssl.verifypeer = FALSE)
 
   if(myfile == "ERROR: Malformed Date!"){
     stop(paste("Message from mesonet.agron.iastate.edu :", "ERROR: Malformed Date!"), call. = FALSE)
@@ -96,8 +96,8 @@ metar_get_historical <- function(airport = "EPWA",
     ds <- as.data.frame(ds[ids:ide,1], stringsAsFactors = FALSE)
     colnames(ds) <- c("x")
     pattern <- "^[\\d]+\\s(?:METAR|SPECI)"
-    ds$x <- str_trim(ds$x)
-    idd <- str_detect(ds$x, pattern = pattern)
+    ds$x <- stringr::str_trim(ds$x)
+    idd <- stringr::str_detect(ds$x, pattern = pattern)
     i <- 1
     out <- data.frame(metar = "empty", stringsAsFactors = FALSE)
     metartext <- "empty"
@@ -110,9 +110,9 @@ metar_get_historical <- function(airport = "EPWA",
     }
     out <- out[3:nrow(out),]
   } else {#if(from == "iastate") {
-    ds[,2] <- str_replace_all(ds[,2], "[[:punct:]]", "")
-    ds[,2] <- str_replace_all(ds[,2], " ", "")
-    ds[,3] <- str_trim(ds[,3])
+    ds[,2] <- stringr::str_replace_all(ds[,2], "[[:punct:]]", "")
+    ds[,2] <- stringr::str_replace_all(ds[,2], " ", "")
+    ds[,3] <- stringr::str_trim(ds[,3])
     out <- paste(ds[,2], "METAR", ds[,3], sep = " ")
   }
   out

@@ -27,23 +27,23 @@ metar_visibility <- function(x, metric = TRUE) {
   out <- c(1:length(x))
   out[1:length(x)] <- NA
   # cases like 1 3/4SM
-  fT <- str_detect(x, pattern = "\\s\\d\\s\\d\\/\\dSM\\s")
-  out[fT] <- (as.numeric(str_extract(str_extract(x[fT], pattern = "\\s\\d\\s\\d\\/\\dSM\\s"), pattern = "\\s\\d\\s")) +
-                   as.numeric(str_sub(str_extract(str_extract(x[fT], pattern = "\\s\\d\\s\\d\\/\\dSM\\s"), pattern = "\\d\\/"), 1, 1)) /
-                   as.numeric(str_sub(str_extract(str_extract(x[fT], pattern = "\\s\\d\\s\\d\\/\\dSM\\s"), pattern = "\\/\\d"), -1, -1))) * cfi
+  fT <- stringr::str_detect(x, pattern = "\\s\\d\\s\\d\\/\\dSM\\s")
+  out[fT] <- (as.numeric(stringr::str_extract(stringr::str_extract(x[fT], pattern = "\\s\\d\\s\\d\\/\\dSM\\s"), pattern = "\\s\\d\\s")) +
+                   as.numeric(stringr::str_sub(stringr::str_extract(stringr::str_extract(x[fT], pattern = "\\s\\d\\s\\d\\/\\dSM\\s"), pattern = "\\d\\/"), 1, 1)) /
+                   as.numeric(stringr::str_sub(stringr::str_extract(stringr::str_extract(x[fT], pattern = "\\s\\d\\s\\d\\/\\dSM\\s"), pattern = "\\/\\d"), -1, -1))) * cfi
   # cases like 3/4SM
-  fT2 <- str_detect(x, pattern = "\\s\\d\\/\\dSM\\s")
+  fT2 <- stringr::str_detect(x, pattern = "\\s\\d\\/\\dSM\\s")
   fT <- !(fT & fT2)
-  out[fT] <- (as.numeric(str_sub(str_extract(x[fT], pattern = "\\s\\d\\/\\dSM\\s"), 2, 2)) /
-                   as.numeric(str_sub(str_extract(x[fT], pattern = "\\s\\d\\/\\dSM\\s"), 4, 4))) * cfi
-  fT <- str_detect(x, pattern = "\\s\\d{4}\\s")
-  out[fT] <- as.numeric(str_sub(str_extract(x[fT], pattern = "\\s[\\d]{4}\\s"), 2, 5)) * cfm
-  fT <- str_detect(x, pattern = "\\s[\\d]+SM\\s")
-  out[fT] <- as.numeric(str_sub(str_extract(x[fT], pattern = "\\s[\\d]+SM\\s"), 1, -4)) * cfi
+  out[fT] <- (as.numeric(stringr::str_sub(stringr::str_extract(x[fT], pattern = "\\s\\d\\/\\dSM\\s"), 2, 2)) /
+                   as.numeric(stringr::str_sub(stringr::str_extract(x[fT], pattern = "\\s\\d\\/\\dSM\\s"), 4, 4))) * cfi
+  fT <- stringr::str_detect(x, pattern = "\\s\\d{4}\\s")
+  out[fT] <- as.numeric(stringr::str_sub(stringr::str_extract(x[fT], pattern = "\\s[\\d]{4}\\s"), 2, 5)) * cfm
+  fT <- stringr::str_detect(x, pattern = "\\s[\\d]+SM\\s")
+  out[fT] <- as.numeric(stringr::str_sub(stringr::str_extract(x[fT], pattern = "\\s[\\d]+SM\\s"), 1, -4)) * cfi
   # CAVOK - Ceiling And Visibility OK, indicating no cloud below 5,000 ft (1,500 m) or
   # the highest minimum sector altitude and no cumulonimbus or towering cumulus at any level,
   # a visibility of 10 km (6 mi) or more and no significant weather change
-  fT <- str_detect(x, pattern = "CAVOK")
+  fT <- stringr::str_detect(x, pattern = "CAVOK")
   out[fT] <- "Ceiling And Visibility OK"
   out
 }

@@ -15,12 +15,12 @@
 #'
 metar_day <- function(x){
   if(x[1] != ""){
-    if(str_detect(x, pattern = "[\\d]+.\\s")[1] & !str_detect(x, pattern = "^[\\d]+\\s[\\w]+\\s[\\w]+\\s[\\d]+.\\s")[1]){
-      out <- str_extract(x, pattern = "[\\d]+.\\s")
-      as.numeric(str_sub(out, 1, 2))
+    if(stringr::str_detect(x, pattern = "[\\d]+.\\s")[1] & !stringr::str_detect(x, pattern = "^[\\d]+\\s[\\w]+\\s[\\w]+\\s[\\d]+.\\s")[1]){
+      out <- stringr::str_extract(x, pattern = "[\\d]+.\\s")
+      as.numeric(stringr::str_sub(out, 1, 2))
     } else {
-      out <- str_extract(x, pattern = "^[\\d]+\\s[\\w]+\\s[\\w]+\\s[\\d]+.\\s")
-      as.numeric(str_sub(out, 25, 26))
+      out <- stringr::str_extract(x, pattern = "^[\\d]+\\s[\\w]+\\s[\\w]+\\s[\\d]+.\\s")
+      as.numeric(stringr::str_sub(out, 25, 26))
     }
   } else {
     cat("Argument missing!\n")

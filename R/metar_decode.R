@@ -73,16 +73,16 @@
 metar_decode <- function(x, metric = TRUE){
   tryCatch(
     expr = {
-      if(str_detect(x, pattern = "^[\\d]+ METAR")[1]) {
+      if(stringr::str_detect(x, pattern = "^[\\d]+ METAR")[1]) {
         td <- c(1:length(x))
-        td <- str_extract(x, pattern = "^[\\d]+ METAR")
-        myear <- as.numeric(str_sub(td, 1, 4))
-        mmonth <- as.numeric(str_sub(td, 5, 6))
-        mday <- as.numeric(str_sub(td, 7, 8))
-        mhour <- as.numeric(str_sub(td, 9, 10))
-        mminute <- as.numeric(str_sub(td, 11, 12))
-        metar_date <- make_datetime(myear, mmonth, mday, mhour, mminute, tz = "UTC")
-        out <- tibble(x)
+        td <- stringr::str_extract(x, pattern = "^[\\d]+ METAR")
+        myear <- as.numeric(stringr::str_sub(td, 1, 4))
+        mmonth <- as.numeric(stringr::str_sub(td, 5, 6))
+        mday <- as.numeric(stringr::str_sub(td, 7, 8))
+        mhour <- as.numeric(stringr::str_sub(td, 9, 10))
+        mminute <- as.numeric(stringr::str_sub(td, 11, 12))
+        metar_date <- lubridate::make_datetime(myear, mmonth, mday, mhour, mminute, tz = "UTC")
+        out <- dplyr::tibble(x)
         out <- out %>%
           mutate(Airport_ICAO = metar_airport(out$x)) %>%
           mutate(Metar_Date = metar_date) %>%
@@ -115,7 +115,7 @@ metar_decode <- function(x, metric = TRUE){
           mutate(Licence = "ANNEX 1 TO WMO RESOLUTION 40 (Cg-XII) http://www.nws.noaa.gov/im/wmor40a1.htm") %>%
           select(-x)
       } else {
-        out <- tibble(x)
+        out <- dplyr::tibble(x)
         out <- out %>%
           mutate(Airport_ICAO = metar_airport(out$x)) %>%
           mutate(Day_of_Month = metar_day(out$x)) %>%
