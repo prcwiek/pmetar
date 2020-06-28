@@ -6,6 +6,8 @@
 #'
 #' @return A character vector.
 #'
+#' @importFrom magrittr %>%
+#'
 #' @export
 #'
 #' @examples
@@ -22,12 +24,12 @@ metar_iata_icao <- function(x = "WAW") {
   x <- stringr::str_to_upper(x)
   if(stringr::str_detect(x, pattern = "^[A-Z]{4}$")){
     out <- ourairports %>%
-      filter(ident == x) %>%
-      select(iata_code)
+      dplyr::filter(ident == x) %>%
+      dplyr::select(iata_code)
   } else if(stringr::str_detect(x, pattern = "^[A-Z]{3}$")){
     out <- ourairports %>%
-      filter(iata_code == x) %>%
-      select(ident)
+      dplyr::filter(iata_code == x) %>%
+      dplyr::select(ident)
   } else {
     stop("Incorrect ICAO or IATA airport code!\n", call. = FALSE)
   }
