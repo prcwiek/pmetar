@@ -7,20 +7,16 @@ AuthorS@R: person("Pawel", "Cwiek", email = "",
 Description: Package allows to download current and historical METAR weather reports and decode basic parameters.
 Depends:
   R (>= 3.1),
-  dplyr,
-  lubridate,
-  RCurl,
-  stringr  
 Imports:
   dplyr,
   lubridate,
   RCurl,
   stringr
+Suggests: 
+    knitr,
+    rmarkdown
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.1.0
-Suggests: 
-    knitr,
-    rmarkdown
 VignetteBuilder: knitr
