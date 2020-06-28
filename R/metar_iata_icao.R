@@ -16,15 +16,15 @@
 #' metar_iata_icao("FRA")
 #' metar_iata_icao("KRK")
 #'
-metar_iata_icao <- function(x) {
+metar_iata_icao <- function(x = "WAW") {
   cat("Getting airport informaiton from the file downloaded from\n")
   cat("http://ourairports.com/data/airports.csv\n")
-
-  if(str_detect(x, pattern = "^[A-Za-z]{4}$")){
+  x <- str_to_upper(x)
+  if(str_detect(x, pattern = "^[A-Z]{4}$")){
     out <- ourairports %>%
       filter(ident == x) %>%
       select(iata_code)
-  } else if(str_detect(x, pattern = "^[A-Za-z]{3}$")){
+  } else if(str_detect(x, pattern = "^[A-Z]{3}$")){
     out <- ourairports %>%
       filter(iata_code == x) %>%
       select(ident)
