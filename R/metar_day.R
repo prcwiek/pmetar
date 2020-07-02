@@ -1,10 +1,10 @@
-#' Extract day.
+#' Extract day of month.
 #'
-#' Function extracts a day of a month from METAR weather report.
+#' Extracts a day of a month from METAR weather report.
 #'
-#' @param x Input character vector
+#' @param x character; a METAR weather report or reports.
 #'
-#' @return A numeric vector.
+#' @return A numeric vector with a day of a month.
 #'
 #' @export
 #'

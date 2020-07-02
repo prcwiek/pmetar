@@ -1,10 +1,10 @@
-#' Extract airport name.
+#' Extract airport ICAO code.
 #'
-#' Function extracts an ICAO code of an airport from METAR weather report.
+#' Extracts an airport ICAO code from METAR weather report.
 #'
-#' @param x Input character vector.
+#' @param x character; a METAR weather report or reports.
 #'
-#' @return A character vector.
+#' @return A character vector with an airport ICAO code.
 #'
 #' @export
 #'

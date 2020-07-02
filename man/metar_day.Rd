@@ -2,18 +2,18 @@
 % Please edit documentation in R/metar_day.R
 \name{metar_day}
 \alias{metar_day}
-\title{Extract day.}
+\title{Extract day of month.}
 \usage{
 metar_day(x)
 }
 \arguments{
-\item{x}{Input character vector}
+\item{x}{character; a METAR weather report or reports.}
 }
 \value{
-A numeric vector.
+A numeric vector with a day of a month.
 }
 \description{
-Function extracts a day of a month from METAR weather report.
+Extracts a day of a month from METAR weather report.
 }
 \examples{
 metar_day("EPWA 281830Z 18009KT 140V200 9999 SCT037 03/M01 Q1008 NOSIG")

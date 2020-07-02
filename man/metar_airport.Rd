@@ -2,18 +2,18 @@
 % Please edit documentation in R/metar_airport.R
 \name{metar_airport}
 \alias{metar_airport}
-\title{Extract airport name.}
+\title{Extract airport ICAO code.}
 \usage{
 metar_airport(x)
 }
 \arguments{
-\item{x}{Input character vector.}
+\item{x}{character; a METAR weather report or reports.}
 }
 \value{
-A character vector.
+A character vector with an airport ICAO code.
 }
 \description{
-Function extracts an ICAO code of an airport from METAR weather report.
+Extracts an airport ICAO code from METAR weather report.
 }
 \examples{
 metar_airport("EPWA 281830Z 18009KT 140V200 9999 SCT037 03/M01 Q1008 NOSIG")

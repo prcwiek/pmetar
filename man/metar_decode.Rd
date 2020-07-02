@@ -7,72 +7,45 @@
 metar_decode(x, metric = TRUE)
 }
 \arguments{
-\item{x}{Input character vector}
+\item{x}{character vector; a single METAR weather report or historical METAR weather reports.}
 
-\item{metric}{Selection between the metric system and the imperial system. As default metric = TRUE.}
+\item{metric}{logical; if TRUE the metric units will be used, if FALSE, the imperial units.}
 }
 \value{
-A character vector or a tibble.
+A tibble with decoded METAR weather report or reports.
 }
 \description{
-Function extracts information from METAR weather report. Depending of an input vector format
-a returned data frame consists of different values.
+Extracts information from a single METAR weather report or several reports.
 }
 \details{
-For a current METAR report:\cr
-- Airport ICAO\cr
-- Day of Month\cr
-- Hour (HH:mm)\cr
-- Time zone\cr
-- Wind speed \cr
-- Wind speed unit (m/s or kn)\cr
-- Gust \cr
-- Gust unit (m/s or kn) \cr
-- Wind shear\cr
-- Wind direction (degrees)\cr
-- Temperature (degrees Celsius)\cr
-- Dew point (degrees Celsius)\cr
-- Pressure (hPa)\cr
-- Visibility\cr
-- Visibility unit (m or miles)\cr
-- Cloud coverage\cr
-- Weather information from METAR WX codes\cr
-- Airport Name\cr
-- Longitude\cr
-- Latitude\cr
-- Elevation\cr
-- Decode Date\cr
-- Original METAR text\cr
-- Source of information\cr
-- Licence\cr\cr
-
-For a historical METAR report:\cr
-- Airport\cr
-- MetarDate\cr
-- Day of Month\cr
-- Hour (HH:mm)\cr
-- Time zone\cr
-- Wind speed\cr
-- Wind speed unit (m/s or kn)\cr
-- Gust\cr
-- Gust unit (m/s or kn)\cr
-- Wind shear\cr
-- Wind direction (degrees)\cr
-- Temperature (degrees Celsius)\cr
-- Dew point (degrees Celsius)\cr
-- Pressure (hPa)\cr
-- Visibility\cr
-- Visibility unit (m or miles)\cr
-- Cloud coverage\cr
-- Weather information from METAR WX codes\cr
-- Airport.name\cr
-- Longitude\cr
-- Latitude\cr
-- Elevatio (m)\cr
-- Decode.Date\cr
-- Original METAR text\cr
-- Source of information\cr
-- Licence\cr
+Decoded METAR weather report consists of:\cr
+\itemize{
+\item Airport ICAO\cr
+\item Day of Month\cr
+\item Hour (HH:mm)\cr
+\item Time zone\cr
+\item Wind speed \cr
+\item Wind speed unit (m/s or kn)\cr
+\item Gust \cr
+\item Gust unit (m/s or kn) \cr
+\item Wind shear\cr
+\item Wind direction (degrees)\cr
+\item Temperature (Celsius degrees)\cr
+\item Dew point (Celsius degrees)\cr
+\item Pressure (hPa)\cr
+\item Visibility\cr
+\item Visibility unit (m or miles)\cr
+\item Cloud coverage\cr
+\item Weather information from METAR WX codes\cr
+\item Airport Name\cr
+\item Longitude\cr
+\item Latitude\cr
+\item Elevation\cr
+\item Decode Date\cr
+\item Original METAR text\cr
+\item Source of information\cr
+\item Licence\cr\cr
+}
 }
 \examples{
 metar_decode("EPWA 281830Z 18009KT 140V200 9999 SCT037 03/M01 Q1008 NOSIG")

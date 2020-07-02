@@ -1,10 +1,10 @@
 #' Extract dew point temperature.
 #'
-#' Function extracts a dew point temperature value from METAR weather report.
+#' Extracts a dew point temperature value from a METAR weather report or reports.
 #'
-#' @param x Input character vector
+#' @param x character; a METAR weather report or reports.
 #'
-#' @return A numeric vector. A dew point temperature in degrees Celsius.
+#' @return A numeric vector with a dew point temperature in Celsius degrees.
 #'
 #' @export
 #'
@@ -12,7 +12,7 @@
 #' metar_dew_point("EPWA 281830Z 18009KT 140V200 9999 SCT037 03/M01 Q1008 NOSIG")
 #' metar_dew_point("CYUL 281800Z 13008KT 30SM BKN240 01/M06 A3005 RMK CI5 SLP180")
 #' metar_dew_point("201711271930 METAR LEMD 271930Z 02002KT CAVOK 04/M03 Q1025 NOSIG= NOSIG=")
-#' metar_temp("202001010851 METAR KEWR 010851Z 27010KT 10SM FEW030 BKN070 BKN100 BKN210 04/M03 A2969 RMK SLP054 T00391033 52012")
+#' metar_dew_point("202001010851 METAR KEWR 010851Z 27010KT 10SM FEW030 BKN070 BKN100 BKN210 04/M03 A2969 RMK SLP054 T00391033 52012")
 #'
 metar_dew_point <- function(x) {
   out <- c(1:length(x))
