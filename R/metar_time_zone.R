@@ -1,10 +1,10 @@
 #' Extract time zone.
 #'
-#' Function extracts a name of airport from METAR weather report.
+#' Function extracts a time zone of METAR weather report.
 #'
-#' @param x Input character vector
+#' @param x character; a METAR weather report or reports.
 #'
-#' @return A character vector.
+#' @return A character vector with time zone.
 #'
 #' @export
 #'
@@ -14,9 +14,10 @@
 #' metar_time_zone("201711271930 METAR LEMD 271930Z 02002KT CAVOK 04/M03 Q1025 NOSIG= NOSIG=")
 #'
 metar_time_zone <- function(x){
-  out <- stringr::str_extract(x, pattern = "[\\d]+[A-Z]")
-  pUTC <- stringr::str_detect(out, pattern = "Z")
-  out[pUTC] <- "UTC"
-  out[!pUTC] <- "local time"
+  out <- c(1:length(x))
+  out[1:length(x)] <- NA
+  # look for nnnnnn[A-Z], like 281830Z
+  fT <- stringr::str_detect(x, pattern = "\\w{4}\\s\\d{6}[A-Z]")
+  out[fT] <- stringr::str_sub(stringr::str_extract(x[fT], pattern = "\\w{4}\\s\\d{6}[A-Z]"), -1, -1)
   out
 }

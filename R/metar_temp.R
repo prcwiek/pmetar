@@ -2,9 +2,9 @@
 #'
 #' Function extracts a temperature value from METAR weather report.
 #'
-#' @param x Input character vector
+#' @param x character; a METAR weather report or reports.
 #'
-#' @return A numeric vector. A temperature in degrees Celsius.
+#' @return A numeric vector with temperature in degrees Celsius.
 #'
 #' @export
 #'
@@ -17,12 +17,16 @@
 metar_temp <- function(x){
   out <- c(1:length(x))
   out[1:length(x)] <- NA
+  # Look for the first part of the pattern nn/.., M for over 0 Celsisus
+  fT <- stringr::str_detect(x, pattern = "(\\s\\d{2}/\\d{2}|\\s\\d{2}/M\\d{2})")
+  out[fT] <- as.numeric(stringr::str_sub(stringr::str_extract(x[fT], pattern = "(\\s\\d{2}/\\d{2}|\\s\\d{2}/M\\d{2})"), 2, 3))
+  # Look for the first part of the pattern Mnn/..., M for below 0 Celsisus
   fT <- stringr::str_detect(x, pattern = "(M\\d{2}/\\d{2}|M\\d{2}/M\\d{2})")
-  out[fT] <- as.numeric(stringr::str_sub(stringr::str_extract(x[fT], pattern = "(M\\d{2}/\\d{2}|M\\d{2}/M\\d{2})"), 2, 3)) * -1
-  fT <- stringr::str_detect(x, pattern = "(\\d{2}/\\d{2}|\\d{2}/M\\d{2})")
-  out[fT] <- as.numeric(stringr::str_sub(stringr::str_extract(x[fT], pattern = "(\\d{2}/\\d{2}|\\d{2}/M\\d{2})"), 1, 2))
+  out[fT] <- -1.0 * as.numeric(stringr::str_sub(stringr::str_extract(x[fT], pattern = "(M\\d{2}/\\d{2}|M\\d{2}/M\\d{2})"), 2, 3))
+  # Check if a more detailed temperature value is present in the other section of METAR, T0nnnnnnnn over 0 Celsisus
   fT <- stringr::str_detect(x, pattern = "T0[\\d]{3}")
   out[fT] <- as.numeric(stringr::str_sub(stringr::str_extract(x[fT], pattern = "T0[\\d]{3}"), 3, 5)) / 10.0
+  # Check if a more detailed temperature value is present in the other section of METAR, T1nnnnnnnn below 0 Celsisus
   fT <- stringr::str_detect(x, pattern = "T1[\\d]{3}")
   out[fT] <- -1.0 * as.numeric(stringr::str_sub(stringr::str_extract(x[fT], pattern = "T1[\\d]{3}"), 3, 5)) / 10.0
   out

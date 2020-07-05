@@ -14,15 +14,10 @@
 #' metar_day("201711271930 METAR LEMD 271930Z 02002KT CAVOK 04/M03 Q1025 NOSIG= NOSIG=")
 #'
 metar_day <- function(x){
-  if(x[1] != ""){
-    if(stringr::str_detect(x, pattern = "[\\d]+.\\s")[1] & !stringr::str_detect(x, pattern = "^[\\d]+\\s[\\w]+\\s[\\w]+\\s[\\d]+.\\s")[1]){
-      out <- stringr::str_extract(x, pattern = "[\\d]+.\\s")
-      as.numeric(stringr::str_sub(out, 1, 2))
-    } else {
-      out <- stringr::str_extract(x, pattern = "^[\\d]+\\s[\\w]+\\s[\\w]+\\s[\\d]+.\\s")
-      as.numeric(stringr::str_sub(out, 25, 26))
-    }
-  } else {
-    cat("Argument missing!\n")
-  }
+  out <- c(1:length(x))
+  out[1:length(x)] <- NA
+  # look for nnnnnn[A-Z], like 281830Z
+  fT <- stringr::str_detect(x, pattern = "\\w{4}\\s\\d{6}[A-Z]")
+  out[fT] <- as.numeric(stringr::str_sub(stringr::str_extract(x[fT], pattern = "\\w{4}\\s\\d{6}[A-Z]"), -7, -6))
+  out
 }
