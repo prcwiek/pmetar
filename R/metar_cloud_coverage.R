@@ -32,7 +32,6 @@ metar_cloud_coverage <- function(x) {
         dplyr::mutate_if(is.character, stringr::str_remove, pattern = to_remove_2) %>%
         dplyr::mutate_if(is.character, as.numeric)
     }
-
     dist <- dist * 100
     dist_m <- dist * 0.3048
     dist <- tidyr::unite(dist, ft, sep = ", ", na.rm = TRUE)
@@ -41,17 +40,16 @@ metar_cloud_coverage <- function(x) {
   }
 
   # define list of patterns and description texts
-  lp_dt <- data.frame(pattern_text = c("FEW[\\d]+\\s",
-                                       "SCT[\\d]+\\s",
-                                       "SCT[\\d]+CB",
-                                       "BKN[\\d]+\\s",
-                                       "BKN[\\d]+CB"),
+  lp_dt <- data.frame(pattern_text = c("FEW\\d{3}\\s",
+                                       "SCT\\d{3}\\s",
+                                       "SCT\\d{3}CB",
+                                       "BKN\\d{3}\\s",
+                                       "BKN\\d{3}CB"),
                       description_text = c("Few (1–2 oktas) at ",
                                            "Scattered (3–4 oktas) at ",
                                            "Scattered (3–4 oktas) cumulonimbus clouds at ",
                                            "Broken (5–7 oktas) at ",
                                            "Broken (5–7 oktas) cumulonimbus clouds at "))
-
   out <- c(1:length(x))
   out[1:length(x)] <- ""
   # SKC - "No cloud/Sky clear" used worldwide but in
@@ -72,11 +70,10 @@ metar_cloud_coverage <- function(x) {
     if(sum(fT) > 0) {
       df_dist <- as.data.frame(stringr::str_extract_all(x[fT], pattern = lp_dt$pattern_text[i], simplify = TRUE))
       ldist <- multi_extracting(df_dist, lp_dt$pattern_text[i])
-      #browser()
       out[fT] <- paste0(out[fT], lp_dt$description_text[i], ldist$ft, " ft (", ldist$m, " m), ")
     }
   }
-  # OVC
+  # OVCnnn
   fT <- stringr::str_detect(x, pattern = "OVC[\\d]+\\s")
   dist <- as.numeric(stringr::str_sub(stringr::str_extract(x[fT], pattern = "OVC[\\d]+\\s"), 4, 6)) * 100
   dist_m <- dist * 0.3048

@@ -17,8 +17,9 @@ metar_airport <- function(x) {
   out <- c(1:length(x))
   out[1:length(x)] <- NA
   fT <- stringr::str_detect(x, pattern = "(^[\\d]+(?: METAR| SPECI)|^METAR|^SPECI)")
-  out[fT] <- stringr::str_sub(stringr::str_extract(x[fT], pattern = "(?:METAR|SPECI)\\s\\w{4}"), -4, -1)
+  out[fT] <- stringr::str_sub(stringr::str_extract(x[fT], pattern = "(?:METAR|SPECI)\\s[A-Z]{4}"), -4, -1)
   fT <- stringr::str_detect(x, pattern = "^\\w{4}\\s")
-  out[fT] <- stringr::str_sub(stringr::str_extract(x[fT], pattern = "^\\w{4}\\s"), 1, 4)
+  out[fT] <- stringr::str_sub(stringr::str_extract(x[fT], pattern = "^[A-Z]{4}\\s"), 1, 4)
+  out[is.na(out)] <- "Incorrect METAR!"
   out
 }
