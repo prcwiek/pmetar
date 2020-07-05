@@ -5,10 +5,11 @@
 #' ASOS-AWOS-METAR http://mesonet.agron.iastate.edu/AWOS/ \cr
 #' The secondary source is Weather Information Service provided by Ogimet http://www.ogimet.com/
 #'
-#' @param airport Input character vector with an ICAO or IATA airport code
-#' @param start_date Input character vector
-#' @param end_date Input character vector
-#' @param from Input character vector, allowed values are "iastate" and "ogimet"
+#' @param airport character;  ICAO or IATA airport code.
+#' @param start_date character; start date.
+#' @param end_date character; end date.
+#' @param from character; selection of online METAR database, \cr allowed values are "iastate" for  ASOS-AWOS-METAR http://mesonet.agron.iastate.edu/AWOS/ \cr
+#' and "ogimet" for Weather Information Service provided by Ogimet http://www.ogimet.com/.
 #'
 #' @return A character vector for a current METAR weather report.
 #' @return A data frame character vectors with historical METAR weather report.
@@ -18,12 +19,12 @@
 #' @examples
 #' metar_get_historical("EPWA", start_date = "2017-11-20", end_date = "2017-11-25")
 #' metar_get_historical("CYUL", start_date = "2016-07-01", end_date = "2016-07-10", from = "ogimet")
-#' metar_get_historical("LEMD", start_date = "2000-06-01", end_date = "2000-06-02", from = "iastate")
+#' metar_get_historical("MAD", start_date = "2000-06-01", end_date = "2000-06-02", from = "iastate")
 #'
 #'
 metar_get_historical <- function(airport = "EPWA",
-                                 start_date = "2017-11-21",
-                                 end_date = "2017-11-22",
+                                 start_date = "2020-01-01",
+                                 end_date = "2020-01-10",
                                  from = "iastate"){
 
   # try to find ICAO based on IATA
