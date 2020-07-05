@@ -2,7 +2,7 @@ Package: pmetar
 Type: Package
 Title: Processing METAR weather reports
 Description: Package allows to download current and historical METAR weather reports and decode basic parameters.
-Version: 0.2.6.02
+Version: 0.2.6.03
 AuthorS@R: person("Pawel", "Cwiek", email = "",
                   role = c("aut", "cre"))
 URL: https://github.com/prcwiek/pmetar
@@ -18,7 +18,8 @@ Imports:
   stringr
 Suggests: 
     knitr,
-    rmarkdown
+    rmarkdown,
+    testthat
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
