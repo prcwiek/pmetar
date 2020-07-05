@@ -28,11 +28,10 @@
 #' \item Decode Date\cr
 #' \item Original METAR text\cr
 #' \item Source of information\cr
-#' \item Licence\cr\cr
 #' }
 #'
 #' @param x character vector; a single METAR weather report or historical METAR weather reports.
-#' @param metric logical; if TRUE the metric units will be used, if FALSE, the imperial units.
+#' @param metric logical; if TRUE wind speeds returned in m/s, distances in meters.\cr If FALSE, wind speeds returned in knots and distances in miles.
 #'
 #' @return A tibble with decoded METAR weather report or reports.
 #'
@@ -87,7 +86,6 @@ metar_decode <- function(x, metric = TRUE){
           dplyr::mutate(Decode_Date = Sys.time()) %>%
           dplyr::mutate(Original_METAR = out$x) %>%
           dplyr::mutate(Source = "mesonet.agron.iastate.edu/AWOS or www.ogimet.com") %>%
-          dplyr::mutate(Licence = "ANNEX 1 TO WMO RESOLUTION 40 (Cg-XII) http://www.nws.noaa.gov/im/wmor40a1.htm") %>%
           dplyr::select(-x)
       } else {
         out <- dplyr::tibble(x)
@@ -120,7 +118,6 @@ metar_decode <- function(x, metric = TRUE){
           dplyr::mutate(Decode_Date = Sys.time()) %>%
           dplyr::mutate(Original_METAR = out$x) %>%
           dplyr::mutate(Source = "www.aviationweather.gov/metar") %>%
-          dplyr::mutate(Licence = "ANNEX 1 TO WMO RESOLUTION 40 (Cg-XII) http://www.nws.noaa.gov/im/wmor40a1.htm") %>%
           dplyr::select(-x)
       }
       out
