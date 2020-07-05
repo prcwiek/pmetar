@@ -7,14 +7,16 @@
 metar_location(x)
 }
 \arguments{
-\item{x}{Input character vector, an airport ICAO four letters code or IATA three letters code}
+\item{x}{character; an airport ICAO four letters code or an IATA three letters code.}
 }
 \value{
 A tibble with columns which consists of airport ICAO code, IATA code airport name, longitude, latitude,
- elevation in meters, source of information
+ elevation in meters and source of information
 }
 \description{
-Function extracts approximated lattitude, longitude and elevation for a given airport code.
+Function findss approximated latitude, longitude and elevation of an airport according to \cr
+IATA, International Air Transport Association, or \cr
+ICAO, International Civil Aviation Organization, airport code
 }
 \examples{
 metar_location("EPWA")

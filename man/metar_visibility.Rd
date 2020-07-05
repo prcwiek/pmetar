@@ -7,15 +7,15 @@
 metar_visibility(x, metric = TRUE)
 }
 \arguments{
-\item{x}{Input character vector}
+\item{x}{character; a METAR weather report or reports.}
 
-\item{metric}{Selection between the metric system and the imperial system. As default metric = TRUE.}
+\item{metric}{For the default metric = TRUE returned distances are in meters. If it's FALSE, in miles.}
 }
 \value{
-A numeric vector. A visibility in meters or miles.
+A numeric vector with visibility information, in meters or miles.
 }
 \description{
-Function extracts a visibility value from METAR weather report.
+Function extracts visibility information from METAR weather report.
 }
 \examples{
 metar_visibility("EPWA 281830Z 18009KT 140V200 9999 SCT037 03/M01 Q1008 NOSIG")

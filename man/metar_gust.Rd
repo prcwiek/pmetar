@@ -9,7 +9,7 @@ metar_gust(x, metric = TRUE)
 \arguments{
 \item{x}{Input character vector}
 
-\item{metric}{Selection between the metric system and the imperial system. As default metric = TRUE.}
+\item{metric}{For the default metric = TRUE a returned gust wind speed is in m/s. If it's FALSE, in knots.}
 }
 \value{
 A numeric vector. A gust speed.

@@ -7,10 +7,10 @@
 metar_hour(x)
 }
 \arguments{
-\item{x}{Input character vector}
+\item{x}{character; a METAR weather report or reports.}
 }
 \value{
-A character vector HH:mm.
+A character vector with the METAR time in the format HH:mm.
 }
 \description{
 Function extracts an hour and minutes from METAR weather report.

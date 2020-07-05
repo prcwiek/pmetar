@@ -7,7 +7,7 @@
 metar_get(airport = "EPWA")
 }
 \arguments{
-\item{airport}{Input character vector with an ICAO airport code}
+\item{airport}{character; ICAO or an IATA airport code.}
 }
 \value{
 A character vector with a current METAR weather report.
@@ -22,7 +22,7 @@ the web page https://aviationweather.gov/metar/\cr
 \examples{
 metar_get("EPWA")
 metar_get("CYUL")
-metar_get("LEMD")
+metar_get("MAD")
 metar_get("WAW")
 
 }

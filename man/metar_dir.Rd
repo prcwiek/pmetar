@@ -4,10 +4,12 @@
 \alias{metar_dir}
 \title{Extract wind direction.}
 \usage{
-metar_dir(x)
+metar_dir(x, numeric_dir_only = FALSE)
 }
 \arguments{
-\item{x}{Input character vector}
+\item{x}{character; Input character vector}
+
+\item{numeric_dir_only}{logical; if TRUE only a numeric value of direction will be extracted}
 }
 \value{
 A numeric vector. A wind direction in degrees.

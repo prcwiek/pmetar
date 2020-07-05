@@ -7,10 +7,10 @@
 metar_pressure(x)
 }
 \arguments{
-\item{x}{Input character vector}
+\item{x}{character; a METAR weather report or reports.}
 }
 \value{
-A numeric vector. An air pressure in hPa.
+A numeric vector with air pressure in hPa.
 }
 \description{
 Function extracts an air pressure value from METAR weather report.

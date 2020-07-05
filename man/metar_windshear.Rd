@@ -7,15 +7,15 @@
 metar_windshear(x, metric = TRUE)
 }
 \arguments{
-\item{x}{Input character vector.}
+\item{x}{character; METAR weather report or reports.}
 
-\item{metric}{Selection between the metric system and the imperial system. As default metric = TRUE.}
+\item{metric}{For the default metric = TRUE a returned wind speed is in m/s. If it's FALSE, in knots.}
 }
 \value{
 A character vector with information about wind shear.
 }
 \description{
-Function extracts a wind speed value from METAR weather report.
+Function extracts information about wind shear from METAR weather report.
 }
 \examples{
 metar_windshear("202003180800 METAR VHHH 180800Z 12009KT 060V150 9999 FEW010 SCT045 22/18 Q1012 WS R07R NOSIG")

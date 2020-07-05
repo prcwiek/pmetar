@@ -2,18 +2,20 @@
 % Please edit documentation in R/metar_iata_icao.R
 \name{metar_iata_icao}
 \alias{metar_iata_icao}
-\title{Convert IATA airport code to ICAO airport code and vice versa.}
+\title{Convert IATA, International Air Transport Association, airport code to\cr
+ICAO, International Civil Aviation Organization,  airport code and vice versa.}
 \usage{
 metar_iata_icao(x = "WAW")
 }
 \arguments{
-\item{x}{Input character vector.}
+\item{x}{character; an airport ICAO four letters code or an IATA three letters code.}
 }
 \value{
-A character vector.
+A character vector with an IATA code an ICAO input code or an ICAO code an IATA input code.
 }
 \description{
-Convert IATA airport code to ICAO airport code and vice versa.
+Convert IATA, International Air Transport Association, airport code to\cr
+ICAO, International Civil Aviation Organization,  airport code and vice versa.
 }
 \examples{
 metar_iata_icao("EPWA")

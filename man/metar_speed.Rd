@@ -7,9 +7,9 @@
 metar_speed(x, metric = TRUE)
 }
 \arguments{
-\item{x}{Input character vector.}
+\item{x}{character; METAR weather report or reports.}
 
-\item{metric}{Selection between the metric system and the imperial system. As default metric = TRUE.}
+\item{metric}{For the default metric = TRUE a returned wind speed is in m/s. If it's FALSE, in knots.}
 }
 \value{
 A numeric vector. A wind speed in m/s.

@@ -9,7 +9,7 @@ metar_decode(x, metric = TRUE)
 \arguments{
 \item{x}{character vector; a single METAR weather report or historical METAR weather reports.}
 
-\item{metric}{logical; if TRUE the metric units will be used, if FALSE, the imperial units.}
+\item{metric}{logical; if TRUE wind speeds returned in m/s, distances in meters.\cr If FALSE, wind speeds returned in knots and distances in miles.}
 }
 \value{
 A tibble with decoded METAR weather report or reports.
@@ -44,7 +44,6 @@ Decoded METAR weather report consists of:\cr
 \item Decode Date\cr
 \item Original METAR text\cr
 \item Source of information\cr
-\item Licence\cr\cr
 }
 }
 \examples{

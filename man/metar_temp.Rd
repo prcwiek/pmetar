@@ -7,10 +7,10 @@
 metar_temp(x)
 }
 \arguments{
-\item{x}{Input character vector}
+\item{x}{character; a METAR weather report or reports.}
 }
 \value{
-A numeric vector. A temperature in degrees Celsius.
+A numeric vector with temperature in degrees Celsius.
 }
 \description{
 Function extracts a temperature value from METAR weather report.

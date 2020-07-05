@@ -7,13 +7,13 @@
 metar_time_zone(x)
 }
 \arguments{
-\item{x}{Input character vector}
+\item{x}{character; a METAR weather report or reports.}
 }
 \value{
-A character vector.
+A character vector with time zone.
 }
 \description{
-Function extracts a name of airport from METAR weather report.
+Function extracts a time zone of METAR weather report.
 }
 \examples{
 metar_time_zone("EPWA 281830Z 18009KT 140V200 9999 SCT037 03/M01 Q1008 NOSIG")
