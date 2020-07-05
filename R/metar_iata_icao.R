@@ -1,10 +1,9 @@
-#' Convert IATA airport code to ICAO airport code and vice versa.
+#' Convert IATA, International Air Transport Association, airport code to\cr
+#' ICAO, International Civil Aviation Organization,  airport code and vice versa.
 #'
-#' @param x Input character vector, an airport ICAO four letters code or IATA three letters code
+#' @param x character; an airport ICAO four letters code or an IATA three letters code.
 #'
-#' @param x Input character vector.
-#'
-#' @return A character vector.
+#' @return A character vector with an IATA code an ICAO input code or an ICAO code an IATA input code.
 #'
 #' @importFrom magrittr %>%
 #'
@@ -33,7 +32,6 @@ metar_iata_icao <- function(x = "WAW") {
   } else {
     stop("Incorrect ICAO or IATA airport code!\n", call. = FALSE)
   }
-
   if(nrow(out) > 0){
     as.character(out)
   } else{

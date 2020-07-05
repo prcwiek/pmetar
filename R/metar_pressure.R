@@ -2,9 +2,9 @@
 #'
 #' Function extracts an air pressure value from METAR weather report.
 #'
-#' @param x Input character vector
+#' @param x character; a METAR weather report or reports.
 #'
-#' @return A numeric vector. An air pressure in hPa.
+#' @return A numeric vector with air pressure in hPa.
 #'
 #' @export
 #'

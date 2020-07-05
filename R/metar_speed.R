@@ -2,8 +2,8 @@
 #'
 #' Function extracts a wind speed value from METAR weather report.
 #'
-#' @param x Input character vector.
-#' @param metric Selection between the metric system and the imperial system. As default metric = TRUE.
+#' @param x character; METAR weather report or reports.
+#' @param metric For the default metric = TRUE a returned wind speed is in m/s. If it's FALSE, in knots.
 #'
 #' @return A numeric vector. A wind speed in m/s.
 #'
@@ -15,6 +15,7 @@
 #' metar_speed("201711271930 METAR LEMD 271930Z 02002KT CAVOK 04/M03 Q1025 NOSIG= NOSIG=")
 #'
 metar_speed <- function(x, metric = TRUE){
+  # define conversion coefficients
   if(metric){
     cfm <- 1
     cfi <- 0.5144447

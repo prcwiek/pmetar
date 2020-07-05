@@ -1,11 +1,13 @@
 #' Extract approximated airport location.
 #'
-#' Function extracts approximated lattitude, longitude and elevation for a given airport code.
+#' Function findss approximated latitude, longitude and elevation of an airport according to \cr
+#' IATA, International Air Transport Association, or \cr
+#' ICAO, International Civil Aviation Organization, airport code
 #'
-#' @param x Input character vector, an airport ICAO four letters code or IATA three letters code
+#' @param x character; an airport ICAO four letters code or an IATA three letters code.
 #'
 #' @return A tibble with columns which consists of airport ICAO code, IATA code airport name, longitude, latitude,
-#'  elevation in meters, source of information
+#'  elevation in meters and source of information
 #'
 #' @export
 #'
@@ -20,6 +22,7 @@ metar_location <- function(x) {
   cat("Getting airport informaiton from the file downloaded from\n")
   cat("http://ourairports.com/data/airports.csv\n")
 
+  # check if x is IATA or ICAO and convert
   if(sum(stringr::str_count(x, pattern = "^[A-Za-z]{4}$")) >= 1){
     nmatched <- match(x, ourairports$ident)
   } else if(sum(stringr::str_count(x, pattern = "^[A-Za-z]{3}$")) >= 1){

@@ -1,9 +1,9 @@
 #' Extract wind shear information
 #'
-#' Function extracts a wind speed value from METAR weather report.
+#' Function extracts information about wind shear from METAR weather report.
 #'
-#' @param x Input character vector.
-#' @param metric Selection between the metric system and the imperial system. As default metric = TRUE.
+#' @param x character; METAR weather report or reports.
+#' @param metric For the default metric = TRUE a returned wind speed is in m/s. If it's FALSE, in knots.
 #'
 #' @return A character vector with information about wind shear.
 #'
@@ -15,6 +15,7 @@
 #' metar_windshear("KPIT 091730Z 091818 22020KT 3SM -SHRA BKN020 WS015/30045KT", metric = FALSE)
 #'
 metar_windshear <- function(x, metric = TRUE) {
+  # define conversion coefficients
   if(metric){
     cfm <- 1
     cfi <- 0.3048

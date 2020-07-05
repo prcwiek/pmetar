@@ -6,7 +6,7 @@
 #' the web page https://aviationweather.gov/metar/\cr
 #' \cr
 #'
-#' @param airport Input character vector with an ICAO airport code
+#' @param airport character; ICAO or an IATA airport code.
 #'
 #' @return A character vector with a current METAR weather report.
 #'
@@ -15,7 +15,7 @@
 #' @examples
 #' metar_get("EPWA")
 #' metar_get("CYUL")
-#' metar_get("LEMD")
+#' metar_get("MAD")
 #' metar_get("WAW")
 #'
 metar_get <- function(airport = "EPWA"){
