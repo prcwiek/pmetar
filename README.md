@@ -19,3 +19,7 @@ Please take into consideration that the http://www.ogimet.com/ can block too fre
 <li> The first choice is the file http://ourairports.com/data/airports.csv available on the web page http://ourairports.com</li><br>
 <li> If information can't be found the second source is searched, the ADDS Station Table prepared by Greg Thompson NCAR/RAP. The file is available on the web page of Aviation Weather Center https://www.aviationweather.gov/docs/metar/stations.txt</li>
 </ol>
+<br>
+<h4><b>Package pmetar is for extracting information, from current or historical METAR reports, only.
+<br><br>
+Don't use it for flight planning or navigation.</b></h4>
