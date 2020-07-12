@@ -4,7 +4,7 @@
 #' IATA, International Air Transport Association, or \cr
 #' ICAO, International Civil Aviation Organization, airport code
 #'
-#' @param x character; an airport ICAO four letters code or an IATA three letters code.
+#' @param code character; an airport ICAO four letters code or an IATA three letters code.
 #'
 #' @return A tibble with columns which consists of airport ICAO code, IATA code airport name, longitude, latitude,
 #'  elevation in meters and source of information
@@ -18,44 +18,33 @@
 #' metar_loaction("WAW")
 #' metar_location("FRA")
 #'
-metar_location <- function(x) {
+metar_location <- function(code = "EPWA") {
   cat("Getting airport informaiton from the file downloaded from\n")
   cat("http://ourairports.com/data/airports.csv\n")
-
-  # check if x is IATA or ICAO and convert
-  if(sum(stringr::str_count(x, pattern = "^[A-Za-z]{4}$")) >= 1){
-    nmatched <- match(x, ourairports$ident)
-  } else if(sum(stringr::str_count(x, pattern = "^[A-Za-z]{3}$")) >= 1){
-    nmatched <- match(x, ourairports$iata_code)
+  if (is.data.frame(code)) {
+    x <- code[,1]
   } else {
-    stop("All ICAO or/and IATA airport code are incorrect!\n", call. = FALSE)
+    x <- code
   }
-
-
+  # all characters to upper cases
+  x <- stringr::str_to_upper(x)
+  # find IATA codes
+  fT <- stringr::str_detect(x, pattern = "^[A-Z]{3}$")
+  # convert IATA codes to ICAO codes
+  x[fT] <- ourairports$ident[match(x[fT], ourairports$iata_code)]
+  nmatched <- match(x, ourairports$ident)
   if (sum(stringr::str_count(x, pattern = "^[A-Za-z]{4}$")) >= 1) {
     outlocation <- dplyr::tibble(
       ICAO_Code = x,
       IATA_Code = ourairports$iata_code[nmatched],
       Airport_Name = ourairports$name[nmatched],
-      Longitude = ourairports$longitude_deg[nmatched],
-      Latitude = ourairports$latitude_deg[nmatched],
-      Elevation = ourairports$elevation_m[nmatched],
-      Source = "http://ourairports.com/data/airports.csv"
-    )
-    return(outlocation)
-  } else {
-    outlocation <- dplyr::tibble(
-      ICAO_Code = ourairports$ident[nmatched],
-      IATA_Code = x,
-      Airport_Name = ourairports$name[nmatched],
-      Longitude = ourairports$longitude_deg[nmatched],
-      Latitude = ourairports$latitude_deg[nmatched],
-      Elevation = ourairports$elevation_m[nmatched],
+      Longitude = round(ourairports$longitude_deg[nmatched], 5),
+      Latitude = round(ourairports$latitude_deg[nmatched], 5),
+      Elevation = round(ourairports$elevation_m[nmatched], 4),
       Source = "http://ourairports.com/data/airports.csv"
     )
     return(outlocation)
   }
-
   # try to use the other source of airports locations
   # IATA code is available
   if((sum(complete.cases(outlocation$ICAO.code)) == nrow(outlocation)) &
