@@ -2,7 +2,7 @@
 #'
 #' Extracts a dew point temperature value from a METAR weather report or reports.
 #'
-#' @param x character; a METAR weather report or reports.
+#' @param x character vector; a METAR weather report or reports.
 #'
 #' @return A numeric vector with a dew point temperature in Celsius degrees.
 #'
@@ -15,6 +15,10 @@
 #' metar_dew_point("202001010851 METAR KEWR 010851Z 27010KT 10SM FEW030 BKN070 BKN100 BKN210 04/M03 A2969 RMK SLP054 T00391033 52012")
 #'
 metar_dew_point <- function(x) {
+  # check if x is a data frame
+  if(is.data.frame(x)){
+    stop("Invalid input format! Argument is not an atomic vector.", call. = FALSE)
+  }
   out <- c(1:length(x))
   out[1:length(x)] <- NA
   # Look for the second part of the pattern nn/Mnn, M for below 0 Celsisus

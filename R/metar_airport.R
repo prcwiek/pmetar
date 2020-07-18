@@ -2,7 +2,7 @@
 #'
 #' Extracts an airport ICAO code from METAR weather report.
 #'
-#' @param x character; METAR weather report or reports.
+#' @param x character vector; METAR weather report or reports.
 #'
 #' @return A character vector with an airport ICAO code.
 #'
@@ -14,6 +14,10 @@
 #' metar_airport("201711271930 METAR LEMD 271930Z 02002KT CAVOK 04/M03 Q1025 NOSIG= NOSIG=")
 #'
 metar_airport <- function(x) {
+  # check if x is a data frame
+  if(is.data.frame(x)){
+    stop("Invalid input format! Argument is not an atomic vector.", call. = FALSE)
+  }
   out <- c(1:length(x))
   out[1:length(x)] <- NA
   fT <- stringr::str_detect(x, pattern = "(^[\\d]+(?: METAR| SPECI)|^METAR|^SPECI)")

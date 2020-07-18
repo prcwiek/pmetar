@@ -2,7 +2,7 @@
 #'
 #' Function extracts a wind direction value from METAR weather report.
 #'
-#' @param x character; Input character vector
+#' @param x character vector; a METAR weather report or reports.
 #' @param numeric_dir_only logical; if TRUE only a numeric value of direction will be extracted
 #'
 #' @return A numeric vector. A wind direction in degrees.
@@ -15,6 +15,10 @@
 #' metar_dir("201711271930 METAR LEMD 271930Z 02002KT CAVOK 04/M03 Q1025 NOSIG= NOSIG=")
 #'
 metar_dir <- function(x, numeric_dir_only = FALSE){
+  # check if x is a data frame
+  if(is.data.frame(x)){
+    stop("Invalid input format! Argument is not an atomic vector.", call. = FALSE)
+  }
   out <- c(1:length(x))
   if(numeric_dir_only) {
     out[1:length(x)] <- NA

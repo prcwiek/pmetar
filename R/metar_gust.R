@@ -2,7 +2,7 @@
 #'
 #' Function extracts a gust speed from METAR weather report.
 #'
-#' @param x Input character vector
+#' @param x Input character vector; a METAR weather report or reports.
 #' @param metric For the default metric = TRUE a returned gust wind speed is in m/s. If it's FALSE, in knots.
 #'
 #' @return A numeric vector. A gust speed.
@@ -15,6 +15,10 @@
 #' metar_gust("201711271930 METAR LEMD 271930Z 02002KT CAVOK 04/M03 Q1025 NOSIG= NOSIG=")
 #'
 metar_gust <- function(x, metric = TRUE) {
+  # check if x is a data frame
+  if(is.data.frame(x)){
+    stop("Invalid input format! Argument is not an atomic vector.", call. = FALSE)
+  }
   # define conversion coefficients
   if(metric){
     cfm <- 1

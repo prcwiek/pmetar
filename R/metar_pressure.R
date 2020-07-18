@@ -2,7 +2,7 @@
 #'
 #' Function extracts an air pressure value from METAR weather report.
 #'
-#' @param x character; a METAR weather report or reports.
+#' @param x character vector; a METAR weather report or reports.
 #' @param altimeter boolean; if TRUE pressure is returned in inHg, the default FALSE for hPa
 #'
 #' @return A numeric vector with air pressure in inHg or hPa.
@@ -17,7 +17,7 @@
 metar_pressure <- function(x, altimeter = FALSE){
   # check if x is a data frame
   if(is.data.frame(x)){
-    stop("Invalid input format!", call. = FALSE)
+    stop("Invalid input format! Argument is not an atomic vector.", call. = FALSE)
   }
   if(!altimeter){
     cf_hPa <- 1

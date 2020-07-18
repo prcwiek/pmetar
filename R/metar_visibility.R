@@ -2,7 +2,7 @@
 #'
 #' Function extracts visibility information from METAR weather report.
 #'
-#' @param x character; a METAR weather report or reports.
+#' @param x character vector; a METAR weather report or reports.
 #' @param metric For the default metric = TRUE returned distances are in meters. If it's FALSE, in miles.
 #'
 #' @return A numeric vector with visibility information, in meters or miles.
@@ -16,6 +16,10 @@
 #' metar_visibility("KBLV 011657Z AUTO 25015G30KT 210V290 3/8SM R32L/1000FT FG BKN005 01/M01 A2984 RMK A02 SLP03")
 #'
 metar_visibility <- function(x, metric = TRUE) {
+  # check if x is a data frame
+  if(is.data.frame(x)){
+    stop("Invalid input format! Argument is not an atomic vector.", call. = FALSE)
+  }
   # define conversion coefficients
   if(metric){
     cfm <- 1

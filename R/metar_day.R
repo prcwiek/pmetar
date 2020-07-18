@@ -2,7 +2,7 @@
 #'
 #' Extracts a day of a month from METAR weather report.
 #'
-#' @param x character; a METAR weather report or reports.
+#' @param x character vector; a METAR weather report or reports.
 #'
 #' @return A numeric vector with a day of a month.
 #'
@@ -14,6 +14,10 @@
 #' metar_day("201711271930 METAR LEMD 271930Z 02002KT CAVOK 04/M03 Q1025 NOSIG= NOSIG=")
 #'
 metar_day <- function(x){
+  # check if x is a data frame
+  if(is.data.frame(x)){
+    stop("Invalid input format! Argument is not an atomic vector.", call. = FALSE)
+  }
   out <- c(1:length(x))
   out[1:length(x)] <- NA
   # look for nnnnnn[A-Z], like 281830Z

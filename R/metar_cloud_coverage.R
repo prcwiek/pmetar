@@ -2,7 +2,7 @@
 #'
 #' Extracts cloud coverage information from METAR weather report.
 #'
-#' @param x character; a METAR weather report or reports.
+#' @param x character vector; a METAR weather report or reports.
 #'
 #' @return A character vector with cloud coverage information.
 #'
@@ -17,7 +17,10 @@
 #' metar_cloud_coverage("202001011451 METAR KEWR 011451Z 26015KT 10SM FEW030 FEW045 BKN065 04/M07 A2977 RMK SLP081 T00391067 53019")
 #'
 metar_cloud_coverage <- function(x) {
-
+  # check if x is a data frame
+  if(is.data.frame(x)){
+    stop("Invalid input format! Argument is not an atomic vector.", call. = FALSE)
+  }
   # function for extracting several repeating elements, like FEW030 FEW045
   multi_extracting <- function(tdist, tpattern) {
     to_remove_1 <- stringr::str_extract(tpattern, pattern = "^[A-Z]{3}")

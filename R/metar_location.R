@@ -4,7 +4,7 @@
 #' IATA, International Air Transport Association, or \cr
 #' ICAO, International Civil Aviation Organization, airport code
 #'
-#' @param code character; an airport ICAO four letters code or an IATA three letters code.
+#' @param x character vector; an airport ICAO four letters code or an IATA three letters code.
 #'
 #' @return A tibble with columns which consists of airport ICAO code, IATA code airport name, longitude, latitude,
 #'  elevation in meters and source of information
@@ -19,54 +19,54 @@
 #' metar_loaction("WAW")
 #' metar_location("FRA")
 #'
+metar_location <- function(x = "EPWA") {
 
-mystr_extract <- function(p){
-  m_t <- stringr::str_extract(mst, pattern = paste(p, "(?:[\\s]+[\\d]+[\\s]+|\\s\\s...[\\s]+[\\d]+[\\s]+|\\s\\s...[\\s]+)[\\d]+\\s[\\d]+(?:N|S)[\\s]+[\\d]+\\s[\\d]+(?:E|W)[\\s]+[\\d]+", sep = ""))
-  m_t <- m_t[!is.na(m_t)]
-  if(length(m_t) > 1){
-    m_t <- m_t[1]
+  # Additional function
+  mystr_extract <- function(p){
+    m_t <- stringr::str_extract(mst, pattern = paste(p, "(?:[\\s]+[\\d]+[\\s]+|\\s\\s...[\\s]+[\\d]+[\\s]+|\\s\\s...[\\s]+)[\\d]+\\s[\\d]+(?:N|S)[\\s]+[\\d]+\\s[\\d]+(?:E|W)[\\s]+[\\d]+", sep = ""))
+    m_t <- m_t[!is.na(m_t)]
+    if(length(m_t) > 1){
+      m_t <- m_t[1]
+    }
+    # extract latitude
+    lat <- stringr::str_extract(m_t, pattern = "[\\d]+\\s[\\d]+(?:N|S)")
+    if(stringr::str_sub(lat, nchar(lat), nchar(lat)) == "N"){
+      mlat <- 1
+    } else {
+      mlat  <- -1
+    }
+    lat <- stringr::str_sub(lat, 1, nchar(lat) - 1)
+    lat <- stringr::str_split(lat, " ")
+    lat <- (as.numeric(lat[[1]][1]) + as.numeric(lat[[1]][2])/60) * mlat
+    # extract longitude
+    lon <- stringr::str_extract(m_t, pattern = "[\\d]+\\s[\\d]+(?:E|W)")
+    if(stringr::str_sub(lon, nchar(lon), nchar(lon)) == "E"){
+      mlon <- 1
+    } else {
+      mlon  <- -1
+    }
+    lon <- stringr::str_sub(lon, 1, nchar(lon) - 1)
+    lon <- stringr::str_split(lon, " ")
+    lon <- (as.numeric(lon[[1]][1]) + as.numeric(lon[[1]][2])/60) * mlon
+    # extract elevation in meters
+    ele <- as.numeric(stringr::str_extract(m_t, pattern = "[\\d]+$"))
+    # extract airport name
+    m_t <- stringr::str_extract(mst, pattern = paste("^(.*?)", p, sep = ""))
+    m_t <- m_t[!is.na(m_t)]
+    apname <- stringr::str_extract(m_t, pattern = paste("^(.*?)", p, sep = ""))
+    apname <- stringr::str_trim(apname)
+    apname <- stringr::str_split(apname, pattern = " ", simplify = TRUE)
+    apname <- apname[1,1:ncol(apname) - 1]
+    apname <- stringr::str_c(apname, collapse = " ")
+    apname <- stringr::str_trim(apname)
+    list(apname, lat, lon, ele)
   }
-  # extract latitude
-  lat <- stringr::str_extract(m_t, pattern = "[\\d]+\\s[\\d]+(?:N|S)")
-  if(stringr::str_sub(lat, nchar(lat), nchar(lat)) == "N"){
-    mlat <- 1
-  } else {
-    mlat  <- -1
-  }
-  lat <- stringr::str_sub(lat, 1, nchar(lat) - 1)
-  lat <- stringr::str_split(lat, " ")
-  lat <- (as.numeric(lat[[1]][1]) + as.numeric(lat[[1]][2])/60) * mlat
-  # extract longitude
-  lon <- stringr::str_extract(m_t, pattern = "[\\d]+\\s[\\d]+(?:E|W)")
-  if(stringr::str_sub(lon, nchar(lon), nchar(lon)) == "E"){
-    mlon <- 1
-  } else {
-    mlon  <- -1
-  }
-  lon <- stringr::str_sub(lon, 1, nchar(lon) - 1)
-  lon <- stringr::str_split(lon, " ")
-  lon <- (as.numeric(lon[[1]][1]) + as.numeric(lon[[1]][2])/60) * mlon
-  # extract elevation in meters
-  ele <- as.numeric(stringr::str_extract(m_t, pattern = "[\\d]+$"))
-  # extract airport name
-  m_t <- stringr::str_extract(mst, pattern = paste("^(.*?)", p, sep = ""))
-  m_t <- m_t[!is.na(m_t)]
-  apname <- stringr::str_extract(m_t, pattern = paste("^(.*?)", p, sep = ""))
-  apname <- stringr::str_trim(apname)
-  apname <- stringr::str_split(apname, pattern = " ", simplify = TRUE)
-  apname <- apname[1,1:ncol(apname) - 1]
-  apname <- stringr::str_c(apname, collapse = " ")
-  apname <- stringr::str_trim(apname)
-  list(apname, lat, lon, ele)
-}
 
-metar_location <- function(code = "EPWA") {
   cat("Getting airport informaiton from the file downloaded from\n")
   cat("http://ourairports.com/data/airports.csv\n")
-  if (is.data.frame(code)) {
-    x <- code[,1]
-  } else {
-    x <- code
+  # check if x is a data frame
+  if(is.data.frame(x)){
+    stop("Invalid input format! Argument is not an atomic vector.", call. = FALSE)
   }
   # all characters to upper cases
   x <- stringr::str_to_upper(x)

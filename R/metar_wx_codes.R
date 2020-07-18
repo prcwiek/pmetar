@@ -16,6 +16,10 @@
 #' metar_wx_codes("201711200300 METAR EPKK 200300Z 23014KT 9999 -SHSN SCT009CB BKN012 01/M00 Q1008=")
 #'
 metar_wx_codes <- function(x) {
+  # check if x is a data frame
+  if(is.data.frame(x)){
+    stop("Invalid input format! Argument is not an atomic vector.", call. = FALSE)
+  }
 
   wx_code_resolve <- function(t){
     stringr::str_c(metarWXcodes$Meaning[match(t, metarWXcodes$Abbreviation)], collapse = ", ")

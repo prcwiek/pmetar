@@ -27,6 +27,11 @@ metar_get_historical <- function(airport = "EPWA",
                                  end_date = "2020-01-10",
                                  from = "iastate"){
 
+  # check if x is a data frame
+  if(is.data.frame(airport)){
+    stop("Invalid input format! Argument is not an atomic vector.", call. = FALSE)
+  }
+
   # try to find ICAO based on IATA
   if(stringr::str_detect(airport, pattern = "^[A-Za-z]{3}$")){
     airport <- metar_iata_icao(airport)

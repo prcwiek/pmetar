@@ -14,6 +14,10 @@
 #' metar_hour("201711271930 METAR LEMD 271930Z 02002KT CAVOK 04/M03 Q1025 NOSIG= NOSIG=")
 #'
 metar_hour <- function(x){
+  # check if x is a data frame
+  if(is.data.frame(x)){
+    stop("Invalid input format! Argument is not an atomic vector.", call. = FALSE)
+  }
   out <- c(1:length(x))
   out[1:length(x)] <- NA
   # look for nnnnnn[A-Z], like 281830Z

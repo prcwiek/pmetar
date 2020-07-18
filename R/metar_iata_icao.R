@@ -1,7 +1,7 @@
 #' Convert IATA, International Air Transport Association, airport code to\cr
 #' ICAO, International Civil Aviation Organization,  airport code and vice versa.
 #'
-#' @param code character; an airport ICAO four letters code or an IATA three letters code.
+#' @param code character vector; an airport ICAO four letters code or an IATA three letters code.
 #'
 #' @return A character vector with an IATA code an ICAO input code or an ICAO code an IATA input code.
 #'
@@ -20,16 +20,14 @@
 metar_iata_icao <- function(code = "WAW") {
   cat("Getting airport informaiton from the file downloaded from\n")
   cat("http://ourairports.com/data/airports.csv\n")
-  # convert data frame
-  if (is.data.frame(code)) {
-    x <- code[,1]
-  } else {
-    x <- code
+  # check if x is a data frame
+  if(is.data.frame(code)){
+    stop("Invalid input format! Argument is not an atomic vector.", call. = FALSE)
   }
-  out <- c(1:length(x))
-  out[1:length(x)] <- "Incorrect ICAO or IATA airport code!"
+  out <- c(1:length(code))
+  out[1:length(code)] <- "Incorrect ICAO or IATA airport code!"
   # all characters to upper cases
-  x <- stringr::str_to_upper(x)
+  x <- stringr::str_to_upper(code)
   # convert ICAO to IATA
   fT <- stringr::str_detect(x, pattern = "^[A-Z]{4}$")
   out[fT] <- ourairports$iata_code[match(x[fT], ourairports$ident)]
