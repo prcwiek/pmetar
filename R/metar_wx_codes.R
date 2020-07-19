@@ -56,5 +56,12 @@ metar_wx_codes <- function(x) {
 
     outwx[fT] <- paste0(outwx[fT], sapply(tempwx[fT], wx_code_resolve))
   }
+
+  # look for special cases with separate BR
+  fT <- stringr::str_detect(x, pattern = "\\sBR\\s")
+  # already decoded BR
+  fT_previous <- stringr::str_detect(outwx, pattern = "Mist")
+  fT <- fT - fT_previous
+  outwx[fT] <- paste0(outwx[fT], ", Mist (French: Brume)")
   outwx
 }
