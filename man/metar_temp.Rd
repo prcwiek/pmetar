@@ -7,7 +7,7 @@
 metar_temp(x)
 }
 \arguments{
-\item{x}{character; a METAR weather report or reports.}
+\item{x}{character vector; a METAR weather report or reports.}
 }
 \value{
 A numeric vector with temperature in degrees Celsius.

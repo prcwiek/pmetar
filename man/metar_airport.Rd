@@ -7,7 +7,7 @@
 metar_airport(x)
 }
 \arguments{
-\item{x}{character; METAR weather report or reports.}
+\item{x}{character vector; METAR weather report or reports.}
 }
 \value{
 A character vector with an airport ICAO code.

@@ -7,7 +7,7 @@
 metar_dew_point(x)
 }
 \arguments{
-\item{x}{character; a METAR weather report or reports.}
+\item{x}{character vector; a METAR weather report or reports.}
 }
 \value{
 A numeric vector with a dew point temperature in Celsius degrees.

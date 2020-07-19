@@ -7,7 +7,7 @@
 metar_dir(x, numeric_dir_only = FALSE)
 }
 \arguments{
-\item{x}{character; Input character vector}
+\item{x}{character vector; a METAR weather report or reports.}
 
 \item{numeric_dir_only}{logical; if TRUE only a numeric value of direction will be extracted}
 }

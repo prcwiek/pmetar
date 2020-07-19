@@ -4,10 +4,10 @@
 \alias{metar_get}
 \title{Get a current METAR report for an airport.}
 \usage{
-metar_get(airport = "EPWA")
+metar_get(x = "EPWA")
 }
 \arguments{
-\item{airport}{character; ICAO or an IATA airport code.}
+\item{x}{character; ICAO or an IATA airport code.}
 }
 \value{
 A character vector with a current METAR weather report.

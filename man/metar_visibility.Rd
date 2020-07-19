@@ -7,7 +7,7 @@
 metar_visibility(x, metric = TRUE)
 }
 \arguments{
-\item{x}{character; a METAR weather report or reports.}
+\item{x}{character vector; a METAR weather report or reports.}
 
 \item{metric}{For the default metric = TRUE returned distances are in meters. If it's FALSE, in miles.}
 }

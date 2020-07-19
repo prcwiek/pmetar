@@ -7,7 +7,7 @@
 metar_day(x)
 }
 \arguments{
-\item{x}{character; a METAR weather report or reports.}
+\item{x}{character vector; a METAR weather report or reports.}
 }
 \value{
 A numeric vector with a day of a month.

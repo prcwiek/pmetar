@@ -8,7 +8,7 @@ ICAO, International Civil Aviation Organization,  airport code and vice versa.}
 metar_iata_icao(x = "WAW")
 }
 \arguments{
-\item{x}{character; an airport ICAO four letters code or an IATA three letters code.}
+\item{x}{character vector; an airport ICAO four letters code or an IATA three letters code.}
 }
 \value{
 A character vector with an IATA code an ICAO input code or an ICAO code an IATA input code.

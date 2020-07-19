@@ -7,7 +7,7 @@
 metar_cloud_coverage(x)
 }
 \arguments{
-\item{x}{character; a METAR weather report or reports.}
+\item{x}{character vector; a METAR weather report or reports.}
 }
 \value{
 A character vector with cloud coverage information.

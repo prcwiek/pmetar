@@ -4,10 +4,10 @@
 \alias{metar_location}
 \title{Extract approximated airport location.}
 \usage{
-metar_location(x)
+metar_location(x = "EPWA")
 }
 \arguments{
-\item{x}{character; an airport ICAO four letters code or an IATA three letters code.}
+\item{x}{character vector; an airport ICAO four letters code or an IATA three letters code.}
 }
 \value{
 A tibble with columns which consists of airport ICAO code, IATA code airport name, longitude, latitude,
@@ -22,6 +22,7 @@ ICAO, International Civil Aviation Organization, airport code
 metar_location("EPWA")
 metar_location("CYUL")
 metar_location("LEMD")
+metar_location("NCRK")
 metar_loaction("WAW")
 metar_location("FRA")
 
