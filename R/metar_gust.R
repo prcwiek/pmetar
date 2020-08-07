@@ -28,7 +28,7 @@ metar_gust <- function(x, metric = TRUE) {
     cfi <- 1
   }
   out <- c(1:length(x))
-  out[1:length(x)] <- 0
+  out[1:length(x)] <- NA
   fKT <- stringr::str_detect(x, pattern = "G\\d\\dKT")
   out[fKT] <- as.numeric(stringr::str_sub(stringr::str_extract(x[fKT], pattern = "G\\d+KT"), 2, 3)) * cfi
   fMPS <- stringr::str_detect(x, pattern = "G\\d\\dMPS")
