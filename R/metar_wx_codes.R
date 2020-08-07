@@ -16,52 +16,74 @@
 #' metar_wx_codes("201711200300 METAR EPKK 200300Z 23014KT 9999 -SHSN SCT009CB BKN012 01/M00 Q1008=")
 #'
 metar_wx_codes <- function(x) {
-  # check if x is a data frame
+  # Check if x is a data frame and stop if yes
   if(is.data.frame(x)){
     stop("Invalid input format! Argument is not an atomic vector.", call. = FALSE)
   }
 
-  wx_code_resolve <- function(t){
-    stringr::str_c(metarWXcodes$Meaning[match(t, metarWXcodes$Abbreviation)], collapse = ", ")
+  # Function matches an extracted code to a description from metarWXcodes data frame
+  wx_code_resolve <- function(xcr){
+    out_cr <- xcr
+    for (i in 1:length(xcr)) {
+      temp <- unlist(stringr::str_extract_all(xcr[i], ".{2}"))
+      out_cr[i] <- stringr::str_c(sapply(temp, function(y) metarWXcodes$Meaning[match(y, metarWXcodes$Abbreviation)]),
+                                  collapse = ", ")
+    }
+    out_cr
   }
 
-  outwx <- c(1:length(x))
-  outwx[1:length(x)] <- ""
-  tempwx <- c(1:length(x))
-  tempwx[1:length(x)] <- ""
+  # Function single WX codes from a METAR weather report
+  wx_code_extract <- function(xce) {
+    xce <- as.data.frame(xce)
+    wx_extracted <- xce
+    wx_extracted[1:nrow(wx_extracted),] <- ""
+    wx_extracted[apply(xce, 2, function(x) stringr::str_detect(x, pattern = paste0("[+](", pattern_abbrev, ")")))] <- "Heavy intensity:"
+    wx_extracted[apply(xce, 2, function(x) stringr::str_detect(x, pattern = paste0("[-](", pattern_abbrev, ")")))] <- "Light intensity:"
+    wx_extracted[apply(xce, 2, function(x) stringr::str_detect(x, pattern = paste0("RE(", pattern_abbrev, ")")))] <- "Recent:"
+    if (nrow(xce) == 1) {
+      xce <- t(apply(xce, 1, function(x) stringr::str_replace(x, "([+]|[-]|RE|\\s)", "")))
+      wx_resolved <- t(apply(xce, 1, function(x) wx_code_resolve(x)))
+    } else if (nrow(xce) != 0) {
+      xce <- apply(xce, 2, function(x) stringr::str_replace(x, "([+]|[-]|RE|\\s)", ""))
+      wx_resolved <- apply(xce, 2, function(x) wx_code_resolve(x))
+    } else {
+      wx_resolved = matrix(data = "", nrow = 1, ncol = 1)
+    }
+    out_ce <- c(1:nrow(wx_extracted))
+    for (j in 1:nrow(wx_extracted)) {
+      out_ce[j] <- paste(wx_extracted[j,], wx_resolved[j,], collapse = "; ")
+      out_ce[j] <- stringr::str_replace_all(out_ce[j], pattern = ";  ", replacement = "; ")
+      out_ce[j] <- stringr::str_trim(out_ce[j], side = "left")
+      out_ce[j] <- stringr::str_replace(out_ce[j], pattern = "[;\\s]+$", replacement =  "")
+    }
+    out_ce
+  }
+
+  # Extract WX codes
   wx_codes <- metarWXcodes %>%
     dplyr::filter(Type != "Intensity") %>%
     dplyr::filter(Type != "Time") %>%
     dplyr::filter(Abbreviation != "")
 
+  out <- c(1:length(x))
+  out[1:length(x)] <- ""
   pattern_abbrev <- apply(wx_codes, 2, paste, collapse = "|")[2]
 
-  fT <- stringr::str_detect(x, pattern = paste0("(\\s|[+]|[-]|RE)[(",
+  # Remove a remark (RMK) part of a METAR weather report
+  x <- stringr::str_split(x, " RMK", simplify = TRUE)[,1]
+
+  # Remove a forecast part after the forecast change indicator TEMPO
+  x <- stringr::str_split(x, " TEMPO", simplify = TRUE)[,1]
+
+  # Remove a forecast part after the forecast change indicator TEMPO
+  x <- stringr::str_split(x, " FM", simplify = TRUE)[,1]
+
+  fT <- stringr::str_detect(x, pattern = paste0("(\\s|[+]|[-]|RE)(",
                                                 pattern_abbrev,
-                                                ")]+\\s"))
-  if(sum(fT) > 0){
-    tempwx <- stringr::str_trim(stringr::str_extract(x, pattern = paste0("(\\s|[+]|[-]|RE)(",
-                                                                         pattern_abbrev,
-                                                                         ")+\\s")))
-
-    outwx[stringr::str_detect(x, pattern = paste0("[+](", pattern_abbrev, ")"))] <- "Heavy intensity: "
-    outwx[stringr::str_detect(x, pattern = paste0("[-](", pattern_abbrev, ")"))] <- "Light intensity: "
-    outwx[stringr::str_detect(x, pattern = paste0("RE(", pattern_abbrev, ")"))] <- "Recent "
-
-    tempwx[fT] <- stringr::str_replace(tempwx[fT], "[+]", "")
-    tempwx[fT] <- stringr::str_replace(tempwx[fT], "[-]", "")
-    tempwx[fT] <- stringr::str_replace(tempwx[fT], "RE", "")
-
-    tempwx[fT] <- stringr::str_extract_all(tempwx[fT], ".{2}")
-
-    outwx[fT] <- paste0(outwx[fT], sapply(tempwx[fT], wx_code_resolve))
-  }
-
-  # look for special cases with separate BR
-  fT <- stringr::str_detect(x, pattern = "\\sBR\\s")
-  # already decoded BR
-  fT_previous <- stringr::str_detect(outwx, pattern = "Mist")
-  fT <- fT - fT_previous
-  outwx[fT] <- paste0(outwx[fT], ", Mist (French: Brume)")
-  outwx
+                                                ")+"))
+  out[fT] <- wx_code_extract(stringr::str_extract_all(x[fT],
+                                                      pattern = paste0("(\\s|[+]|[-]|RE)(",
+                                                                       pattern_abbrev,")+"),
+                                                      simplify = TRUE))
+  out
 }
