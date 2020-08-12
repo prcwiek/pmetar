@@ -1,18 +1,23 @@
-#' Get historical METAR reports fro an airport.
+#' Get historical METAR reports.
 #'
-#' Function downloads a set of historical METAR weather reports.
-#' The default source the Iowa Environmental Mesonet web page of Iowa State University
-#' ASOS-AWOS-METAR http://mesonet.agron.iastate.edu/AWOS/ \cr
-#' The secondary source is Weather Information Service provided by Ogimet http://www.ogimet.com/
+#' Download a set of historical METAR weather reports.
+#' The default source is the Iowa Environmental
+#' Mesonet web page of Iowa State University ASOS-AWOS-METAR\cr
+#' [https://mesonet.agron.iastate.edu/AWOS/](https://mesonet.agron.iastate.edu/AWOS/)\cr
+#' The secondary source of METAR reports is Weather Information Service provided by Ogimet
+#' [https://www.ogimet.com/](https://www.ogimet.com/)
 #'
 #' @param airport character;  ICAO or IATA airport code.
-#' @param start_date character; start date.
-#' @param end_date character; end date.
-#' @param from character; selection of online METAR database, \cr allowed values are "iastate" for  ASOS-AWOS-METAR http://mesonet.agron.iastate.edu/AWOS/ \cr
-#' and "ogimet" for Weather Information Service provided by Ogimet http://www.ogimet.com/.
+#' @param start_date character; start date in the format YYYY-MM-DD.
+#' @param end_date character; end date in the format YYYY-MM-DD.
+#' @param from character; selection of online METAR database, \cr
+#' the default value is "iastate" downolading METAR reports from
+#' Iowa Environmental Mesonet ASOS-AWOS-METAR
+#' [https://mesonet.agron.iastate.edu/AWOS/](https://mesonet.agron.iastate.edu/AWOS/) \cr
+#' Setting the parameter from to "ogimet" allows to use Weather Information Service provided by Ogimet
+#' [https://www.ogimet.com/](https://www.ogimet.com/).
 #'
-#' @return A character vector for a current METAR weather report.
-#' @return A data frame character vectors with historical METAR weather report.
+#' @return a data frame character vectors with historical METAR weather report.
 #'
 #' @export
 #'
@@ -60,7 +65,7 @@ metar_get_historical <- function(airport = "EPWA",
   eday <- stringr::str_sub(end_date, 9, 10)
 
   if(from == "ogimet"){
-    link <- paste0("http://www.ogimet.com/display_metars2.php?lang=en&lugar=",
+    link <- paste0("www.ogimet.com/display_metars2.php?lang=en&lugar=",
                    airport,"&tipo=SA&ord=DIR&nil=NO&fmt=txt&ano=",
                    syear, "&mes=",
                    smonth, "&day=",
@@ -87,7 +92,18 @@ metar_get_historical <- function(airport = "EPWA",
                "'. Please use 'ogimet' or 'iastate'.", sep = ""), call. = FALSE)
   }
 
-  myfile <- RCurl::getURL(link, ssl.verifyhost = FALSE, ssl.verifypeer = FALSE)
+  tryCatch(
+    expr = {
+      myfile <- RCurl::getURL(link, ssl.verifyhost = FALSE, ssl.verifypeer = FALSE)
+    },
+    error = function(e){
+      if (from == "ogimet") {
+        stop("Cannot connect to the server www.ogimet.com!\n", call. = FALSE)
+      } else {
+        stop("Cannot connect to the server mesonet.agron.iastate.edu!\n", call. = FALSE)
+      }
+    }
+  )
 
   if(myfile == "ERROR: Malformed Date!"){
     stop(paste("Message from mesonet.agron.iastate.edu :", "ERROR: Malformed Date!"), call. = FALSE)
@@ -121,5 +137,6 @@ metar_get_historical <- function(airport = "EPWA",
     ds[,3] <- stringr::str_trim(ds[,3])
     out <- paste(ds[,2], "METAR", ds[,3], sep = " ")
   }
+  cat("Don't use for flight planning or navigation!\n")
   out
 }
