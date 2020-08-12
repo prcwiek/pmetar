@@ -1,39 +1,39 @@
 #' Decode METAR report.
 #'
-#' Extracts information from a single METAR weather report or several reports.
+#' Extract and parse information from a single METAR weather report or several reports.
 #'
-#'  Decoded METAR weather report consists of:\cr
+#' Decoded METAR weather report consists of:\cr
 #' \itemize{
-#' \item Airport ICAO\cr
-#' \item Day of Month\cr
-#' \item Hour (HH:mm)\cr
-#' \item Time zone\cr
-#' \item Wind speed \cr
-#' \item Wind speed unit (m/s or kn)\cr
-#' \item Gust \cr
-#' \item Gust unit (m/s or kn) \cr
-#' \item Wind shear\cr
-#' \item Wind direction (degrees)\cr
-#' \item Temperature (Celsius degrees)\cr
-#' \item Dew point (Celsius degrees)\cr
-#' \item Pressure (hPa)\cr
-#' \item Visibility\cr
-#' \item Visibility unit (m or miles)\cr
-#' \item Cloud coverage\cr
-#' \item Weather information from METAR WX codes\cr
-#' \item Airport Name\cr
-#' \item Longitude\cr
-#' \item Latitude\cr
-#' \item Elevation\cr
-#' \item Decode Date\cr
-#' \item Original METAR text\cr
-#' \item Source of information\cr
+#' \item Remark: Don't use for flight planning or navigation!
+#' \item Airport ICAO
+#' \item Day of Month
+#' \item Hour (HH:mm)
+#' \item Time zone
+#' \item Wind speed
+#' \item Wind speed unit (m/s or kn)
+#' \item Gust
+#' \item Gust unit (m/s or kn)
+#' \item Wind shear
+#' \item Wind direction (degrees)
+#' \item Temperature (Celsius degrees)
+#' \item Dew point (Celsius degrees)
+#' \item Pressure (hPa)
+#' \item Visibility
+#' \item Visibility unit (m or miles)
+#' \item Cloud coverage
+#' \item Weather conditions information from WX codes
+#' \item Airport Name
+#' \item Longitude
+#' \item Latitude
+#' \item Elevation
+#' \item Decode Date
+#' \item Original METAR text
 #' }
 #'
 #' @param x character vector; a single METAR weather report or historical METAR weather reports.
 #' @param metric logical; if TRUE wind speeds returned in m/s, distances in meters.\cr If FALSE, wind speeds returned in knots and distances in miles.
 #'
-#' @return A tibble with decoded METAR weather report or reports.
+#' @return a tibble with decoded METAR weather report or reports.
 #'
 #' @importFrom magrittr %>%
 #'
@@ -42,7 +42,7 @@
 #' @examples
 #' metar_decode("EPWA 281830Z 18009KT 140V200 9999 SCT037 03/M01 Q1008 NOSIG")
 #' metar_decode("CYUL 281800Z 13008KT 30SM BKN240 01/M06 A3005 RMK CI5 SLP180")
-#' metar_decode("201711271930 METAR LEMD 271930Z 02002KT CAVOK 04/M03 Q1025 NOSIG= NOSIG=")
+#' metar_decode("201711271930 METAR LEMD 271930Z 02002KT CAVOK 04/M03 Q1025")
 #'
 metar_decode <- function(x, metric = TRUE){
   tryCatch(
@@ -56,70 +56,40 @@ metar_decode <- function(x, metric = TRUE){
         mhour <- as.numeric(stringr::str_sub(td, 9, 10))
         mminute <- as.numeric(stringr::str_sub(td, 11, 12))
         metar_date <- lubridate::make_datetime(myear, mmonth, mday, mhour, mminute, tz = "UTC")
-        out <- dplyr::tibble(x)
-        out <- out %>%
-          dplyr::mutate(Airport_ICAO = metar_airport(out$x)) %>%
-          dplyr::mutate(Metar_Date = metar_date) %>%
-          dplyr::mutate(Day_of_Month = metar_day(out$x)) %>%
-          dplyr::mutate(Hour = metar_hour(out$x)) %>%
-          dplyr::mutate(Time_zone = metar_time_zone(out$x)) %>%
-          dplyr::mutate(Wind_speed = metar_speed(out$x, metric)) %>%
-          dplyr::mutate(Wind_speed_unit = ifelse(metric, "m/s", "kn")) %>%
-          dplyr::mutate(Gust = metar_gust(out$x, metric)) %>%
-          dplyr::mutate(Gust_unit = ifelse(metric, "m/s", "kn")) %>%
-          dplyr::mutate(Wind_shear = metar_windshear(out$x, metric)) %>%
-          dplyr::mutate(Wind_direction = metar_dir(out$x)) %>%
-          dplyr::mutate(Temperature = metar_temp(out$x)) %>%
-          dplyr::mutate(Dew_point = metar_dew_point(out$x)) %>%
-          dplyr::mutate(Pressure = metar_pressure(out$x)) %>%
-          dplyr::mutate(Visibility = metar_visibility(out$x, metric)) %>%
-          dplyr::mutate(Visibility_unit = ifelse(metric, "m", "mile")) %>%
-          dplyr::mutate(Cloud_coverage = metar_cloud_coverage(out$x)) %>%
-          dplyr::mutate(Weather_information = metar_wx_codes(out$x))
-        apl <- metar_location(out$Airport_ICAO)
-        out <- out %>%
-          dplyr::mutate(Airport_Name = apl$Airport_Name) %>%
-          dplyr::mutate(Airport_IATA = apl$IATA_Code) %>%
-          dplyr::mutate(Longitude = apl$Longitude) %>%
-          dplyr::mutate(Latitude = apl$Latitude) %>%
-          dplyr::mutate(Elevation = apl$Elevation) %>%
-          dplyr::mutate(Decode_Date = Sys.time()) %>%
-          dplyr::mutate(Original_METAR = out$x) %>%
-          dplyr::mutate(Source = "mesonet.agron.iastate.edu/AWOS or www.ogimet.com") %>%
-          dplyr::select(-x)
       } else {
-        out <- dplyr::tibble(x)
-        out <- out %>%
-          dplyr::mutate(Airport_ICAO = metar_airport(out$x)) %>%
-          dplyr::mutate(Metar_Date = NA) %>%
-          dplyr::mutate(Day_of_Month = metar_day(out$x)) %>%
-          dplyr::mutate(Hour = metar_hour(out$x)) %>%
-          dplyr::mutate(Time_zone = metar_time_zone(out$x)) %>%
-          dplyr::mutate(Wind_speed = metar_speed(out$x, metric)) %>%
-          dplyr::mutate(Wind_speed_unit = ifelse(metric, "m/s", "kn")) %>%
-          dplyr::mutate(Gust = metar_gust(out$x, metric)) %>%
-          dplyr::mutate(Gust_unit = ifelse(metric, "m/s", "kn")) %>%
-          dplyr::mutate(Wind_shear = metar_windshear(out$x, metric)) %>%
-          dplyr::mutate(Wind_direction = metar_dir(out$x)) %>%
-          dplyr::mutate(Temperature = metar_temp(out$x)) %>%
-          dplyr::mutate(Dew_point = metar_dew_point(out$x)) %>%
-          dplyr::mutate(Pressure = metar_pressure(out$x)) %>%
-          dplyr::mutate(Visibility = metar_visibility(out$x, metric)) %>%
-          dplyr::mutate(Visibility_unit = ifelse(metric, "m", "mile")) %>%
-          dplyr::mutate(Cloud_coverage = metar_cloud_coverage(out$x)) %>%
-          dplyr::mutate(Weather_information = metar_wx_codes(out$x))
-        apl <- metar_location(out$Airport_ICAO)
-        out <- out %>%
-          dplyr::mutate(Airport_Name = apl$Airport_Name) %>%
-          dplyr::mutate(Airport_IATA = apl$IATA_Code) %>%
-          dplyr::mutate(Longitude = apl$Longitude) %>%
-          dplyr::mutate(Latitude = apl$Latitude) %>%
-          dplyr::mutate(Elevation = apl$Elevation) %>%
-          dplyr::mutate(Decode_Date = Sys.time()) %>%
-          dplyr::mutate(Original_METAR = out$x) %>%
-          dplyr::mutate(Source = "www.aviationweather.gov/metar") %>%
-          dplyr::select(-x)
+        metar_date <- NA
       }
+      out <- dplyr::tibble(x)
+      out <- out %>%
+        dplyr::mutate(Remark = "Don't use for flight planning or navigation!",
+                      Airport_ICAO = metar_airport(out$x),
+                      Metar_Date = metar_date,
+                      Day_of_Month = metar_day(out$x),
+                      Hour = metar_hour(out$x),
+                      Time_zone = metar_time_zone(out$x),
+                      Wind_speed = metar_speed(out$x, metric),
+                      Wind_speed_unit = ifelse(metric, "m/s", "kn"),
+                      Gust = metar_gust(out$x, metric),
+                      Gust_unit = ifelse(metric, "m/s", "kn"),
+                      Wind_shear = metar_windshear(out$x, metric),
+                      Wind_direction = metar_dir(out$x),
+                      Temperature = metar_temp(out$x),
+                      Dew_point = metar_dew_point(out$x),
+                      Pressure = metar_pressure(out$x),
+                      Visibility = metar_visibility(out$x, metric),
+                      Visibility_unit = ifelse(metric, "m", "mile"),
+                      Cloud_coverage = metar_cloud_coverage(out$x),
+                      Weather_information = metar_wx_codes(out$x))
+      apl <- metar_location(out$Airport_ICAO)
+      out <- out %>%
+        dplyr::mutate(Airport_Name = apl$Airport_Name,
+                      Airport_IATA = apl$IATA_Code,
+                      Longitude = apl$Longitude,
+                      Latitude = apl$Latitude,
+                      Elevation = apl$Elevation,
+                      Decode_Date = Sys.time(),
+                      Original_METAR = out$x) %>%
+        dplyr::select(-x)
       out
     },
     error = function(e){
