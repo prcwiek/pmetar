@@ -4,20 +4,18 @@
 \alias{metar_get}
 \title{Get a current METAR report for an airport.}
 \usage{
-metar_get(x = "EPWA")
+metar_get(airport = "EPWA")
 }
 \arguments{
-\item{x}{character; ICAO or an IATA airport code.}
+\item{airport}{character; ICAO or an IATA airport code.}
 }
 \value{
-A character vector with a current METAR weather report.
+a character vector with a current METAR weather report.
 }
 \description{
-Function gets metar report from a web page.\cr
-\cr
-If only airport is passed as an argument, a current METAR weather report is donwloaded from\cr
-the web page https://aviationweather.gov/metar/\cr
-\cr
+A current METAR weather report is downloaded from the web page of NOAA National Weather Service
+https://aviationweather.gov/metar/ based on an airport four letters ICAO code, International Civil
+Aviation Organization, or three letters IATA code, International Air Transport Association.
 }
 \examples{
 metar_get("EPWA")

@@ -1,14 +1,22 @@
-Package: pmetar
 Type: Package
+Package: pmetar
 Title: Processing METAR weather reports
-Description: Package allows to download current and historical METAR weather reports and decode basic parameters.
-Version: 0.2.6.03
-AuthorS@R: person("Pawel", "Cwiek", email = "",
-                  role = c("aut", "cre"))
+Version: 0.2.7.00
+Authors@R: c(
+  person("Pawel","Cwiek", role = c("aut", "cre"),
+          email = "prc.altodato@gmail.com")
+  )
+Author: Pawel Cwiek [aut, cre]
+Maintainer: Pawel Cwiek <prc.altodato@gmail.com>
+Description: Package allows to download current and historical METAR weather reports
+  extract and parse basic parameters and present main weather informaiton.
+License: GPL-3 + file LICENSE
 URL: https://github.com/prcwiek/pmetar
 BugReports: https://github.com/prcwiek/pmetar/issues
 Depends:
   R (>= 3.5.0),
+  utils,
+  stats
 Imports:
   dplyr,
   lubridate,
@@ -19,9 +27,11 @@ Imports:
 Suggests: 
     knitr,
     rmarkdown,
-    testthat
-License: GPL-3
+    testthat,
+    tibble
+VignetteBuilder: knitr
 Encoding: UTF-8
 LazyData: true
+Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
-VignetteBuilder: knitr
+

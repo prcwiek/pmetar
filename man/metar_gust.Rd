@@ -2,7 +2,7 @@
 % Please edit documentation in R/metar_gust.R
 \name{metar_gust}
 \alias{metar_gust}
-\title{Extract gust wind speed.}
+\title{Get gust speed.}
 \usage{
 metar_gust(x, metric = TRUE)
 }
@@ -12,14 +12,14 @@ metar_gust(x, metric = TRUE)
 \item{metric}{For the default metric = TRUE a returned gust wind speed is in m/s. If it's FALSE, in knots.}
 }
 \value{
-A numeric vector. A gust speed.
+a numeric vector with a gust speed in m/s or in knots.
 }
 \description{
-Function extracts a gust speed from METAR weather report.
+Extract a gust speed from METAR weather report.
 }
 \examples{
-metar_gust("201807141200 METAR EPWA 141200Z 30011G22KT 270V340 9999 -SHRA SCT007 BKN015CB 18/17 Q1011 RESHRA TEMPO BKN007")
+metar_gust("METAR EPWA 141200Z 30011G22KT 270V340 9999 -SHRA SCT007 BKN015CB 18/17 Q1011")
 metar_gust("CYUL 101900Z 27015G25KT 15SM DRSN SCT028 BKN090 OVC110 M04/M10 A2973 RMK")
-metar_gust("201711271930 METAR LEMD 271930Z 02002KT CAVOK 04/M03 Q1025 NOSIG= NOSIG=")
+metar_gust("201711271930 METAR LEMD 271930Z 02002KT CAVOK 04/M03 Q1025")
 
 }

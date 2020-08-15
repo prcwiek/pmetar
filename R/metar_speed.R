@@ -1,11 +1,12 @@
-#' Extract wind speed
+#' Get wind speed
 #'
-#' Function extracts a wind speed value from METAR weather report.
+#' Extract a wind speed value from METAR weather report.
 #'
 #' @param x character vector; METAR weather report or reports.
-#' @param metric For the default metric = TRUE a returned wind speed is in m/s. If it's FALSE, in knots.
+#' @param metric logical; the default value is TRUE and a returned wind speed is in m/s;
+#' if t's FALSE then in knots.
 #'
-#' @return A numeric vector. A wind speed in m/s.
+#' @return a numeric vector. A wind speed in m/s or in knots.
 #'
 #' @export
 #'
@@ -17,7 +18,7 @@
 metar_speed <- function(x, metric = TRUE){
   # check if x is a data frame
   if(is.data.frame(x)){
-    stop("Invalid input format! Argument is not an atomic vector.", call. = FALSE)
+    stop("ERROR: Invalid input format! Argument is not an atomic vector.", call. = FALSE)
   }
   # define conversion coefficients
   if(metric){

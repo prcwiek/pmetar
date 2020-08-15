@@ -2,24 +2,25 @@
 % Please edit documentation in R/metar_dir.R
 \name{metar_dir}
 \alias{metar_dir}
-\title{Extract wind direction.}
+\title{Get wind direction.}
 \usage{
-metar_dir(x, numeric_dir_only = FALSE)
+metar_dir(x, numeric_only = FALSE)
 }
 \arguments{
 \item{x}{character vector; a METAR weather report or reports.}
 
-\item{numeric_dir_only}{logical; if TRUE only a numeric value of direction will be extracted}
+\item{numeric_only}{logical; the default value is FALSE and information about variability will be included.
+If TRUE only a numeric value of direction will be returned.}
 }
 \value{
-A numeric vector. A wind direction in degrees.
+a numeric vector with a wind direction in degrees.
 }
 \description{
-Function extracts a wind direction value from METAR weather report.
+Extract a wind direction value from METAR weather report.
 }
 \examples{
 metar_dir("EPWA 281830Z 18009KT 140V200 9999 SCT037 03/M01 Q1008 NOSIG")
-metar_dir("CYUL 281800Z 13008KT 30SM BKN240 01/M06 A3005 RMK CI5 SLP180")
-metar_dir("201711271930 METAR LEMD 271930Z 02002KT CAVOK 04/M03 Q1025 NOSIG= NOSIG=")
+metar_dir("CYUL 281800Z 13008KT 30SM BKN240 01/M06 A3005 RMK CI5 SLP180", numeric_only = TRUE)
+metar_dir("201711271930 METAR LEMD 271930Z 02002KT CAVOK 04/M03 Q1025")
 
 }

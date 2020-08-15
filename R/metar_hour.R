@@ -1,22 +1,22 @@
-#' Extract hour and minutes.
+#' Get hour and minutes.
 #'
-#' Function extracts an hour and minutes from METAR weather report.
+#' Extract and parse hour and minutes from METAR weather report.
 #'
 #' @param x character; a METAR weather report or reports.
 #'
-#' @return A character vector with the METAR time in the format HH:mm.
+#' @return a character vector with the METAR time in the format HH:mm.
 #'
 #' @export
 #'
 #' @examples
 #' metar_hour("EPWA 281830Z 18009KT 140V200 9999 SCT037 03/M01 Q1008 NOSIG")
 #' metar_hour("CYUL 281800Z 13008KT 30SM BKN240 01/M06 A3005 RMK CI5 SLP180")
-#' metar_hour("201711271930 METAR LEMD 271930Z 02002KT CAVOK 04/M03 Q1025 NOSIG= NOSIG=")
+#' metar_hour("201711271930 METAR LEMD 271930Z 02002KT CAVOK 04/M03 Q1025")
 #'
 metar_hour <- function(x){
   # check if x is a data frame
   if(is.data.frame(x)){
-    stop("Invalid input format! Argument is not an atomic vector.", call. = FALSE)
+    stop("ERROR: Invalid input format! Argument is not an atomic vector.", call. = FALSE)
   }
   out <- c(1:length(x))
   out[1:length(x)] <- NA

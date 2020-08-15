@@ -2,7 +2,7 @@
 % Please edit documentation in R/metar_get_historical.R
 \name{metar_get_historical}
 \alias{metar_get_historical}
-\title{Get historical METAR reports fro an airport.}
+\title{Get historical METAR reports.}
 \usage{
 metar_get_historical(
   airport = "EPWA",
@@ -14,28 +14,34 @@ metar_get_historical(
 \arguments{
 \item{airport}{character;  ICAO or IATA airport code.}
 
-\item{start_date}{character; start date.}
+\item{start_date}{character; start date in the format YYYY-MM-DD.}
 
-\item{end_date}{character; end date.}
+\item{end_date}{character; end date in the format YYYY-MM-DD.}
 
-\item{from}{character; selection of online METAR database, \cr allowed values are "iastate" for  ASOS-AWOS-METAR http://mesonet.agron.iastate.edu/AWOS/ \cr
-and "ogimet" for Weather Information Service provided by Ogimet http://www.ogimet.com/.}
+\item{from}{character; selection of online METAR database, \cr
+the default value is "iastate" downolading METAR reports from
+Iowa Environmental Mesonet ASOS-AWOS-METAR
+\url{https://mesonet.agron.iastate.edu/AWOS/}. \cr
+Setting the parameter from to "ogimet" allows to use Weather Information Service provided by Ogimet
+\url{https://www.ogimet.com/}.}
 }
 \value{
-A character vector for a current METAR weather report.
-
-A data frame character vectors with historical METAR weather report.
+a data frame character vectors with historical METAR weather report.
 }
 \description{
-Function downloads a set of historical METAR weather reports.
-The default source the Iowa Environmental Mesonet web page of Iowa State University
-ASOS-AWOS-METAR http://mesonet.agron.iastate.edu/AWOS/ \cr
-The secondary source is Weather Information Service provided by Ogimet http://www.ogimet.com/
+Download a set of historical METAR weather reports.
+The default source is the Iowa Environmental
+Mesonet web page of Iowa State University ASOS-AWOS-METAR\cr
+\url{https://mesonet.agron.iastate.edu/AWOS/}\cr
+The secondary source of METAR reports is Weather Information Service provided by Ogimet
+\url{https://www.ogimet.com/}. However for this source
+the requested period is limited to 31 days. METAR reports are available from
+the year 2005.
 }
 \examples{
 metar_get_historical("EPWA", start_date = "2017-11-20", end_date = "2017-11-25")
-metar_get_historical("CYUL", start_date = "2016-07-01", end_date = "2016-07-10", from = "ogimet")
-metar_get_historical("MAD", start_date = "2000-06-01", end_date = "2000-06-02", from = "iastate")
+metar_get_historical("CYUL", start_date = "2016-07-01", end_date = "2016-07-05", from = "ogimet")
+metar_get_historical("MAD", start_date = "2015-06-01", end_date = "2015-06-02", from = "iastate")
 
 
 }

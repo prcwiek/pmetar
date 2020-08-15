@@ -1,13 +1,28 @@
-#' Extract approximated airport location.
+#' Get approximated airport location.
 #'
-#' Function findss approximated latitude, longitude and elevation of an airport according to \cr
-#' IATA, International Air Transport Association, or \cr
-#' ICAO, International Civil Aviation Organization, airport code
+#' Find approximated latitude, longitude and elevation of an airport according to
+#' IATA, International Air Transport Association, or
+#' ICAO, International Civil Aviation Organization, airport code. Two source of
+#' information about airports are used. First the function search in the list of
+#' airports available at
+#' [https://ourairports.com/data/airports.csv](https://ourairports.com/data/airports.csv)
+#' created by David Megginson.
+#' If an airport cannot be found there, the second list of airports is searched, from
+#' [https://www.aviationweather.gov/docs/metar/stations.txt](https://www.aviationweather.gov/docs/metar/stations.txt)
+#' prepared by Greg Thompson from National Weather Service NCAR/RAP.
 #'
 #' @param x character vector; an airport ICAO four letters code or an IATA three letters code.
 #'
-#' @return A tibble with columns which consists of airport ICAO code, IATA code airport name, longitude, latitude,
-#'  elevation in meters and source of information
+#' @return a tibble with columns with an airport information as below:
+#' \itemize{
+#' \item ICAO code
+#' \item IATA Code
+#' \item Airport name
+#' \item Longitude, in degress
+#' \item Latitude, in degress
+#' \item Elevation, above see elevel in meters
+#' \item Source of information
+#' }
 #'
 #' @export
 #'
@@ -16,7 +31,7 @@
 #' metar_location("CYUL")
 #' metar_location("LEMD")
 #' metar_location("NCRK")
-#' metar_loaction("WAW")
+#' metar_location("WAW")
 #' metar_location("FRA")
 #'
 metar_location <- function(x = "EPWA") {
@@ -63,10 +78,11 @@ metar_location <- function(x = "EPWA") {
   }
 
   cat("Getting airport informaiton from the file downloaded from\n")
-  cat("http://ourairports.com/data/airports.csv\n")
+  cat("https://ourairports.com/data/airports.csv\n")
+  cat("created by David Megginson\n")
   # check if x is a data frame
   if(is.data.frame(x)){
-    stop("Invalid input format! Argument is not an atomic vector.", call. = FALSE)
+    stop("ERROR: Invalid input format! Argument is not an atomic vector.", call. = FALSE)
   }
   # all characters to upper cases
   x <- stringr::str_to_upper(x)
@@ -85,16 +101,14 @@ metar_location <- function(x = "EPWA") {
       Elevation = round(ourairports$elevation_m[nmatched], 4),
       Source = "http://ourairports.com/data/airports.csv"
     )
-    #return(outlocation)
   }
   # try to use the other source of airports locations
   # IATA code is available
-  if((sum(complete.cases(outlocation$ICAO_Code)) == nrow(outlocation)) &
-     (sum(complete.cases(outlocation$IATA_Code)) != nrow(outlocation))){
+  if((sum(stats::complete.cases(outlocation$ICAO_Code)) == nrow(outlocation)) &
+     (sum(stats::complete.cases(outlocation$IATA_Code)) != nrow(outlocation))){
     cat("Getting airport informaiton from the file downloaded from\n")
     cat("www.aviationweather.gov/docs/metar/stations.txt\n")
-    cat("prepared by Greg Thompson NCAR/RAP\n")
-
+    cat("prepared by Greg Thompson National Weather Service NCAR/RAP\n")
     m_l <- c(1:length(x))
     m_l[1:length(x)] <- ""
     nmissing <- which(is.na(outlocation$IATA_Code) & !is.na(outlocation$ICAO_Code))

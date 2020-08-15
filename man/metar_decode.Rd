@@ -12,43 +12,43 @@ metar_decode(x, metric = TRUE)
 \item{metric}{logical; if TRUE wind speeds returned in m/s, distances in meters.\cr If FALSE, wind speeds returned in knots and distances in miles.}
 }
 \value{
-A tibble with decoded METAR weather report or reports.
+a tibble with decoded METAR weather report or reports.
 }
 \description{
-Extracts information from a single METAR weather report or several reports.
+Extract and parse information from a single METAR weather report or several reports.
 }
 \details{
 Decoded METAR weather report consists of:\cr
 \itemize{
-\item Airport ICAO\cr
-\item Day of Month\cr
-\item Hour (HH:mm)\cr
-\item Time zone\cr
-\item Wind speed \cr
-\item Wind speed unit (m/s or kn)\cr
-\item Gust \cr
-\item Gust unit (m/s or kn) \cr
-\item Wind shear\cr
-\item Wind direction (degrees)\cr
-\item Temperature (Celsius degrees)\cr
-\item Dew point (Celsius degrees)\cr
-\item Pressure (hPa)\cr
-\item Visibility\cr
-\item Visibility unit (m or miles)\cr
-\item Cloud coverage\cr
-\item Weather information from METAR WX codes\cr
-\item Airport Name\cr
-\item Longitude\cr
-\item Latitude\cr
-\item Elevation\cr
-\item Decode Date\cr
-\item Original METAR text\cr
-\item Source of information\cr
+\item Remark: Don't use for flight planning or navigation!
+\item Airport ICAO
+\item Day of Month
+\item Hour (HH:mm)
+\item Time zone
+\item Wind speed
+\item Wind speed unit (m/s or kn)
+\item Gust
+\item Gust unit (m/s or kn)
+\item Wind shear
+\item Wind direction (degrees)
+\item Temperature (Celsius degrees)
+\item Dew point (Celsius degrees)
+\item Pressure (hPa)
+\item Visibility
+\item Visibility unit (m or miles)
+\item Cloud coverage
+\item Weather conditions information from WX codes
+\item Airport Name
+\item Longitude
+\item Latitude
+\item Elevation
+\item Decode Date
+\item Original METAR text
 }
 }
 \examples{
 metar_decode("EPWA 281830Z 18009KT 140V200 9999 SCT037 03/M01 Q1008 NOSIG")
 metar_decode("CYUL 281800Z 13008KT 30SM BKN240 01/M06 A3005 RMK CI5 SLP180")
-metar_decode("201711271930 METAR LEMD 271930Z 02002KT CAVOK 04/M03 Q1025 NOSIG= NOSIG=")
+metar_decode("201711271930 METAR LEMD 271930Z 02002KT CAVOK 04/M03 Q1025")
 
 }

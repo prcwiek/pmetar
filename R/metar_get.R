@@ -1,14 +1,12 @@
 #' Get a current METAR report for an airport.
 #'
-#' Function gets metar report from a web page.\cr
-#' \cr
-#' If only airport is passed as an argument, a current METAR weather report is donwloaded from\cr
-#' the web page https://aviationweather.gov/metar/\cr
-#' \cr
+#' A current METAR weather report is downloaded from the web page of NOAA National Weather Service
+#' https://aviationweather.gov/metar/ based on an airport four letters ICAO code, International Civil
+#' Aviation Organization, or three letters IATA code, International Air Transport Association.
 #'
-#' @param x character; ICAO or an IATA airport code.
+#' @param airport character; ICAO or an IATA airport code.
 #'
-#' @return A character vector with a current METAR weather report.
+#' @return a character vector with a current METAR weather report.
 #'
 #' @export
 #'
@@ -21,7 +19,7 @@
 metar_get <- function(airport = "EPWA"){
   # check if x is a data frame
   if(is.data.frame(airport)){
-    stop("Invalid input format! Argument is not an atomic vector.", call. = FALSE)
+    stop("ERROR: Invalid input format! Argument is not an atomic vector.", call. = FALSE)
   }
   out <- c(1:length(airport))
   out[1:length(airport)] <- NA
@@ -43,5 +41,6 @@ metar_get <- function(airport = "EPWA"){
   metar <- stringr::str_replace(metar, "<code>", "")
   metar <- stringr::str_replace(metar, "</code>", "")
   metar[is.na(metar)] <- "No METAR found!"
+  cat("Don't use for flight planning or navigation!\n")
   metar
 }

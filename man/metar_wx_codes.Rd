@@ -2,7 +2,7 @@
 % Please edit documentation in R/metar_wx_codes.R
 \name{metar_wx_codes}
 \alias{metar_wx_codes}
-\title{Extract METAR WX codes.}
+\title{Get weather conditions information.}
 \usage{
 metar_wx_codes(x)
 }
@@ -10,14 +10,14 @@ metar_wx_codes(x)
 \item{x}{Input character vector}
 }
 \value{
-A charcter vector. with METAR WX codes.
+A character vector. with METAR WX codes.
 }
 \description{
-Function extracts METAR WX codes from METAR weather report.
+Extract and parse weather conditions information METAR WX codes.
 }
 \examples{
-metar_wx_codes("201807132100 METAR EPWA 132100Z 29006KT 260V320 8000 SHRA SCT009 BKN025CB 18/17 Q1011 NOSIG")
+metar_wx_codes("METAR EPWA 132100Z 29006KT 260V320 8000 SHRA SCT009 BKN025CB 18/17 Q1011")
 metar_wx_codes("CYUL 101900Z 27015G25KT 15SM DRSN SCT028 BKN090 OVC110 M04/M10 A2973 RMK")
-metar_wx_codes("201711200300 METAR EPKK 200300Z 23014KT 9999 -SHSN SCT009CB BKN012 01/M00 Q1008=")
+metar_wx_codes("METAR EPKK 200300Z 23014KT 9999 -SHSN SCT009CB BKN012 01/M00 Q1008")
 
 }

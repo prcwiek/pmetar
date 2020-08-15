@@ -2,7 +2,7 @@
 % Please edit documentation in R/metar_airport.R
 \name{metar_airport}
 \alias{metar_airport}
-\title{Extract airport ICAO code.}
+\title{Get airport ICAO, International Civil Aviation Organization, code.}
 \usage{
 metar_airport(x)
 }
@@ -10,14 +10,14 @@ metar_airport(x)
 \item{x}{character vector; METAR weather report or reports.}
 }
 \value{
-A character vector with an airport ICAO code.
+a character vector with an airport ICAO code.
 }
 \description{
-Extracts an airport ICAO code from METAR weather report.
+Extract an airport ICAO code from METAR weather report.
 }
 \examples{
 metar_airport("EPWA 281830Z 18009KT 140V200 9999 SCT037 03/M01 Q1008 NOSIG")
 metar_airport("CYUL 281800Z 13008KT 30SM BKN240 01/M06 A3005 RMK CI5 SLP180")
-metar_airport("201711271930 METAR LEMD 271930Z 02002KT CAVOK 04/M03 Q1025 NOSIG= NOSIG=")
+metar_airport("201711271930 METAR LEMD 271930Z 02002KT CAVOK 04/M03 Q1025")
 
 }

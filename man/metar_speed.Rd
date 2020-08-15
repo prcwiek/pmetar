@@ -2,20 +2,21 @@
 % Please edit documentation in R/metar_speed.R
 \name{metar_speed}
 \alias{metar_speed}
-\title{Extract wind speed}
+\title{Get wind speed}
 \usage{
 metar_speed(x, metric = TRUE)
 }
 \arguments{
 \item{x}{character vector; METAR weather report or reports.}
 
-\item{metric}{For the default metric = TRUE a returned wind speed is in m/s. If it's FALSE, in knots.}
+\item{metric}{logical; the default value is TRUE and a returned wind speed is in m/s;
+if t's FALSE then in knots.}
 }
 \value{
-A numeric vector. A wind speed in m/s.
+a numeric vector. A wind speed in m/s or in knots.
 }
 \description{
-Function extracts a wind speed value from METAR weather report.
+Extract a wind speed value from METAR weather report.
 }
 \examples{
 metar_speed("EPWA 281830Z 18009KT 140V200 9999 SCT037 03/M01 Q1008 NOSIG")

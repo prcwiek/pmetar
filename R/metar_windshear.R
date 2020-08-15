@@ -1,4 +1,4 @@
-#' Extract wind shear information
+#' Get wind shear information.
 #'
 #' Function extracts information about wind shear from METAR weather report.
 #'
@@ -10,14 +10,14 @@
 #' @export
 #'
 #' @examples
-#' metar_windshear("202003180800 METAR VHHH 180800Z 12009KT 060V150 9999 FEW010 SCT045 22/18 Q1012 WS R07R NOSIG")
-#' metar_windshear("CYWG 172000Z 30015G25KT 3/4SM R36/4000FT/D -SN BLSN BKN008 OVC040 M05/M08 A2992 REFZRA WS RWY36 RMK SF5NS3 SLP134")
+#' metar_windshear("METAR VHHH 180800Z 12009KT 060V150 9999 FEW010 SCT045 22/18 Q1012 WS R07R")
+#' metar_windshear("CYWG 172000Z 30015G25KT 3/4SM R36/4000FT/D M05/M08 A2992 REFZRA WS RWY36")
 #' metar_windshear("KPIT 091730Z 091818 22020KT 3SM -SHRA BKN020 WS015/30045KT", metric = FALSE)
 #'
 metar_windshear <- function(x, metric = TRUE) {
   # check if x is a data frame
   if(is.data.frame(x)){
-    stop("Invalid input format! Argument is not an atomic vector.", call. = FALSE)
+    stop("ERROR: Invalid input format! Argument is not an atomic vector.", call. = FALSE)
   }
   # define conversion coefficients
   if(metric){

@@ -2,7 +2,7 @@
 % Please edit documentation in R/metar_time_zone.R
 \name{metar_time_zone}
 \alias{metar_time_zone}
-\title{Extract time zone.}
+\title{Get time zone.}
 \usage{
 metar_time_zone(x)
 }
@@ -10,14 +10,14 @@ metar_time_zone(x)
 \item{x}{character; a METAR weather report or reports.}
 }
 \value{
-A character vector with time zone.
+a character vector with time zone.
 }
 \description{
-Function extracts a time zone of METAR weather report.
+Extract a time zone of METAR weather report.
 }
 \examples{
 metar_time_zone("EPWA 281830Z 18009KT 140V200 9999 SCT037 03/M01 Q1008 NOSIG")
 metar_time_zone("CYUL 281800Z 13008KT 30SM BKN240 01/M06 A3005 RMK CI5 SLP180")
-metar_time_zone("201711271930 METAR LEMD 271930Z 02002KT CAVOK 04/M03 Q1025 NOSIG= NOSIG=")
+metar_time_zone("201711271930 METAR LEMD 271930Z 02002KT CAVOK 04/M03 Q1025")
 
 }

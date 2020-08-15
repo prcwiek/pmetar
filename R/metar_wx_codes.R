@@ -1,24 +1,24 @@
-#' Extract METAR WX codes.
+#' Get weather conditions information.
 #'
-#' Function extracts METAR WX codes from METAR weather report.
+#' Extract and parse weather conditions information METAR WX codes.
 #'
 #' @param x Input character vector
 #'
-#' @return A charcter vector. with METAR WX codes.
+#' @return A character vector. with METAR WX codes.
 #'
 #' @importFrom magrittr %>%
 #'
 #' @export
 #'
 #' @examples
-#' metar_wx_codes("201807132100 METAR EPWA 132100Z 29006KT 260V320 8000 SHRA SCT009 BKN025CB 18/17 Q1011 NOSIG")
+#' metar_wx_codes("METAR EPWA 132100Z 29006KT 260V320 8000 SHRA SCT009 BKN025CB 18/17 Q1011")
 #' metar_wx_codes("CYUL 101900Z 27015G25KT 15SM DRSN SCT028 BKN090 OVC110 M04/M10 A2973 RMK")
-#' metar_wx_codes("201711200300 METAR EPKK 200300Z 23014KT 9999 -SHSN SCT009CB BKN012 01/M00 Q1008=")
+#' metar_wx_codes("METAR EPKK 200300Z 23014KT 9999 -SHSN SCT009CB BKN012 01/M00 Q1008")
 #'
 metar_wx_codes <- function(x) {
   # Check if x is a data frame and stop if yes
   if(is.data.frame(x)){
-    stop("Invalid input format! Argument is not an atomic vector.", call. = FALSE)
+    stop("ERROR: Invalid input format! Argument is not an atomic vector.", call. = FALSE)
   }
 
   # Function matches an extracted code to a description from metarWXcodes data frame

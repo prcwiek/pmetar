@@ -2,7 +2,7 @@
 % Please edit documentation in R/metar_cloud_coverage.R
 \name{metar_cloud_coverage}
 \alias{metar_cloud_coverage}
-\title{Extract cloud coverage information.}
+\title{Get cloud coverage information.}
 \usage{
 metar_cloud_coverage(x)
 }
@@ -10,15 +10,15 @@ metar_cloud_coverage(x)
 \item{x}{character vector; a METAR weather report or reports.}
 }
 \value{
-A character vector with cloud coverage information.
+a character vector with cloud coverage information.
 }
 \description{
-Extracts cloud coverage information from METAR weather report.
+Extract and parse cloud coverage information from METAR weather report.
 }
 \examples{
 metar_cloud_coverage("EPWA 281830Z 18009KT 140V200 9999 SCT037 03/M01 Q1008 NOSIG")
 metar_cloud_coverage("CYUL 281800Z 13008KT 30SM BKN240 01/M06 A3005 RMK CI5 SLP180")
-metar_cloud_coverage("201711271930 METAR LEMD 271930Z 02002KT CAVOK 04/M03 Q1025 NOSIG= NOSIG=")
-metar_cloud_coverage("202001011451 METAR KEWR 011451Z 26015KT 10SM FEW030 FEW045 BKN065 04/M07 A2977 RMK SLP081 T00391067 53019")
+metar_cloud_coverage("201711271930 METAR LEMD 271930Z 02002KT CAVOK 04/M03 Q1025")
+metar_cloud_coverage("KEWR 011451Z 26015KT 10SM FEW030 FEW045 BKN065 04/M07 A2977")
 
 }

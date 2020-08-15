@@ -2,7 +2,7 @@
 % Please edit documentation in R/metar_location.R
 \name{metar_location}
 \alias{metar_location}
-\title{Extract approximated airport location.}
+\title{Get approximated airport location.}
 \usage{
 metar_location(x = "EPWA")
 }
@@ -10,20 +10,35 @@ metar_location(x = "EPWA")
 \item{x}{character vector; an airport ICAO four letters code or an IATA three letters code.}
 }
 \value{
-A tibble with columns which consists of airport ICAO code, IATA code airport name, longitude, latitude,
- elevation in meters and source of information
+a tibble with columns with an airport information as below:
+\itemize{
+\item ICAO code
+\item IATA Code
+\item Airport name
+\item Longitude, in degress
+\item Latitude, in degress
+\item Elevation, above see elevel in meters
+\item Source of information
+}
 }
 \description{
-Function findss approximated latitude, longitude and elevation of an airport according to \cr
-IATA, International Air Transport Association, or \cr
-ICAO, International Civil Aviation Organization, airport code
+Find approximated latitude, longitude and elevation of an airport according to
+IATA, International Air Transport Association, or
+ICAO, International Civil Aviation Organization, airport code. Two source of
+information about airports are used. First the function search in the list of
+airports available at
+\url{https://ourairports.com/data/airports.csv}
+created by David Megginson.
+If an airport cannot be found there, the second list of airports is searched, from
+\url{https://www.aviationweather.gov/docs/metar/stations.txt}
+prepared by Greg Thompson from National Weather Service NCAR/RAP.
 }
 \examples{
 metar_location("EPWA")
 metar_location("CYUL")
 metar_location("LEMD")
 metar_location("NCRK")
-metar_loaction("WAW")
+metar_location("WAW")
 metar_location("FRA")
 
 }

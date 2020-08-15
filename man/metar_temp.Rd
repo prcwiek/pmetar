@@ -2,7 +2,7 @@
 % Please edit documentation in R/metar_temp.R
 \name{metar_temp}
 \alias{metar_temp}
-\title{Extract temperature.}
+\title{Get temperature.}
 \usage{
 metar_temp(x)
 }
@@ -10,15 +10,15 @@ metar_temp(x)
 \item{x}{character vector; a METAR weather report or reports.}
 }
 \value{
-A numeric vector with temperature in degrees Celsius.
+a numeric vector with temperature in degrees Celsius.
 }
 \description{
-Function extracts a temperature value from METAR weather report.
+Extract a temperature value from METAR weather report.
 }
 \examples{
 metar_temp("EPWA 281830Z 18009KT 140V200 9999 SCT037 03/M01 Q1008 NOSIG")
 metar_temp("CYUL 281800Z 13008KT 30SM BKN240 01/M06 A3005 RMK CI5 SLP180")
 metar_temp("201711271930 METAR LEMD 271930Z 02002KT CAVOK 04/M03 Q1025 NOSIG= NOSIG=")
-metar_temp("202001010851 METAR KEWR 010851Z 27010KT 10SM FEW030 BKN070 BKN100 BKN210 04/M03 A2969 RMK SLP054 T00391033 52012")
+metar_temp("METAR KEWR 010851Z 27010KT 10SM BKN210 04/M03 A2969 RMK SLP054 T00391033 52012")
 
 }

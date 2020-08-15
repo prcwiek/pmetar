@@ -63,7 +63,7 @@ metar_decode <- function(x, metric = TRUE){
       out <- out %>%
         dplyr::mutate(Remark = "Don't use for flight planning or navigation!",
                       Airport_ICAO = metar_airport(out$x),
-                      Metar_Date = metar_date,
+                      METAR_Date = metar_date,
                       Day_of_Month = metar_day(out$x),
                       Hour = metar_hour(out$x),
                       Time_zone = metar_time_zone(out$x),
@@ -93,8 +93,7 @@ metar_decode <- function(x, metric = TRUE){
       out
     },
     error = function(e){
-      cat("It is not a METAR weather report!\n")
-      return(NA)
+      stop("ERROR: It is not a METAR weather report!\n", call. = FALSE)
     }
   )
 }

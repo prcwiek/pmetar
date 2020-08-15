@@ -1,10 +1,10 @@
-#' Extract cloud coverage information.
+#' Get cloud coverage information.
 #'
-#' Extracts cloud coverage information from METAR weather report.
+#' Extract and parse cloud coverage information from METAR weather report.
 #'
 #' @param x character vector; a METAR weather report or reports.
 #'
-#' @return A character vector with cloud coverage information.
+#' @return a character vector with cloud coverage information.
 #'
 #' @importFrom magrittr %>%
 #'
@@ -13,13 +13,13 @@
 #' @examples
 #' metar_cloud_coverage("EPWA 281830Z 18009KT 140V200 9999 SCT037 03/M01 Q1008 NOSIG")
 #' metar_cloud_coverage("CYUL 281800Z 13008KT 30SM BKN240 01/M06 A3005 RMK CI5 SLP180")
-#' metar_cloud_coverage("201711271930 METAR LEMD 271930Z 02002KT CAVOK 04/M03 Q1025 NOSIG= NOSIG=")
-#' metar_cloud_coverage("202001011451 METAR KEWR 011451Z 26015KT 10SM FEW030 FEW045 BKN065 04/M07 A2977 RMK SLP081 T00391067 53019")
+#' metar_cloud_coverage("201711271930 METAR LEMD 271930Z 02002KT CAVOK 04/M03 Q1025")
+#' metar_cloud_coverage("KEWR 011451Z 26015KT 10SM FEW030 FEW045 BKN065 04/M07 A2977")
 #'
 metar_cloud_coverage <- function(x) {
   # check if x is a data frame
   if(is.data.frame(x)){
-    stop("Invalid input format! Argument is not an atomic vector.", call. = FALSE)
+    stop("ERROR: Invalid input format! Argument is not an atomic vector.", call. = FALSE)
   }
   # function for extracting several repeating elements, like FEW030 FEW045
   multi_extracting <- function(tdist, tpattern) {
@@ -37,8 +37,8 @@ metar_cloud_coverage <- function(x) {
     }
     dist <- dist * 100
     dist_m <- dist * 0.3048
-    dist <- tidyr::unite(dist, ft, sep = ", ", na.rm = TRUE)
-    dist_m <- tidyr::unite(dist_m, m, sep = ", ", na.rm = TRUE)
+    dist <- tidyr::unite(dist, "ft", sep = ", ", na.rm = TRUE)
+    dist_m <- tidyr::unite(dist_m, "m", sep = ", ", na.rm = TRUE)
     return(cbind(dist, dist_m))
   }
 
@@ -48,11 +48,11 @@ metar_cloud_coverage <- function(x) {
                                        "SCT\\d{3}CB",
                                        "BKN\\d{3}\\s",
                                        "BKN\\d{3}CB"),
-                      description_text = c("Few (1–2 oktas) at ",
-                                           "Scattered (3–4 oktas) at ",
-                                           "Scattered (3–4 oktas) cumulonimbus clouds at ",
-                                           "Broken (5–7 oktas) at ",
-                                           "Broken (5–7 oktas) cumulonimbus clouds at "))
+                      description_text = c("Few (1-2 oktas) at ",
+                                           "Scattered (3-4 oktas) at ",
+                                           "Scattered (3-4 oktas) cumulonimbus clouds at ",
+                                           "Broken (5-7 oktas) at ",
+                                           "Broken (5-7 oktas) cumulonimbus clouds at "))
   out <- c(1:length(x))
   out[1:length(x)] <- ""
   # SKC - "No cloud/Sky clear" used worldwide but in
@@ -88,3 +88,4 @@ metar_cloud_coverage <- function(x) {
   out[fT] <- stringr::str_sub(out[fT], 1, (nchar(out[fT]) - 2))
   out
 }
+

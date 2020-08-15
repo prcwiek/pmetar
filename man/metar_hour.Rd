@@ -2,7 +2,7 @@
 % Please edit documentation in R/metar_hour.R
 \name{metar_hour}
 \alias{metar_hour}
-\title{Extract hour and minutes.}
+\title{Get hour and minutes.}
 \usage{
 metar_hour(x)
 }
@@ -10,14 +10,14 @@ metar_hour(x)
 \item{x}{character; a METAR weather report or reports.}
 }
 \value{
-A character vector with the METAR time in the format HH:mm.
+a character vector with the METAR time in the format HH:mm.
 }
 \description{
-Function extracts an hour and minutes from METAR weather report.
+Extract and parse hour and minutes from METAR weather report.
 }
 \examples{
 metar_hour("EPWA 281830Z 18009KT 140V200 9999 SCT037 03/M01 Q1008 NOSIG")
 metar_hour("CYUL 281800Z 13008KT 30SM BKN240 01/M06 A3005 RMK CI5 SLP180")
-metar_hour("201711271930 METAR LEMD 271930Z 02002KT CAVOK 04/M03 Q1025 NOSIG= NOSIG=")
+metar_hour("201711271930 METAR LEMD 271930Z 02002KT CAVOK 04/M03 Q1025")
 
 }
