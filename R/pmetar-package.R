@@ -2,7 +2,7 @@
 #'
 #' @name pmetar
 #' @docType package
-#' @description  Processing METAR weather reports
+#' @description  Processing METAR Weather Reports
 NULL
 
 #' METAR WX weather conditions codes

@@ -1,6 +1,6 @@
 Type: Package
 Package: pmetar
-Title: Processing METAR weather reports
+Title: Processing METAR Weather Reports
 Version: 0.2.7.00
 Authors@R: c(
   person("Pawel","Cwiek", role = c("aut", "cre"),
