@@ -40,10 +40,10 @@ the year 2005.
 }
 \examples{
 metar_get_historical("EPWA", start_date = "2017-11-20", end_date = "2017-11-25")
-metar_get_historical("CYUL", start_date = "2016-07-01", end_date = "2016-07-05", from = "ogimet")
+metar_get_historical("MAD", start_date = "2015-06-01", end_date = "2015-06-02", from = "iastate")
 
 \dontrun{
-metar_get_historical("MAD", start_date = "2015-06-01", end_date = "2015-06-02", from = "iastate")
+#' metar_get_historical("CYUL", start_date = "2016-07-01", end_date = "2016-07-05", from = "ogimet")
 }
 
 }
