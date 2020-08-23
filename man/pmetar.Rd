@@ -5,5 +5,5 @@
 \alias{pmetar}
 \title{pmetar.}
 \description{
-Processing METAR weather reports
+Processing METAR Weather Reports
 }
