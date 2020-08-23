@@ -10,7 +10,7 @@ Author: Pawel Cwiek [aut, cre]
 Maintainer: Pawel Cwiek <prc.altodato@gmail.com>
 Description: Package allows to download current and historical METAR weather reports
   extract and parse basic parameters and present main weather information.
-License: GPL-3 + file LICENSE
+License: GPL (>= 3) + file LICENSE
 URL: https://github.com/prcwiek/pmetar
 BugReports: https://github.com/prcwiek/pmetar/issues
 Depends:
@@ -30,8 +30,8 @@ Suggests:
     testthat,
     tibble
 VignetteBuilder: knitr
-Encoding: UTF-8
 LazyData: true
+Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
 
