@@ -34,7 +34,7 @@ x2_output <- tibble::tibble(ICAO_Code = "CYUL", IATA_Code = "YUL",
                     Longitude = -73.7408, Latitude = 45.4706, Elevation = 35.9664,
                     Source = "http://ourairports.com/data/airports.csv")
 x3_output <- tibble::tibble(ICAO_Code = "LEMD", IATA_Code = "MAD",
-                    Airport_Name = "Adolfo Suárez Madrid–Barajas Airport",
+                    Airport_Name = "Adolfo Suarez Madrid-Barajas Airport",
                     Longitude = -3.56264, Latitude = 40.47193, Elevation = 608.9904,
                     Source = "http://ourairports.com/data/airports.csv")
 x4_output <- tibble::tibble(ICAO_Code = "EPWA", IATA_Code = "WAW",
