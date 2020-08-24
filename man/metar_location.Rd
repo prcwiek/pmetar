@@ -31,7 +31,8 @@ airports available at
 created by David Megginson.
 If an airport cannot be found there, the second list of airports is searched, from
 \url{https://www.aviationweather.gov/docs/metar/stations.txt}
-prepared by Greg Thompson from National Weather Service NCAR/RAP.
+prepared by Greg Thompson from \cr
+National Weather Service NCAR/RAP.
 }
 \examples{
 metar_location("EPWA")

@@ -7,9 +7,11 @@
 metar_decode(x, metric = TRUE)
 }
 \arguments{
-\item{x}{character vector; a single METAR weather report or historical METAR weather reports.}
+\item{x}{character vector; a single METAR weather report or\cr
+historical METAR weather reports.}
 
-\item{metric}{logical; if TRUE wind speeds returned in m/s, distances in meters.\cr If FALSE, wind speeds returned in knots and distances in miles.}
+\item{metric}{logical; if TRUE wind speeds returned in m/s, distances in meters.\cr
+If FALSE, #' wind speeds returned in knots and distances in miles.}
 }
 \value{
 a tibble with decoded METAR weather report or reports.
