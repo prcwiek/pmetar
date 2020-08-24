@@ -10,9 +10,10 @@
 #' @export
 #'
 #' @examples
-#' metar_windshear("METAR VHHH 180800Z 12009KT 060V150 9999 FEW010 SCT045 22/18 Q1012 WS R07R")
-#' metar_windshear("CYWG 172000Z 30015G25KT 3/4SM R36/4000FT/D M05/M08 A2992 REFZRA WS RWY36")
-#' metar_windshear("KPIT 091730Z 091818 22020KT 3SM -SHRA BKN020 WS015/30045KT", metric = FALSE)
+#' metar_windshear("METAR VHHH 180800Z 12009KT 060V150 FEW010 SCT045 22/18 Q1012 WS R07R")
+#' metar_windshear("CYWG 172000Z 30015G25KT 3/4SM R36/4000FT/D M05/M08 A2992 WS RWY36")
+#' metar_windshear("KPIT 091730Z 091818 22020KT 3SM -SHRA BKN020 WS015/30045KT",
+#'  metric = FALSE)
 #'
 metar_windshear <- function(x, metric = TRUE) {
   # check if x is a data frame

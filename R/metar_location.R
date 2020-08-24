@@ -9,7 +9,8 @@
 #' created by David Megginson.
 #' If an airport cannot be found there, the second list of airports is searched, from
 #' [https://www.aviationweather.gov/docs/metar/stations.txt](https://www.aviationweather.gov/docs/metar/stations.txt)
-#' prepared by Greg Thompson from National Weather Service NCAR/RAP.
+#' prepared by Greg Thompson from \cr
+#' National Weather Service NCAR/RAP.
 #'
 #' @param x character vector; an airport ICAO four letters code or an IATA three letters code.
 #'

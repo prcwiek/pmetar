@@ -30,8 +30,10 @@
 #' \item Original METAR text
 #' }
 #'
-#' @param x character vector; a single METAR weather report or historical METAR weather reports.
-#' @param metric logical; if TRUE wind speeds returned in m/s, distances in meters.\cr If FALSE, wind speeds returned in knots and distances in miles.
+#' @param x character vector; a single METAR weather report or\cr
+#' historical METAR weather reports.
+#' @param metric logical; if TRUE wind speeds returned in m/s, distances in meters.\cr
+#' If FALSE, #' wind speeds returned in knots and distances in miles.
 #'
 #' @return a tibble with decoded METAR weather report or reports.
 #'
