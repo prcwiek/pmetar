@@ -10,6 +10,12 @@
 * win-builder (devel and release)
 There was 1 NOTE:
 * Possibly mis-spelled words in DESCRIPTION:
-  METAR (3:19, 12:64)
+  ASOS (17:3)
+  AWOS (17:8)
+  METAR (3:19, 12:64, 17:13)
+  Mesonet (16:22)
 
-* This is a new release.
+* All tests:
+* File LICENSE is not mentioned in the DESCRIPTION file.
+
+* This is a new release, after the corrections according to CRAN comments.

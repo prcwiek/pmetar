@@ -9,8 +9,12 @@ Authors@R: c(
 Author: Pawel Cwiek [aut, cre]
 Maintainer: Pawel Cwiek <prc.altodato@gmail.com>
 Description: Package allows to download current and historical METAR weather reports
-  extract and parse basic parameters and present main weather information.
-License: GPL (>= 3) + file LICENSE
+  extract and parse basic parameters and present main weather information. 
+  Current reports are downloaded from Aviation Weather Center 
+  <https://www.aviationweather.gov/metar> and historical reports from
+  Iowa Environmental Mesonet web page of Iowa State University
+  ASOS-AWOS-METAR <http://mesonet.agron.iastate.edu/AWOS/>.
+License: GPL (>= 3)
 URL: https://github.com/prcwiek/pmetar
 BugReports: https://github.com/prcwiek/pmetar/issues
 Depends:

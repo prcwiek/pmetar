@@ -49,7 +49,7 @@ from John F. Kennedy International Airport.
 ## Downloading historical METAR weather report
 The function metar_get_historical allows to download METAR weather reports for a defined period of time.
 The default online source of METAR reports, *from = "iastate"* is the Iowa Environmental Mesonet
-web page of Iowa State University ASOS-AWOS-METAR <http://mesonet.agron.iastate.edu/AWOS>.    
+web page of Iowa State University ASOS-AWOS-METAR <http://mesonet.agron.iastate.edu/AWOS/>.    
 ```{r}
 dm <- metar_get_historical("JFK", start_date = "2020-06-25", end_date = "2020-06-29", from = "iastate")
 head(dm)
