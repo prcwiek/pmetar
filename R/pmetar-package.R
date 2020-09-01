@@ -25,8 +25,11 @@ NULL
 
 #' Main list of airports
 #'
-#' A dataset containing the list of airports
+#'#' A dataset containing the list of airports
 #' weather conditions codes. The variables are as follows:
+#'
+#' From <https://ourairports.com/>
+#' A data set is in the public domain according to <https://ourairports.com/data/>
 #'
 #' \itemize{
 #'   \item id; identification number
@@ -47,7 +50,7 @@ NULL
 #' @keywords datasets
 #' @name ourairports
 #' @author David Megginson
-#' @references [https://ourairports.com/data/airports.csv](https://ourairports.com/data/airports.csv)
+#' @references [https://ourairports.com/data/](https://ourairports.com/data/)
 #' @format A data frame with 29010 rows and 12 variables
 NULL
 
@@ -55,10 +58,13 @@ NULL
 #'
 #' A character vector containing the list of airports.
 #'
+#' From <https://www.aviationweather.gov/>
+#' A data set is in the public domain according to <https://www.weather.gov/disclaimer>
+#'
 #' @docType data
 #' @keywords datasets
 #' @name mst
-#' @author Greg Thompson from National Weather Service NCAR/RAP
-#' @references [https://www.aviationweather.gov/docs/metar/stations.txt](https://www.aviationweather.gov/docs/metar/stations.txt)
+#' @author Greg Thompson from National Weather Service NCAR/RAP, NOAA National Weather Service
+#' @references [https://www.aviationweather.gov/docs/metar/stations.txt](https://www.aviationweather.gov/docs/metar/stations.txt),
 #' @format A character vector with the length of 9814 items
 NULL
