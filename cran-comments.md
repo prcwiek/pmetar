@@ -28,5 +28,7 @@ And the meaning of the last one Mesonet according to
 climatology), a mesonet, portmanteau of mesoscale network, is a network
 of (typically) automated weather and environmental monitoring stations
 designed to observe mesoscale meteorological phenomena."  
-  
-This is a new release, after the corrections according to CRAN comments.
+
+This is a new release, after the corrections according to CRAN comments: adding contributors in DESCRIPTION, 
+change of cat to message.
+
