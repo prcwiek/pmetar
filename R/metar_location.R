@@ -78,9 +78,9 @@ metar_location <- function(x = "EPWA") {
     list(apname, lat, lon, ele)
   }
 
-  cat("Getting airport informaiton from the file downloaded from\n")
-  cat("https://ourairports.com/data/airports.csv\n")
-  cat("created by David Megginson\n")
+  message("Getting airport informaiton from the file downloaded from")
+  message("https://ourairports.com/data/airports.csv")
+  message("created by David Megginson")
   # check if x is a data frame
   if(is.data.frame(x)){
     stop("ERROR: Invalid input format! Argument is not an atomic vector.", call. = FALSE)
@@ -107,9 +107,9 @@ metar_location <- function(x = "EPWA") {
   # IATA code is available
   if((sum(stats::complete.cases(outlocation$ICAO_Code)) == nrow(outlocation)) &
      (sum(stats::complete.cases(outlocation$IATA_Code)) != nrow(outlocation))){
-    cat("Getting airport informaiton from the file downloaded from\n")
-    cat("www.aviationweather.gov/docs/metar/stations.txt\n")
-    cat("prepared by Greg Thompson National Weather Service NCAR/RAP\n")
+    message("Getting airport informaiton from the file downloaded from")
+    message("www.aviationweather.gov/docs/metar/stations.txt")
+    message("prepared by Greg Thompson National Weather Service NCAR/RAP")
     m_l <- c(1:length(x))
     m_l[1:length(x)] <- ""
     nmissing <- which(is.na(outlocation$IATA_Code) & !is.na(outlocation$ICAO_Code))

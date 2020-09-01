@@ -32,7 +32,7 @@ metar_get <- function(airport = "EPWA"){
   # find IACO codes
   fT <- stringr::str_detect(airport, pattern = "^[A-Z]{4}$")
   # get METAR report for each element
-  cat("Getting information from Aviation Weather Center www.aviationweather.gov/metar\n")
+  message("Getting information from Aviation Weather Center www.aviationweather.gov/metar")
   link <- paste0("https://aviationweather.gov/metar/data?ids=",
                  airport,
                  "&format=raw&date=0&hours=0")
@@ -41,6 +41,6 @@ metar_get <- function(airport = "EPWA"){
   metar <- stringr::str_replace(metar, "<code>", "")
   metar <- stringr::str_replace(metar, "</code>", "")
   metar[is.na(metar)] <- "No METAR found!"
-  cat("Don't use for flight planning or navigation!\n")
+  message("Don't use for flight planning or navigation!")
   metar
 }

@@ -28,7 +28,7 @@
 #' metar_get_historical("MAD", start_date = "2015-06-01", end_date = "2015-06-02",
 #' from = "iastate")
 #'
-#' \dontrun{
+#' \donttest{
 #' metar_get_historical("CYUL", start_date = "2016-07-01", end_date = "2016-07-05",
 #' from = "ogimet")
 #' }
@@ -90,8 +90,8 @@ metar_get_historical <- function(airport = "EPWA",
                    eyear, "&mesf=",
                    emonth, "&dayf=",
                    eday, "&horaf=23&minf=59&enviar=Ver")
-    cat("Getting information from Weather Information Service http://www.ogimet.com/\n")
-    cat("developed by Guillermo Ballester Valor\n")
+    message("Getting information from Weather Information Service http://www.ogimet.com/")
+    message("developed by Guillermo Ballester Valor")
   } else if(from == "iastate"){
     end_date <- as.Date(end_date)
     eyear <- lubridate::year(end_date + 1)
@@ -106,8 +106,8 @@ metar_get_historical <- function(airport = "EPWA",
                    "&month2=", emonth,
                    "&day2=", eday,
                    "&tz=Etc%2FUTC&format=onlycomma&latlon=no&direct=no&report_type=1&report_type=2")
-    cat("Iowa Environmental Mesonet web page of Iowa State University\n")
-    cat("ASOS-AWOS-METAR http://mesonet.agron.iastate.edu/AWOS/\n")
+    message("Iowa Environmental Mesonet web page of Iowa State University")
+    message("ASOS-AWOS-METAR http://mesonet.agron.iastate.edu/AWOS/")
   } else {
     stop(paste("Incorrect input parameters from = '" ,from ,
                "'. Please use 'ogimet' or 'iastate'.", sep = ""), call. = FALSE)
@@ -119,9 +119,9 @@ metar_get_historical <- function(airport = "EPWA",
     },
     error = function(e){
       if (from == "ogimet") {
-        stop("ERROR: Cannot connect to the server www.ogimet.com!\n", call. = FALSE)
+        stop("ERROR: Cannot connect to the server www.ogimet.com!", call. = FALSE)
       } else {
-        stop("ERROR: Cannot connect to the server mesonet.agron.iastate.edu!\n", call. = FALSE)
+        stop("ERROR: Cannot connect to the server mesonet.agron.iastate.edu!", call. = FALSE)
       }
     }
   )
@@ -168,6 +168,6 @@ metar_get_historical <- function(airport = "EPWA",
     stop("ERROR: Data not available on mesonet.agron.iastate.edu!", call. = FALSE)
   }
 
-  cat("Don't use for flight planning or navigation!\n")
+  message("Don't use for flight planning or navigation!")
   out
 }

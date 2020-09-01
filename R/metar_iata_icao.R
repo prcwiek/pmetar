@@ -18,8 +18,8 @@
 #' metar_iata_icao("KRK")
 #'
 metar_iata_icao <- function(code = "WAW") {
-  cat("Getting airport informaiton from the file downloaded from\n")
-  cat("http://ourairports.com/data/airports.csv\n")
+  message("Getting airport informaiton from the file downloaded from")
+  message("http://ourairports.com/data/airports.csv")
   # check if x is a data frame
   if(is.data.frame(code)){
     stop("ERROR: Invalid input format! Argument is not an atomic vector.", call. = FALSE)
