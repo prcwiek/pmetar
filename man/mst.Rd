@@ -10,10 +10,14 @@ A character vector with the length of 9814 items
 \description{
 A character vector containing the list of airports.
 }
+\details{
+From \url{https://www.aviationweather.gov/}
+A data set is in the public domain according to \url{https://www.weather.gov/disclaimer}
+}
 \references{
-\url{https://www.aviationweather.gov/docs/metar/stations.txt}
+\url{https://www.aviationweather.gov/docs/metar/stations.txt},
 }
 \author{
-Greg Thompson from National Weather Service NCAR/RAP
+Greg Thompson from National Weather Service NCAR/RAP, NOAA National Weather Service
 }
 \keyword{datasets}

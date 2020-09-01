@@ -8,10 +8,13 @@
 A data frame with 29010 rows and 12 variables
 }
 \description{
-A dataset containing the list of airports
+#' A dataset containing the list of airports
 weather conditions codes. The variables are as follows:
 }
 \details{
+From \url{https://ourairports.com/}
+A data set is in the public domain according to \url{https://ourairports.com/data/}
+
 \itemize{
 \item id; identification number
 \item ident; airport ICAO code
