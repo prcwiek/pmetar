@@ -16,11 +16,12 @@ Please take into consideration that the http://www.ogimet.com/ can block too fre
 <br><h4><b>Locations of METAR stations</b></h4>
 <p>Information about the locations of the METAR stations / ariports were taken from two sources:<br>
 <ol>
-<li> The first choice is the file http://ourairports.com/data/airports.csv available on the web page http://ourairports.com</li>
-created by David Megginson.<br>
-<li> If information can't be found, the second source is searched, the ADDS Station Table prepared by Greg Thompson NCAR/RAP. The file is available on the web page of Aviation Weather Center https://www.aviationweather.gov/docs/metar/stations.txt</li>
+<li> The first choice is the file from https://ourairports.com/data/ created by David Megginson.</li>
+<li> If information can't be found, the second source is searched, the ADDS Station Table prepared by Greg Thompson NCAR/RAP. The file is available on the web page of Aviation Weather Center https://www.aviationweather.gov/docs/metar/stations.txt 
+from NOAA National Weather Service https://www.weather.gov/</li>
 </ol>
-<br>
+The both above data sources are in the public domain.
+<br><br>
 <h4><b>Package pmetar is for extracting and parsing information, from current or historical METAR reports, only.
 <br><br>
 Don't use it for flight planning or navigation.</b></h4>
