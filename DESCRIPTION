@@ -2,13 +2,21 @@ Type: Package
 Package: pmetar
 Title: Processing METAR Weather Reports
 Version: 0.2.7.0
-Authors@R: c(
-  person("Pawel","Cwiek", role = c("aut", "cre"),
-          email = "prc.altodato@gmail.com")
-  )
-Author: Pawel Cwiek [aut, cre]
+Authors@R: 
+    c(person(given = "Pawel",
+             family = "Cwiek",
+             role = c("aut", "cre"),
+             email = "prc.altodato@gmail.com"),
+      person(given = "David",
+             family = "Megginson",
+             role = "ctb",
+             comment = "Author of data set with airports list https://ourairports.com/data/"),
+      person(given = "Greg",
+             family = "Thompson",
+             role = "ctb",
+             comment = "Author of data set with airports list https://www.aviationweather.gov/docs/metar/stations.txt"))
 Maintainer: Pawel Cwiek <prc.altodato@gmail.com>
-Description: Package allows to download current and historical METAR weather reports
+Description: Allows to download current and historical METAR weather reports
   extract and parse basic parameters and present main weather information. 
   Current reports are downloaded from Aviation Weather Center 
   <https://www.aviationweather.gov/metar> and historical reports from
@@ -38,4 +46,3 @@ LazyData: true
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
-
