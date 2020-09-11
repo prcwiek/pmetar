@@ -1,0 +1,72 @@
+---
+output: github_document
+---
+pmetar
+======
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r echo=FALSE}
+knitr::opts_chunk$set(
+  warning = FALSE,
+  message = FALSE,
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+[![cran version](https://www.r-pkg.org/badges/version/pmetar)](https://cran.r-project.org/package=pmetar)
+
+Package allows to download current and historical METAR weather reports and decode basic parameters.
+
+### METAR weather reports source web pages
+The function metar_get scraps data from two web pages:
+
+1. For current reports:
+
+* Aviation Weather Center https://www.aviationweather.gov/metar</li><br>
+
+2. For historical reports:
+
+* Iowa Environmental Mesonet web page of Iowa State University
+ASOS-AWOS-METAR http://mesonet.agron.iastate.edu/AWOS/</li>
+* Weather Information Service http://www.ogimet.com/ developed by Guillermo Ballester Valor
+
+Please take into consideration that the http://www.ogimet.com/ can block too frequent requests for data due to the server overload. <br>
+
+### Locations of METAR stations
+Information about the locations of the METAR stations / ariports were taken from two sources:
+
+1. The first choice is the file from https://ourairports.com/data/ created by David Megginson.
+2. If information can't be found, the second source is searched, the ADDS Station Table prepared by Greg Thompson NCAR/RAP. The file is available on the web page of Aviation Weather Center https://www.aviationweather.gov/docs/metar/stations.txt 
+from NOAA National Weather Service https://www.weather.gov/
+
+The both above data sources are in the public domain.
+
+#### Package pmetar is for extracting and parsing information, from current or historical METAR reports, only.
+
+#### Don't use it for flight planning or navigation.
+
+### Installation
+
+CRAN version
+
+```{r eval=FALSE}
+install.packages("pmetar")
+```
+
+Dev version
+
+```{r eval=FALSE}
+remotes::install_github("prcwiek/pmetar")
+```
+
+```{r}
+library('pmetar')
+```
+
+## Contributors
+
+* David Megginson, Author of data set with airports list https://ourairports.com/data/
+* Greg Thompson, Author of data set with airports list https://www.aviationweather.gov/docs/metar/stations.txt
+
