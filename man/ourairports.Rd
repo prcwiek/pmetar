@@ -31,7 +31,7 @@ A data set is in the public domain according to \url{https://ourairports.com/dat
 }
 }
 \references{
-\url{https://ourairports.com/data/airports.csv}
+\url{https://ourairports.com/data/}
 }
 \author{
 David Megginson
