@@ -3,6 +3,8 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
+[![rstudio mirror
+downloads](https://cranlogs.r-pkg.org/badges/pmetar)](https://github.com/metacran/cranlogs.app)
 [![cran
 version](https://www.r-pkg.org/badges/version/pmetar)](https://cran.r-project.org/package=pmetar)
 
