@@ -69,11 +69,11 @@ metar_cloud_coverage <- function(x) {
   out[fT] <- paste0(out[fT], "No (nil) significant cloud, ")
   # iterate through FEWnnn, SCTnnn, SCTnnnCB, BKNnnn, BKNnnnCB
   for (i in 1:nrow(lp_dt)) {
-    fT <- stringr::str_detect(x, pattern = lp_dt$pattern_text[i])
+    fT <- stringr::str_detect(x, pattern = as.character(lp_dt$pattern_text[i]))
     if(sum(fT) > 0) {
-      df_dist <- as.data.frame(stringr::str_extract_all(x[fT], pattern = lp_dt$pattern_text[i], simplify = TRUE))
-      ldist <- multi_extracting(df_dist, lp_dt$pattern_text[i])
-      out[fT] <- paste0(out[fT], lp_dt$description_text[i], ldist$ft, " ft (", ldist$m, " m), ")
+      df_dist <- as.data.frame(stringr::str_extract_all(x[fT], pattern = as.character(lp_dt$pattern_text[i]), simplify = TRUE))
+      ldist <- multi_extracting(df_dist, as.character(lp_dt$pattern_text[i]))
+      out[fT] <- paste0(out[fT], as.character(lp_dt$description_text[i]), ldist$ft, " ft (", ldist$m, " m), ")
     }
   }
   # OVCnnn
