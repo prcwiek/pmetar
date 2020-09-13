@@ -52,7 +52,8 @@ metar_cloud_coverage <- function(x) {
                                            "Scattered (3-4 oktas) at ",
                                            "Scattered (3-4 oktas) cumulonimbus clouds at ",
                                            "Broken (5-7 oktas) at ",
-                                           "Broken (5-7 oktas) cumulonimbus clouds at "))
+                                           "Broken (5-7 oktas) cumulonimbus clouds at "),
+                      stringsAsFactors = FALSE)
   out <- c(1:length(x))
   out[1:length(x)] <- ""
   # SKC - "No cloud/Sky clear" used worldwide but in
@@ -71,7 +72,8 @@ metar_cloud_coverage <- function(x) {
   for (i in 1:nrow(lp_dt)) {
     fT <- stringr::str_detect(x, pattern = as.character(lp_dt$pattern_text[i]))
     if(sum(fT) > 0) {
-      df_dist <- as.data.frame(stringr::str_extract_all(x[fT], pattern = as.character(lp_dt$pattern_text[i]), simplify = TRUE))
+      df_dist <- as.data.frame(stringr::str_extract_all(x[fT], pattern = as.character(lp_dt$pattern_text[i]), simplify = TRUE),
+                               stringsAsFactors = FALSE)
       ldist <- multi_extracting(df_dist, as.character(lp_dt$pattern_text[i]))
       out[fT] <- paste0(out[fT], as.character(lp_dt$description_text[i]), ldist$ft, " ft (", ldist$m, " m), ")
     }
