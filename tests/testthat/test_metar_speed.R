@@ -8,8 +8,9 @@ x5 <- "201905121244 SPECI KDCA 121244Z 05010KT 2 1/4SM R01/6000VP6000FT -RA BR O
 x6 <- "CYWG 172000Z 30015G25KT 3/4SM R36/4000FT/D -SN BLSN BKN008 OVC040 M05/M08 A2992 REFZRA WS RWY36 RMK SF5NS3 SLP134"
 x7 <- "METAR KJFK 282355Z AUTO 13009KT 10SM -RA SCT028 SCT035 BKN079 23/20 A2972 RMK T02300200  LTG DSNT SE-SW! MADISHF"
 x8 <- "201807141200 METAR EPWA 141200Z 30011G22KT 270V340 9999 -SHRA SCT007 BKN015CB 18/17 Q1011 RESHRA TEMPO BKN007"
+x9 <- "EPKK 141730Z VRB01KT CAVOK 21/16 Q1028"
 
-x <- c(x1, x2, x3, x4, x5, x6, x7, x8)
+x <- c(x1, x2, x3, x4, x5, x6, x7, x8, x9)
 
 dx <- data.frame(metar = x)
 
@@ -22,8 +23,9 @@ test_that("Check wind speed in knots", {
   expect_equal(metar_speed(x6, metric = FALSE), 15)
   expect_equal(metar_speed(x7, metric = FALSE), 9)
   expect_equal(metar_speed(x8, metric = FALSE), 11)
-  expect_equal(metar_speed(x, metric = FALSE), c(9, 8, 2, 10, 10, 15, 9, 11))
-  expect_equal(metar_speed(dx$metar, metric = FALSE), c(9, 8, 2, 10, 10, 15, 9, 11))
+  expect_equal(metar_speed(x9, metric = FALSE), 1)
+  expect_equal(metar_speed(x, metric = FALSE), c(9, 8, 2, 10, 10, 15, 9, 11, 1))
+  expect_equal(metar_speed(dx$metar, metric = FALSE), c(9, 8, 2, 10, 10, 15, 9, 11, 1))
 })
 
 
@@ -35,13 +37,14 @@ test_that("Check wind speed in m/s", {
   expect_equal(metar_speed(x5, metric = TRUE), 10 * 0.5144447)
   expect_equal(metar_speed(x6, metric = TRUE), 15 * 0.5144447)
   expect_equal(metar_speed(x7, metric = TRUE), 9 * 0.5144447)
-  expect_equal(metar_speed(x8, metric = TRUE), 11* 0.5144447)
+  expect_equal(metar_speed(x8, metric = TRUE), 11 * 0.5144447)
+  expect_equal(metar_speed(x9, metric = TRUE), 1 * 0.5144447)
   expect_equal(metar_speed(x, metric = TRUE), c(9 * 0.5144447, 8 * 0.5144447, 2 * 0.5144447,
                                  10 * 0.5144447, 10 * 0.5144447, 15 * 0.5144447,
-                                 9 * 0.5144447, 11* 0.5144447))
+                                 9 * 0.5144447, 11 * 0.5144447, 1 * 0.5144447))
   expect_equal(metar_speed(dx$metar, metric = TRUE), c(9 * 0.5144447, 8 * 0.5144447, 2 * 0.5144447,
                                         10 * 0.5144447, 10 * 0.5144447, 15 * 0.5144447,
-                                        9 * 0.5144447, 11* 0.5144447))
+                                        9 * 0.5144447, 11 * 0.5144447, 1 * 0.5144447))
 })
 
 
