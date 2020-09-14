@@ -34,7 +34,7 @@ metar_wx_codes <- function(x) {
 
   # Function single WX codes from a METAR weather report
   wx_code_extract <- function(xce) {
-    xce <- as.data.frame(xce, stringsAsFactor = FALSE)
+    xce <- as.data.frame(xce, stringsAsFactors = FALSE)
     wx_extracted <- xce
     wx_extracted[1:nrow(wx_extracted),] <- ""
     wx_extracted[apply(xce, 2, function(x) stringr::str_detect(x, pattern = paste0("[+](", pattern_abbrev, ")")))] <- "Heavy intensity:"
