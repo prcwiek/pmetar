@@ -25,7 +25,10 @@ metar_cloud_coverage <- function(x) {
   multi_extracting <- function(tdist, tpattern) {
     to_remove_1 <- stringr::str_extract(tpattern, pattern = "^[A-Z]{3}")
     to_remove_2 <- stringr::str_extract(tpattern, pattern = "[A-Z]{2}$")
-    if(is.na(to_remove_2)){
+    if(tpattern == "BKN\\/{3}") {
+      to_remove_1 <- paste0(to_remove_1, "\\/{3}")
+    }
+    if(is.na(to_remove_2)) {
       dist <- tdist %>%
         dplyr::mutate_if(is.character, stringr::str_remove, pattern = to_remove_1) %>%
         dplyr::mutate_if(is.character, as.numeric)
@@ -47,12 +50,14 @@ metar_cloud_coverage <- function(x) {
                                        "SCT\\d{3}\\s",
                                        "SCT\\d{3}CB",
                                        "BKN\\d{3}\\s",
-                                       "BKN\\d{3}CB"),
+                                       "BKN\\d{3}CB",
+                                       "BKN\\/{3}"),
                       description_text = c("Few (1-2 oktas) at ",
                                            "Scattered (3-4 oktas) at ",
                                            "Scattered (3-4 oktas) cumulonimbus clouds at ",
                                            "Broken (5-7 oktas) at ",
-                                           "Broken (5-7 oktas) cumulonimbus clouds at "),
+                                           "Broken (5-7 oktas) cumulonimbus clouds at ",
+                                           "Broken clouds at NaN "),
                       stringsAsFactors = FALSE)
   out <- c(1:length(x))
   out[1:length(x)] <- ""
