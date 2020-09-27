@@ -29,9 +29,9 @@ metar_pressure <- function(x, altimeter = FALSE){
   }
   pressure <- c(1:length(x))
   pressure <- NA
-  fP <- stringr::str_detect(x, pattern = "\\sQ\\d{4}\\s")
-  pressure[fP] <- round(as.numeric(stringr::str_sub(stringr::str_extract(x[fP], pattern = "\\sQ\\d{4}\\s"), 3, 6)) * cf_hPa, 2)
-  fP <- stringr::str_detect(x, pattern = "\\sA\\d{4}\\s")
-  pressure[fP] <- round(as.numeric(stringr::str_sub(stringr::str_extract(x[fP], pattern = "\\sA\\d{4}\\s"), 3, 6)) * cf_inHg, 2)
+  fP <- stringr::str_detect(x, pattern = "\\sQ\\d{4}")
+  pressure[fP] <- round(as.numeric(stringr::str_sub(stringr::str_extract(x[fP], pattern = "\\sQ\\d{4}"), 3, 6)) * cf_hPa, 2)
+  fP <- stringr::str_detect(x, pattern = "\\sA\\d{4}")
+  pressure[fP] <- round(as.numeric(stringr::str_sub(stringr::str_extract(x[fP], pattern = "\\sA\\d{4}"), 3, 6)) * cf_inHg, 2)
   pressure
 }
