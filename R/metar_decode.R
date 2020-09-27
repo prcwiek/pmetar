@@ -18,6 +18,7 @@
 #' \item Temperature (Celsius degrees)
 #' \item Dew point (Celsius degrees)
 #' \item Pressure (hPa)
+#' \item Pressure unit (hPa or mmHg)
 #' \item Visibility
 #' \item Visibility unit (m or miles)
 #' \item Cloud coverage
@@ -33,7 +34,8 @@
 #' @param x character vector; a single METAR weather report or\cr
 #' historical METAR weather reports.
 #' @param metric logical; if TRUE wind speeds returned in m/s, distances in meters.\cr
-#' If FALSE, #' wind speeds returned in knots and distances in miles.
+#' If FALSE, wind speeds returned in knots and distances in miles.
+#' @param altimeter logical; if FLASE pressures returned in hPa, if TRUE in mmHg
 #'
 #' @return a tibble with decoded METAR weather report or reports.
 #'
@@ -43,10 +45,12 @@
 #'
 #' @examples
 #' metar_decode("EPWA 281830Z 18009KT 140V200 9999 SCT037 03/M01 Q1008 NOSIG")
-#' metar_decode("CYUL 281800Z 13008KT 30SM BKN240 01/M06 A3005 RMK CI5 SLP180")
+#' metar_decode("CYUL 281800Z 13008KT 30SM BKN240 01/M06 A3005 RMK CI5 SLP180",
+#' altimeter = TRUE, metric = FALSE)
 #' metar_decode("201711271930 METAR LEMD 271930Z 02002KT CAVOK 04/M03 Q1025")
+#' metar_decode("CYUL 281800Z 13008KT 30SM BKN240 01/M06 A3005", altimeter = TRUE)
 #'
-metar_decode <- function(x, metric = TRUE){
+metar_decode <- function(x, metric = TRUE, altimeter = FALSE){
   tryCatch(
     expr = {
       if(stringr::str_detect(x, pattern = "^[\\d]+ METAR")[1]) {
@@ -77,7 +81,8 @@ metar_decode <- function(x, metric = TRUE){
                       Wind_direction = metar_dir(out$x),
                       Temperature = metar_temp(out$x),
                       Dew_point = metar_dew_point(out$x),
-                      Pressure = metar_pressure(out$x),
+                      Pressure = metar_pressure(out$x, altimeter = altimeter),
+                      Pressure_unit = ifelse(!altimeter, "hPa", "mmHg"),
                       Visibility = metar_visibility(out$x, metric),
                       Visibility_unit = ifelse(metric, "m", "mile"),
                       Cloud_coverage = metar_cloud_coverage(out$x),
