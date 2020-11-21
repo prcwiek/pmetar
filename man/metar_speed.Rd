@@ -10,7 +10,7 @@ metar_speed(x, metric = TRUE)
 \item{x}{character vector; METAR weather report or reports.}
 
 \item{metric}{logical; the default value is TRUE and a returned wind speed is in m/s;
-if t's FALSE then in knots.}
+if it's FALSE then in knots.}
 }
 \value{
 a numeric vector. A wind speed in m/s or in knots.
