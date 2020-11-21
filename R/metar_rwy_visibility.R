@@ -29,7 +29,7 @@ metar_rwy_visibility <- function(x, metric = TRUE) {
     tdist <- "ft"
   }
   outvis <- c(1:length(x))
-  outvis[1:length(x)] <- NA
+  outvis[1:length(x)] <- ""
 
   rvr_code_resolve <- function(rvr) {
     if(length(rvr) == 0) {
@@ -164,10 +164,12 @@ metar_rwy_visibility <- function(x, metric = TRUE) {
     out_rce
   }
 
-  outvis <- rvr_code_extract(stringr::str_extract_all(x,
-                                             pattern = "(R|RWY)\\d+([A-Z]\\/|\\/)(\\d{4}|[P]\\d{4})(\\s|(N|U|D)|FT\\s|(FT\\/N|FT\\/U|FT\\/D))",
-                                             simplify = TRUE))
+  outvis_temp <- stringr::str_extract_all(x,
+                                          pattern = "(R|RWY)\\d+([A-Z]\\/|\\/)(\\d{4}|[P]\\d{4})(\\s|(N|U|D)|FT\\s|(FT\\/N|FT\\/U|FT\\/D))",
+                                          simplify = TRUE)
+  if (ncol(outvis_temp) > 0) {
+    outvis <- rvr_code_extract(outvis_temp)
+  }
   outvis
-
 }
 
