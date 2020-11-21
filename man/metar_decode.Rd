@@ -43,6 +43,7 @@ Decoded METAR weather report consists of:\cr
 \item Visibility unit (m or miles)
 \item Cloud coverage
 \item Weather conditions information from WX codes
+\item Runway visibility (m or feet)
 \item Airport Name
 \item Longitude
 \item Latitude
@@ -57,5 +58,6 @@ metar_decode("CYUL 281800Z 13008KT 30SM BKN240 01/M06 A3005 RMK CI5 SLP180",
 altimeter = TRUE, metric = FALSE)
 metar_decode("201711271930 METAR LEMD 271930Z 02002KT CAVOK 04/M03 Q1025")
 metar_decode("CYUL 281800Z 13008KT 30SM BKN240 01/M06 A3005", altimeter = TRUE)
+metar_decode("CYWG 172000Z 30015G25KT 3/4SM R36/4000FT/D -SN M05/M08 A2992")
 
 }

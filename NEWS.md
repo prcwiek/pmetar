@@ -1,4 +1,4 @@
-pmetar development version 0.2.7.12
+pmetar development version 0.2.7.20
 ===========================
 
 ### BUG FIXES
@@ -12,6 +12,7 @@ pmetar development version 0.2.7.12
 ### NEW FEATURES
 
 * Added option altimeter in metar_decode for selecting pressure value, hPa or mmHg
+* Added function metar_rwy_visibility for decoding runway visbility
 
 pmetar 0.2.7.0
 ==============

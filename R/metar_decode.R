@@ -23,6 +23,7 @@
 #' \item Visibility unit (m or miles)
 #' \item Cloud coverage
 #' \item Weather conditions information from WX codes
+#' \item Runway visibility (m or feet)
 #' \item Airport Name
 #' \item Longitude
 #' \item Latitude
@@ -49,6 +50,7 @@
 #' altimeter = TRUE, metric = FALSE)
 #' metar_decode("201711271930 METAR LEMD 271930Z 02002KT CAVOK 04/M03 Q1025")
 #' metar_decode("CYUL 281800Z 13008KT 30SM BKN240 01/M06 A3005", altimeter = TRUE)
+#' metar_decode("CYWG 172000Z 30015G25KT 3/4SM R36/4000FT/D -SN M05/M08 A2992")
 #'
 metar_decode <- function(x, metric = TRUE, altimeter = FALSE){
   tryCatch(
@@ -73,20 +75,21 @@ metar_decode <- function(x, metric = TRUE, altimeter = FALSE){
                       Day_of_Month = metar_day(out$x),
                       Hour = metar_hour(out$x),
                       Time_zone = metar_time_zone(out$x),
-                      Wind_speed = metar_speed(out$x, metric),
+                      Wind_speed = metar_speed(out$x, metric = metric),
                       Wind_speed_unit = ifelse(metric, "m/s", "kn"),
-                      Gust = metar_gust(out$x, metric),
+                      Gust = metar_gust(out$x, metric = metric),
                       Gust_unit = ifelse(metric, "m/s", "kn"),
-                      Wind_shear = metar_windshear(out$x, metric),
+                      Wind_shear = metar_windshear(out$x, metric = metric),
                       Wind_direction = metar_dir(out$x),
                       Temperature = metar_temp(out$x),
                       Dew_point = metar_dew_point(out$x),
                       Pressure = metar_pressure(out$x, altimeter = altimeter),
                       Pressure_unit = ifelse(!altimeter, "hPa", "mmHg"),
-                      Visibility = metar_visibility(out$x, metric),
+                      Visibility = metar_visibility(out$x, metric = metric),
                       Visibility_unit = ifelse(metric, "m", "mile"),
                       Cloud_coverage = metar_cloud_coverage(out$x),
-                      Weather_information = metar_wx_codes(out$x))
+                      Weather_information = metar_wx_codes(out$x),
+                      Runway_visibility = metar_rwy_visibility(out$x, metric = metric))
       apl <- metar_location(out$Airport_ICAO)
       out <- out %>%
         dplyr::mutate(Airport_Name = apl$Airport_Name,
