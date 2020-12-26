@@ -4,7 +4,7 @@
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
 [![rstudio mirror
-downloads](https://cranlogs.r-pkg.org/badges/pmetar)](https://github.com/r-hub/cranlogs.app)
+downloads](https://cranlogs.r-pkg.org/badges/pmetar)](https://github.com/metacran/cranlogs.app)
 [![cran
 version](https://www.r-pkg.org/badges/version/pmetar)](https://cran.r-project.org/package=pmetar)
 
@@ -17,22 +17,16 @@ The function metar\_get scraps data from two web pages:
 
 1.  For current reports:
 
-<!-- end list -->
-
-  - Aviation Weather Center <https://www.aviationweather.gov/metar>
+-   Aviation Weather Center <https://www.aviationweather.gov/metar>
     </li>
     <br>
 
-<!-- end list -->
+1.  For historical reports:
 
-2.  For historical reports:
-
-<!-- end list -->
-
-  - Iowa Environmental Mesonet web page of Iowa State University
+-   Iowa Environmental Mesonet web page of Iowa State University
     ASOS-AWOS-METAR <http://mesonet.agron.iastate.edu/AWOS/>
     </li>
-  - Weather Information Service <http://www.ogimet.com/> developed by
+-   Weather Information Service <http://www.ogimet.com/> developed by
     Guillermo Ballester Valor
 
 Please take into consideration that the <http://www.ogimet.com/> can
@@ -65,7 +59,7 @@ CRAN version
 install.packages("pmetar")
 ```
 
-Dev version
+Dev version 0.2.7.20
 
 ``` r
 remotes::install_github("prcwiek/pmetar")
@@ -77,7 +71,7 @@ library('pmetar')
 
 ## Contributors
 
-  - David Megginson, Author of data set with airports list
+-   David Megginson, Author of data set with airports list
     <https://ourairports.com/data/>
-  - Greg Thompson, Author of data set with airports list
+-   Greg Thompson, Author of data set with airports list
     <https://www.aviationweather.gov/docs/metar/stations.txt>
