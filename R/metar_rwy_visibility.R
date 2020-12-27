@@ -34,7 +34,7 @@ metar_rwy_visibility <- function(x, metric = TRUE) {
     tdist <- "ft"
   }
   outvis <- c(1:length(x))
-  outvis[1:length(x)] <- NA
+  outvis[1:length(x)] <- ""
 
   rvr_code_resolve <- function(rvr) {
     if(length(rvr) == 0) {
@@ -175,7 +175,6 @@ metar_rwy_visibility <- function(x, metric = TRUE) {
   if (ncol(outvis_temp) > 0) {
     outvis <- rvr_code_extract(outvis_temp)
   }
-  outvis[outvis == ""] <- NA
   outvis
 }
 
