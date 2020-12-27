@@ -31,6 +31,7 @@ Let's download a current METAR weather report for Warsaw Okecie Airport.
 Its ICAO, International Civil Aviation Organization, code is EPWA. 
 A report can be got from Aviation Weather Center <https://www.aviationweather.gov/metar>
 ```{r get a METAR report with ICAO code}
+library(dplyr)
 library(pmetar)
 metar_get("EPWA")
 ```
@@ -195,21 +196,33 @@ metar_pressure("EPWA 281830Z 18009KT 140V200 9999 SCT037 03/M01 Q1008 NOSIG", al
 ```
 
 ### Wind shear
-Information about wind shear can be extracted  with the use of the function metar_windshear()
+Information about wind shear can be extracted with the use of the function metar_windshear()
 ```{r}
 metar_windshear("CYWG 172000Z 30015G25KT 3/4SM R36/4000FT/D -SN BLSN BKN008 OVC040 M05/M08 A2992 REFZRA WS RWY36 RMK SF5NS3 SLP134")
 ```
 
+### Runway visibility
+Information about runways visibility can be extracted with the use of the function metar_rwy_visibility(), in meters
+```{r}
+metar_rwy_visibility("CYWG 172000Z 30015G25KT 3/4SM R36/4000FT/D -SN BLSN BKN008 OVC040 M05/M08 A2992 REFZRA WS RWY36 RMK SF5NS3 SLP134")
+```
+or in feet
+```{r}
+metar_rwy_visibility("CYWG 172000Z 30015G25KT 3/4SM R36/4000FT/D -SN BLSN BKN008 OVC040 M05/M08 A2992 REFZRA WS RWY36 RMK SF5NS3 SLP134",
+                     metric = FALSE)
+```
+
 ## Putting all together
 
-## Decoding METAR reports 
+### Decoding METAR reports 
 Let's come back to our dm list with historical METAR reports downloaded at the top of this document.
 Please notice that in all rows there are dates and hours in the front of METAR reports. It will be parsed
 and placed in the column *METAR_Date* below.
 ```{r}
 head(dm)
 ```
-Now we can decode all elements and place them in the tibble.
+Now we can decode all elements and place them in the tibble. It is possible to choose between Metric (the default metric = TRUE) or Imperial (metric = FALSE) systems.
+Pressure valuesc can be decoded in hPa (the default altimeter = FALSE) or in mmHg (altimeter = TRUE).
 ```{r}
 decoded_metars <- metar_decode(dm)
 ```
@@ -221,5 +234,7 @@ First rows of the tibble with decoded METAR reports:
 ```{r}
 print.data.frame(head(decoded_metars))
 ```
-
-
+or in more legible format
+```{r}
+decoded_metars %>% as_tibble %>% rmarkdown::paged_table()
+```
