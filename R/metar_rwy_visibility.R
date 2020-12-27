@@ -19,6 +19,11 @@
 #' metar_rwy_visibility("EBBR 040220Z VRB01KT 0150 R25L/1200N R26R/1000 R36/4000FT/D -SN")
 #'
 metar_rwy_visibility <- function(x, metric = TRUE) {
+  # check if x is a data frame
+  if(is.data.frame(x)){
+    stop("ERROR: Invalid input format! Argument is not an atomic vector.", call. = FALSE)
+  }
+  # define conversion coefficients
   if(metric){
     cfm <- 1
     cfi <- 0.3048
