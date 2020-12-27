@@ -56,7 +56,7 @@ CRAN version
 install.packages("pmetar")
 ```
 
-Dev version 0.2.7.20
+Dev version 0.2.7.21
 
 ```{r eval=FALSE}
 remotes::install_github("prcwiek/pmetar")
