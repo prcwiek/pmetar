@@ -49,7 +49,7 @@ The both above data sources are in the public domain.
 
 #### Package pmetar is for extracting and parsing information, from current or historical METAR reports, only.
 
-#### Don’t use it for flight planning or navigation.
+#### Don’t use it for flight planning or navigation!
 
 ### Installation
 
@@ -59,7 +59,7 @@ CRAN version
 install.packages("pmetar")
 ```
 
-Dev version 0.2.7.21
+Dev version 0.2.7.22
 
 ``` r
 remotes::install_github("prcwiek/pmetar")
