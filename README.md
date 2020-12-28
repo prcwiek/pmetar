@@ -2,11 +2,13 @@
 # pmetar
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
+<!-- badges: start -->
 
-[![rstudio mirror
-downloads](https://cranlogs.r-pkg.org/badges/pmetar)](https://github.com/metacran/cranlogs.app)
-[![cran
+[![CRAN
 version](https://www.r-pkg.org/badges/version/pmetar)](https://cran.r-project.org/package=pmetar)
+[![monthly](https://cranlogs.r-pkg.org/badges/pmetar)](https://www.rpackages.io/package/pmetar)
+[![total](https://cranlogs.r-pkg.org/badges/grand-total/pmetar)](https://www.rpackages.io/package/pmetar)
+<!-- badges: end -->
 
 Package allows to download current and historical METAR weather reports
 and decode basic parameters.
@@ -59,10 +61,11 @@ CRAN version
 install.packages("pmetar")
 ```
 
-Dev version 0.2.7.22
+Get the development version 0.2.7.22 from github:
 
 ``` r
-remotes::install_github("prcwiek/pmetar")
+# install.packages("devtools")
+devtools::install_github("prcwiek/pmetar")
 ```
 
 ``` r
