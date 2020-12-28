@@ -4,8 +4,7 @@
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 <!-- badges: start -->
 
-[![CRAN
-version](https://www.r-pkg.org/badges/version/pmetar)](https://cran.r-project.org/package=pmetar)
+[![CRAN](https://www.r-pkg.org/badges/version/pmetar)](https://cran.r-project.org/package=pmetar)
 [![monthly](https://cranlogs.r-pkg.org/badges/pmetar)](https://www.rpackages.io/package/pmetar)
 [![total](https://cranlogs.r-pkg.org/badges/grand-total/pmetar)](https://www.rpackages.io/package/pmetar)
 <!-- badges: end -->
