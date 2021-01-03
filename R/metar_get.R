@@ -36,7 +36,14 @@ metar_get <- function(airport = "EPWA"){
   link <- paste0("https://aviationweather.gov/metar/data?ids=",
                  airport,
                  "&format=raw&date=0&hours=0")
-  myfile <- RCurl::getURL(link, ssl.verifyhost = FALSE, ssl.verifypeer = FALSE)
+  tryCatch(
+    expr = {
+      myfile <- RCurl::getURL(link, ssl.verifyhost = FALSE, ssl.verifypeer = FALSE)
+    },
+    error = function(e){
+      stop("Cannot connect to the server!", call. = FALSE)
+    }
+  )
   metar <- stringr::str_extract(myfile, pattern = "<code>[:print:]+</code>")
   metar <- stringr::str_replace(metar, "<code>", "")
   metar <- stringr::str_replace(metar, "</code>", "")
