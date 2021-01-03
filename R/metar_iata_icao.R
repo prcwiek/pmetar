@@ -22,7 +22,7 @@ metar_iata_icao <- function(code = "WAW") {
   message("http://ourairports.com/data/airports.csv")
   # check if x is a data frame
   if(is.data.frame(code)){
-    stop("ERROR: Invalid input format! Argument is not an atomic vector.", call. = FALSE)
+    stop("pmetar package error: Invalid input format! Argument is not an atomic vector.", call. = FALSE)
   }
   out <- c(1:length(code))
   out[1:length(code)] <- "Incorrect ICAO or IATA airport code!"

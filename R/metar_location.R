@@ -83,7 +83,7 @@ metar_location <- function(x = "EPWA") {
   message("created by David Megginson")
   # check if x is a data frame
   if(is.data.frame(x)){
-    stop("ERROR: Invalid input format! Argument is not an atomic vector.", call. = FALSE)
+    stop("pmetar package error: Invalid input format! Argument is not an atomic vector.", call. = FALSE)
   }
   # all characters to upper cases
   x <- stringr::str_to_upper(x)

@@ -39,7 +39,7 @@ metar_get_historical <- function(airport = "EPWA",
 
   # check if x is a data frame
   if(is.data.frame(airport)){
-    stop("ERROR: Invalid input format! Argument is not an atomic vector.", call. = FALSE)
+    stop("pmetar package error: Invalid input format! Argument is not an atomic vector.", call. = FALSE)
   }
 
   # try to find ICAO based on IATA
@@ -49,27 +49,27 @@ metar_get_historical <- function(airport = "EPWA",
 
   # check if airport has the correct format
   if(!stringr::str_detect(airport, pattern = "^[A-Za-z]{4}$")){
-    stop("ERROR: invalid format of an airport ICAO code!", call. = FALSE)
+    stop("pmetar package error: invalid format of an airport ICAO or IATA code!", call. = FALSE)
   }
   # check if dates have correct format
   if(!stringr::str_detect(start_date, pattern = "^\\d{4}[-]\\d\\d[-]\\d\\d$") |
      !stringr::str_detect(end_date, pattern = "^\\d{4}[-]\\d\\d[-]\\d\\d$")){
-    stop("ERROR: invalid format of start_date and/or end_date!", call. = FALSE)
+    stop("pmetar package error: invalid format of start_date and/or end_date!", call. = FALSE)
   }
 
   # check if dates range is correct
   if(as.Date(start_date) >= as.Date(end_date)) {
-    stop("ERROR: start_date is equal or later than end_date!", call. = FALSE)
+    stop("pmetar package error: start_date is equal or later than end_date!", call. = FALSE)
   }
 
   # check the maximum period of 31 days for Ogimet web page
   if(from == "ogimet" & (as.Date(end_date) - as.Date(start_date) > 31)) {
-    stop("ERROR: Period longer than 31 days for the Ogimet source!", call. = FALSE)
+    stop("pmetar package error: Period longer than 31 days for the Ogimet source!", call. = FALSE)
   }
 
   # check if start_date is not earlier than January 2005 for Ogimet web page
   if(from == "ogimet" & !(as.Date(start_date) >= as.Date("2005-01-01"))) {
-    stop("ERROR: Start date earlier than 2005-01-01 for the Ogimet source!", call. = FALSE)
+    stop("pmetar package error: Start date earlier than 2005-01-01 for the Ogimet source!", call. = FALSE)
   }
 
   syear <- stringr::str_sub(start_date, 1, 4)
@@ -118,15 +118,15 @@ metar_get_historical <- function(airport = "EPWA",
     },
     error = function(e){
       if (from == "ogimet") {
-        stop("ERROR: Cannot connect to the server www.ogimet.com!", call. = FALSE)
+        stop("pmetar package error: Cannot connect to the server www.ogimet.com!", call. = FALSE)
       } else {
-        stop("ERROR: Cannot connect to the server mesonet.agron.iastate.edu!", call. = FALSE)
+        stop("pmetar package error: Cannot connect to the server mesonet.agron.iastate.edu!", call. = FALSE)
       }
     }
   )
 
-  if(myfile == "ERROR: Malformed Date!"){
-    stop(paste("Message from mesonet.agron.iastate.edu :", "ERROR: Malformed Date!"), call. = FALSE)
+  if(myfile == "pmetar package error: Malformed Date!"){
+    stop(paste("Message from mesonet.agron.iastate.edu :", "Malformed Date!"), call. = FALSE)
   }
 
   if(stringr::str_detect(myfile, pattern = "#Sorry, Your quota limit for slow queries rate has been reached")){
@@ -164,7 +164,7 @@ metar_get_historical <- function(airport = "EPWA",
 
   # check out consists of data for mesonet.agron.iastate.edu
   if(from == "iastate" & out[1] == " METAR ") {
-    stop("ERROR: Data not available on mesonet.agron.iastate.edu!", call. = FALSE)
+    stop("pmetar package error: Data not available on mesonet.agron.iastate.edu!", call. = FALSE)
   }
 
   message("Don't use for flight planning or navigation!")

@@ -17,9 +17,10 @@
 #' metar_get("WAW")
 #'
 metar_get <- function(airport = "EPWA"){
+  #options(error = NULL)
   # check if x is a data frame
   if(is.data.frame(airport)){
-    stop("ERROR: Invalid input format! Argument is not an atomic vector.", call. = FALSE)
+    stop("pmetar package error: Invalid input format! Argument is not an atomic vector.", call. = FALSE)
   }
   out <- c(1:length(airport))
   out[1:length(airport)] <- NA
@@ -41,7 +42,7 @@ metar_get <- function(airport = "EPWA"){
       myfile <- RCurl::getURL(link, ssl.verifyhost = FALSE, ssl.verifypeer = FALSE)
     },
     error = function(e){
-      stop("Cannot connect to the server!", call. = FALSE)
+      stop("pmetar package error: cannot connect to the server!", call. = FALSE)
     }
   )
   metar <- stringr::str_extract(myfile, pattern = "<code>[:print:]+</code>")

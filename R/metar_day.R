@@ -16,7 +16,7 @@
 metar_day <- function(x){
   # check if x is a data frame
   if(is.data.frame(x)){
-    stop("ERROR: Invalid input format! Argument is not an atomic vector.", call. = FALSE)
+    stop("pmetar package error: Invalid input format! Argument is not an atomic vector.", call. = FALSE)
   }
   out <- c(1:length(x))
   out[1:length(x)] <- NA

@@ -15,7 +15,7 @@
 #'
 metar_time_zone <- function(x){
   if(is.data.frame(x)){
-    stop("ERROR: Invalid input format! Argument is not an atomic vector.", call. = FALSE)
+    stop("pmetar package error: Invalid input format! Argument is not an atomic vector.", call. = FALSE)
   }
   out <- c(1:length(x))
   out[1:length(x)] <- NA

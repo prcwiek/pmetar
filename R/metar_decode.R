@@ -103,7 +103,7 @@ metar_decode <- function(x, metric = TRUE, altimeter = FALSE){
       out
     },
     error = function(e){
-      stop("ERROR: It is not a METAR weather report!\n", call. = FALSE)
+      stop("pmetar package error: It is not a METAR weather report!\n", call. = FALSE)
     }
   )
 }

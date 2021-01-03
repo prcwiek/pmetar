@@ -19,7 +19,7 @@
 metar_dir <- function(x, numeric_only = FALSE){
   # check if x is a data frame
   if(is.data.frame(x)){
-    stop("ERROR: Invalid input format! Argument is not an atomic vector.", call. = FALSE)
+    stop("pmetar package error: Invalid input format! Argument is not an atomic vector.", call. = FALSE)
   }
   out <- c(1:length(x))
   if(numeric_only) {

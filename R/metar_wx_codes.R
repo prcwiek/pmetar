@@ -18,7 +18,7 @@
 metar_wx_codes <- function(x) {
   # Check if x is a data frame and stop if yes
   if(is.data.frame(x)){
-    stop("ERROR: Invalid input format! Argument is not an atomic vector.", call. = FALSE)
+    stop("pmetar package error: Invalid input format! Argument is not an atomic vector.", call. = FALSE)
   }
 
   # Function matches an extracted code to a description from metarWXcodes data frame

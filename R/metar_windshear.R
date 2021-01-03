@@ -18,7 +18,7 @@
 metar_windshear <- function(x, metric = TRUE) {
   # check if x is a data frame
   if(is.data.frame(x)){
-    stop("ERROR: Invalid input format! Argument is not an atomic vector.", call. = FALSE)
+    stop("pmetar package error: Invalid input format! Argument is not an atomic vector.", call. = FALSE)
   }
   # define conversion coefficients
   if(metric){
