@@ -4,8 +4,9 @@ x1 <- "EPWA"
 x2 <- "CYUL"
 x3 <- "MAD"
 x4 <- "WAW"
+x5 <- c("epwa", "Mad", "LEBL")
 
-x <- c(x1, x2, x3, x4)
+x <- c(x1, x2, x3, x4, x5)
 
 dx <- data.frame(metar = x)
 
@@ -14,6 +15,7 @@ test_that("Check if output is character", {
   expect_equal(is.character(metar_get(x2)), TRUE)
   expect_equal(is.character(metar_get(x3)), TRUE)
   expect_equal(is.character(metar_get(x4)), TRUE)
+  expect_equal(is.character(metar_get(x5)), TRUE)
   expect_equal(is.character(metar_get(x)), TRUE)
   expect_equal(is.character(metar_get(dx$metar)), TRUE)
 })
