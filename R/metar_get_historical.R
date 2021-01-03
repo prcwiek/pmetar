@@ -42,6 +42,11 @@ metar_get_historical <- function(airport = "EPWA",
     stop("pmetar package error: Invalid input format! Argument is not an atomic vector.", call. = FALSE)
   }
 
+  # check if x is a character with length 1
+  if(length(airport) >= 1){
+    stop("pmetar package error: Only one airport at once!", call. = FALSE)
+  }
+
   # try to find ICAO based on IATA
   if(stringr::str_detect(airport, pattern = "^[A-Za-z]{3}$")){
     airport <- metar_iata_icao(airport)
