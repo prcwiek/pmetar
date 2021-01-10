@@ -3,8 +3,8 @@
 #' Function extracts runway(s) visibility value(s) from METAR weather report.
 #'
 #' @param x Input character vector
-#' @param metric logical; the default value is TRUE and a returned visibility is in meters;
-#' if it's FALSE then in feet.
+#' @param metric logical; the default value is TRUE, a returned visibility will be in meters;
+#' if FALSE then in feet.
 #'
 #' @return A numeric vector. A visibility in m/s or feet.
 #'
@@ -14,7 +14,7 @@
 #'
 #' metar_rwy_visibility("EBBR 040220Z VRB01KT 0150 R25L/1200N R02/P1500 07/06 Q1017")
 #' metar_rwy_visibility("EBBR 040220Z VRB01KT 0150 R25R/0600FT R02/P1500 07/06 Q1017")
-#' metar_rwy_visibility("EPWA 281830Z 18009KT 140V200 9999 SCT037 03/M01 Q1008 NOSIG")
+#' metar_rwy_visibility("EDDF 220520Z 26003KT 0500 R25R/0400N R25C/P2000N R25L/P2000N R18/0650V1100N FZFG")
 #' metar_rwy_visibility("CYWG 172000Z 30015G25KT 3/4SM R36/4000FT/D -SN M05/M08 A2992")
 #' metar_rwy_visibility("EBBR 040220Z VRB01KT 0150 R25L/1200N R26R/1000 R36/4000FT/D -SN")
 #'
@@ -45,6 +45,22 @@ metar_rwy_visibility <- function(x, metric = TRUE) {
       item_found <- FALSE
       # -------------------------------------------------------------------------
       # cases with feet
+      if(stringr::str_detect(rvr[i], pattern = "(R|RWY)\\d{2}([A-Z]\\/|\\/)\\d{4}V\\d{4}FT") & !item_found) {
+        out_rvr[i] <- paste0("Runway visual range for runway ",
+                             stringr::str_sub(stringr::str_extract(rvr[i], pattern = "(R|RWY)\\d{2}([A-Z]\\/|\\/)"), 1, -2),
+                             " is variable from ",
+                             round(as.numeric(stringr::str_extract(stringr::str_extract(rvr[i],
+                                                                                        pattern = "(R|RWY)\\d{2}([A-Z]\\/|\\/)\\d{4}"),
+                                                                   pattern = "\\d{4}$")) * cfi, 2),
+                             " to ",
+                             round(as.numeric(stringr::str_extract(stringr::str_extract(rvr[i],
+                                                                                        pattern = "(R|RWY)\\d{2}([A-Z]\\/|\\/)\\d{4}V\\d{4}"),
+                                                                   pattern = "\\d{4}$")) * cfi, 2),
+
+                             " ", tdist)
+        item_found <- TRUE
+      }
+
       if(stringr::str_detect(rvr[i], pattern = "(R|RWY)\\d{2}([A-Z]\\/|\\/)\\d{4}FT\\/N")) {
         out_rvr[i] <- paste0("Runway visual range for runway ",
                              stringr::str_sub(stringr::str_extract(rvr[i], pattern = "(R|RWY)\\d{2}([A-Z]\\/|\\/)"), 1, -2),
@@ -90,6 +106,22 @@ metar_rwy_visibility <- function(x, metric = TRUE) {
 
       # -------------------------------------------------------------------------
       # cases with meters
+      if(stringr::str_detect(rvr[i], pattern = "(R|RWY)\\d{2}([A-Z]\\/|\\/)\\d{4}V\\d{4}(\\s|N)") & !item_found) {
+        out_rvr[i] <- paste0("Runway visual range for runway ",
+                             stringr::str_sub(stringr::str_extract(rvr[i], pattern = "(R|RWY)\\d{2}([A-Z]\\/|\\/)"), 1, -2),
+                             " is from ",
+                             round(as.numeric(stringr::str_extract(stringr::str_extract(rvr[i],
+                                                                                        pattern = "(R|RWY)\\d{2}([A-Z]\\/|\\/)\\d{4}"),
+                                                                   pattern = "\\d{4}$")) * cfm, 2),
+                             " to ",
+                             round(as.numeric(stringr::str_extract(stringr::str_extract(rvr[i],
+                                                                                        pattern = "(R|RWY)\\d{2}([A-Z]\\/|\\/)\\d{4}V\\d{4}"),
+                                                                   pattern = "\\d{4}$")) * cfm, 2),
+
+                             " ", tdist)
+        item_found <- TRUE
+      }
+
       if(stringr::str_detect(rvr[i], pattern = "(R|RWY)\\d{2}([A-Z]\\/|\\/)\\d{4}N") & !item_found) {
         out_rvr[i] <- paste0("Runway visual range for runway ",
                              stringr::str_sub(stringr::str_extract(rvr[i], pattern = "(R|RWY)\\d{2}([A-Z]\\/|\\/)"), 1, -2),
@@ -142,7 +174,6 @@ metar_rwy_visibility <- function(x, metric = TRUE) {
                                                                       pattern = "(R|RWY)\\d{2}([A-Z]\\/|\\/)\\d{4}"),
                                                           pattern = "\\d{4}")) * cfm, 2),
                              " ", tdist)
-        #item_found <- TRUE
       }
 
 
@@ -170,7 +201,7 @@ metar_rwy_visibility <- function(x, metric = TRUE) {
   }
 
   outvis_temp <- stringr::str_extract_all(x,
-                                          pattern = "(R|RWY)\\d{2}([A-Z]\\/|\\/)(\\d{4}|[P]\\d{4})(\\s|(N|U|D)|FT\\s|(FT\\/N|FT\\/U|FT\\/D))",
+                                          pattern = "(R|RWY)\\d{2}([A-Z]\\/|\\/)(\\d{4}|[P]\\d{4}|\\d{4}V\\d{4})(\\s|(N|U|D)|FT\\s|(FT\\/N|FT\\/U|FT\\/D))",
                                           simplify = TRUE)
   if (ncol(outvis_temp) > 0) {
     outvis <- rvr_code_extract(outvis_temp)

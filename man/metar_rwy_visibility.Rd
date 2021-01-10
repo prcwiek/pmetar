@@ -9,8 +9,8 @@ metar_rwy_visibility(x, metric = TRUE)
 \arguments{
 \item{x}{Input character vector}
 
-\item{metric}{logical; the default value is TRUE and a returned visibility is in meters;
-if it's FALSE then in feet.}
+\item{metric}{logical; the default value is TRUE, a returned visibility will be in meters;
+if FALSE then in feet.}
 }
 \value{
 A numeric vector. A visibility in m/s or feet.
