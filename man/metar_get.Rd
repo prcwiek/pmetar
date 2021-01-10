@@ -22,6 +22,6 @@ metar_get("EPWA")
 metar_get("CYUL")
 metar_get("MAD")
 metar_get("WAW")
-metar_get("epwa", "Mad", "LEBL")
+metar_get(c("epwa", "Mad", "LEBL"))
 
 }
