@@ -43,7 +43,7 @@ metar_get_historical <- function(airport = "EPWA",
   }
 
   # check if x is a character with length 1
-  if(length(airport) >= 1){
+  if(length(airport) > 1){
     stop("pmetar package error: Only one airport at once!", call. = FALSE)
   }
 
