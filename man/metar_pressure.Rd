@@ -9,8 +9,8 @@ metar_pressure(x, altimeter = FALSE)
 \arguments{
 \item{x}{character vector; a METAR weather report or reports.}
 
-\item{altimeter}{boolean; if TRUE pressure is returned in inHg (inch of mercury),
-for the default value of FALSE in hPa.}
+\item{altimeter}{boolean; if FALSE, the default value, a pressure is returned in hPa,
+if TRUE a pressure is returned in inHg (inch of mercury).}
 }
 \value{
 a numeric vector with air pressure in inHg or hPa.

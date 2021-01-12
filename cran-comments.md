@@ -1,21 +1,21 @@
 ## Test environments
-* local Xubuntu 20.04 LTS, R 4.0.2
-* win-builder (devel and release)
-* rhub macOS 10.13.6 High Sierra, R-release, CRAN's setup
-* rhub Debian Linux, R-release, GCC
+* local Xubuntu 20.04 LTS, R 4.0.3
+* win-builder (development and release)
+* rhub macOS 10.13.6 High Sierra, R-release, brew
+* rhub Debian Linux, R-release, GCC 
 * rhub Fedora Linux, R-devel, GCC
-* rhub Oracle Solaris 10, x86, 32 bit, R-release
+* rhub Oracle Solaris 10, x86, 32 bit, R-release 
+* rhub Ubuntu Linux 16.04 LTS, R-release, GCC
 
 ## R CMD check results
-* win-builder (devel and release)
-There was 1 NOTE:  
-  
+Status OK for all.
+
 Possibly mis-spelled words in DESCRIPTION:  
   
-  ASOS (17:3)  
-  AWOS (17:8)  
-  METAR (3:19, 12:64, 17:13)  
-  Mesonet (16:22)  
+  ASOS
+  AWOS
+  METAR
+  Mesonet
 
 Three mis-spelled words are the abbreviations:  
 
@@ -29,6 +29,6 @@ climatology), a mesonet, portmanteau of mesoscale network, is a network
 of (typically) automated weather and environmental monitoring stations
 designed to observe mesoscale meteorological phenomena."  
 
-This is a new release, after the corrections according to CRAN comments: adding contributors in DESCRIPTION, 
-change of cat to message.
+This is a new version 0.2.8.0 release.
+
 

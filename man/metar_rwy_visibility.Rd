@@ -2,14 +2,14 @@
 % Please edit documentation in R/metar_rwy_visibility.R
 \name{metar_rwy_visibility}
 \alias{metar_rwy_visibility}
-\title{Extract visibility.}
+\title{Get runway(s) visibility.}
 \usage{
 metar_rwy_visibility(x, metric = TRUE)
 }
 \arguments{
 \item{x}{Input character vector}
 
-\item{metric}{logical; the default value is TRUE, a returned visibility will be in meters;
+\item{metric}{logical; if TRUE, the default value, runway(s) visibility is returned in meters,
 if FALSE then in feet.}
 }
 \value{

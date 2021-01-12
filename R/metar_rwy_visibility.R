@@ -1,9 +1,9 @@
-#' Extract visibility.
+#' Get runway(s) visibility.
 #'
 #' Function extracts runway(s) visibility value(s) from METAR weather report.
 #'
 #' @param x Input character vector
-#' @param metric logical; the default value is TRUE, a returned visibility will be in meters;
+#' @param metric logical; if TRUE, the default value, runway(s) visibility is returned in meters,
 #' if FALSE then in feet.
 #'
 #' @return A numeric vector. A visibility in m/s or feet.
@@ -93,6 +93,17 @@ metar_rwy_visibility <- function(x, metric = TRUE) {
         item_found <- TRUE
       }
 
+      if(stringr::str_detect(rvr[i], pattern = "(R|RWY)\\d{2}([A-Z]\\/|\\/)P\\d{4}FT") & !item_found) {
+        out_rvr[i] <- paste0("Runway visual range for runway ",
+                             stringr::str_sub(stringr::str_extract(rvr[i], pattern = "(R|RWY)\\d{2}([A-Z]\\/|\\/)"), 1, -2),
+                             " is greater than ",
+                             round(as.numeric(stringr::str_extract(stringr::str_extract(rvr[i],
+                                                                                        pattern = "(R|RWY)\\d{2}([A-Z]\\/|\\/)P\\d{4}"),
+                                                                   pattern = "\\d{4}")) * cfi, 2),
+                             " ", tdist)
+        item_found <- TRUE
+      }
+
       if(stringr::str_detect(rvr[i], pattern = "(R|RWY)\\d{2}([A-Z]\\/|\\/)\\d{4}FT") & !item_found) {
         out_rvr[i] <- paste0("Runway visual range for runway ",
                              stringr::str_sub(stringr::str_extract(rvr[i], pattern = "(R|RWY)\\d{2}([A-Z]\\/|\\/)"), 1, -2),
@@ -155,12 +166,12 @@ metar_rwy_visibility <- function(x, metric = TRUE) {
         item_found <- TRUE
       }
 
-      if(stringr::str_detect(rvr[i], pattern = "(R|RWY)\\d{2}([A-Z]\\/|\\/)[P]\\d{4}") & !item_found) {
+      if(stringr::str_detect(rvr[i], pattern = "(R|RWY)\\d{2}([A-Z]\\/|\\/)P\\d{4}") & !item_found) {
         out_rvr[i] <- paste0("Runway visual range for runway ",
                              stringr::str_sub(stringr::str_extract(rvr[i], pattern = "(R|RWY)\\d{2}([A-Z]\\/|\\/)"), 1, -2),
                              " is greater than ",
                              round(as.numeric(stringr::str_extract(stringr::str_extract(rvr[i],
-                                                                      pattern = "(R|RWY)\\d{2}([A-Z]\\/|\\/)[P]\\d{4}"),
+                                                                      pattern = "(R|RWY)\\d{2}([A-Z]\\/|\\/)P\\d{4}"),
                                                           pattern = "\\d{4}")) * cfm, 2),
                              " ", tdist)
         item_found <- TRUE

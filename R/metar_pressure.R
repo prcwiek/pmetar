@@ -3,8 +3,8 @@
 #' Extract and parse an air pressure value from METAR weather report.
 #'
 #' @param x character vector; a METAR weather report or reports.
-#' @param altimeter boolean; if TRUE pressure is returned in inHg (inch of mercury),
-#' for the default value of FALSE in hPa.
+#' @param altimeter boolean; if FALSE, the default value, a pressure is returned in hPa,
+#' if TRUE a pressure is returned in inHg (inch of mercury).
 #'
 #' @return a numeric vector with air pressure in inHg or hPa.
 #'
