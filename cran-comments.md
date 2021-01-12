@@ -10,6 +10,8 @@
 ## R CMD check results
 Status OK for all.
 
+## Others
+
 Possibly mis-spelled words in DESCRIPTION:  
   
   ASOS
