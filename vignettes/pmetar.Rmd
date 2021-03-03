@@ -234,9 +234,3 @@ First rows of the tibble with decoded METAR reports:
 ```{r}
 print.data.frame(head(decoded_metars))
 ```
-or in more legible format below, for operating systems other than Oracle Solaris.
-```{r}
-if (!grepl('SunOS',Sys.info()['sysname'])){
-  decoded_metars %>% as_tibble %>% rmarkdown::paged_table()  
-}
-```
