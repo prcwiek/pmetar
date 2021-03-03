@@ -15,13 +15,15 @@
 #' metar_get("CYUL")
 #' metar_get("MAD")
 #' metar_get("WAW")
-#' metar_get(c("epwa", "Mad", "LEBL"))
 #'
 metar_get <- function(airport = "EPWA"){
-  #options(error = NULL)
   # check if x is a data frame
   if(is.data.frame(airport)){
     stop("pmetar package error: Invalid input format! Argument is not an atomic vector.", call. = FALSE)
+  }
+  # check if x is a character with length 1
+  if(length(airport) > 1){
+    stop("pmetar package error: Only one airport at once!", call. = FALSE)
   }
   out <- c(1:length(airport))
   out[1:length(airport)] <- NA
@@ -40,13 +42,13 @@ metar_get <- function(airport = "EPWA"){
                  "&format=raw&date=0&hours=0")
   tryCatch(
     expr = {
-      myfile <- RCurl::getURL(link, ssl.verifyhost = FALSE, ssl.verifypeer = FALSE)
+      myfile <- httr::POST(link)
     },
     error = function(e){
       stop("pmetar package error: cannot connect to the server!", call. = FALSE)
     }
   )
-  metar <- stringr::str_extract(myfile, pattern = "<code>[:print:]+</code>")
+  metar <- stringr::str_extract(httr::content(myfile, as = "text", encoding = "UTF-8"), pattern = "<code>[:print:]+</code>")
   metar <- stringr::str_replace(metar, "<code>", "")
   metar <- stringr::str_replace(metar, "</code>", "")
   metar[is.na(metar)] <- "No METAR found!"
