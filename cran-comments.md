@@ -1,5 +1,5 @@
 ## Test environments
-* local Xubuntu 20.04 LTS, R 4.0.3
+* local Xubuntu 20.04 LTS, R 4.0.4
 * win-builder (development and release)
 * rhub macOS 10.13.6 High Sierra, R-release, brew
 * rhub Debian Linux, R-release, GCC 

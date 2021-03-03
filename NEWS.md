@@ -1,3 +1,10 @@
+pmetar version 0.3.1
+===========================
+
+### BUG FIXES
+
+* metar_get() fixed failures with Rcurl, OpenSSL and TLS on Windows
+
 pmetar version 0.3.0
 ===========================
 
