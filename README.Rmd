@@ -26,13 +26,13 @@ knitr::opts_chunk$set(
 Package allows to download current and historical METAR weather reports and decode basic parameters.
 
 ### METAR weather reports source web pages
-The function metar_get scraps data from two web pages:
+The main functions scrap data from the below web pages:
 
-1. For current reports:
+1. For current reports, the function *metar_get*:
 
 * Aviation Weather Center https://www.aviationweather.gov/metar</li><br>
 
-2. For historical reports:
+2. For historical reports, the function *metar_get_historical*:
 
 * Iowa Environmental Mesonet web page of Iowa State University
 ASOS-AWOS-METAR http://mesonet.agron.iastate.edu/AWOS/</li>

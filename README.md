@@ -19,15 +19,15 @@ and decode basic parameters.
 
 ### METAR weather reports source web pages
 
-The function metar\_get scraps data from two web pages:
+The main functions scrap data from the below web pages:
 
-1.  For current reports:
+1.  For current reports, the function *metar\_get*:
 
 -   Aviation Weather Center <https://www.aviationweather.gov/metar>
     </li>
     <br>
 
-1.  For historical reports:
+2.  For historical reports, the function *metar\_get\_historical*:
 
 -   Iowa Environmental Mesonet web page of Iowa State University
     ASOS-AWOS-METAR <http://mesonet.agron.iastate.edu/AWOS/>
