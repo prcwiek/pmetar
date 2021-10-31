@@ -21,13 +21,13 @@ and decode basic parameters.
 
 The main functions scrap data from the below web pages:
 
-1.  For current reports, the function *metar\_get*:
+1.  For current reports, the function *metar_get*:
 
 -   Aviation Weather Center <https://www.aviationweather.gov/metar>
     </li>
     <br>
 
-2.  For historical reports, the function *metar\_get\_historical*:
+2.  For historical reports, the function *metar_get_historical*:
 
 -   Iowa Environmental Mesonet web page of Iowa State University
     ASOS-AWOS-METAR <http://mesonet.agron.iastate.edu/AWOS/>
@@ -65,7 +65,7 @@ CRAN version
 install.packages("pmetar")
 ```
 
-Get the development version 0.3.1 from github:
+Get the development version 0.3.1.9000 from github:
 
 ``` r
 # install.packages("devtools")

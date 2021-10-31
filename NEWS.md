@@ -1,3 +1,10 @@
+pmetar version 0.3.1.9000 (development)
+===========================
+
+### BUG FIXES
+
+* Packages which use Internet resources should fail gracefully with an informative message.
+
 pmetar version 0.3.1
 ===========================
 
