@@ -21,10 +21,17 @@ metar_get <- function(airport = "EPWA"){
   if(is.data.frame(airport)){
     stop("pmetar package error: Invalid input format! Argument is not an atomic vector.", call. = FALSE)
   }
+
   # check if x is a character with length 1
   if(length(airport) > 1){
     stop("pmetar package error: Only one airport at once!", call. = FALSE)
   }
+
+  # check whether airpot consist of spaces
+  if(stringr::str_detect(airport, pattern = "\\s")) {
+    stop("pmetar package error: Airport code contains blank(s)!", call. = FALSE)
+  }
+
   out <- c(1:length(airport))
   out[1:length(airport)] <- NA
   # all characters to upper cases
@@ -40,14 +47,36 @@ metar_get <- function(airport = "EPWA"){
   link <- paste0("https://aviationweather.gov/metar/data?ids=",
                  airport,
                  "&format=raw&date=0&hours=0")
-  tryCatch(
-    expr = {
-      myfile <- httr::POST(link)
-    },
-    error = function(e){
-      stop("pmetar package error: cannot connect to the server!", call. = FALSE)
-    }
-  )
+
+  # Function for handling problems with the server
+  answer_POST <- function(p) {
+    tryCatch(
+      httr::POST(url = p, config = httr::timeout(20)),
+      error = function(e) conditionMessage(e),
+      warning = function(w) conditionMessage(w)
+    )
+  }
+
+  # Check internet connection
+  if(!curl::has_internet()) {
+    message("No internet connection!")
+    return(invisible(NULL))
+  }
+
+  myfile <- answer_POST(link)
+
+  # Check timeout problems
+  if(class(myfile) != "response") {
+    message(myfile)
+    return(invisible(NULL))
+  }
+
+  # Check status > 400
+  if(httr::http_error(myfile)) {
+    httr::message_for_status(myfile)
+    return(invisible(NULL))
+  }
+
   metar <- stringr::str_extract(httr::content(myfile, as = "text", encoding = "UTF-8"), pattern = "<code>[:print:]+</code>")
   metar <- stringr::str_replace(metar, "<code>", "")
   metar <- stringr::str_replace(metar, "</code>", "")

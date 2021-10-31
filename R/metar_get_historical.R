@@ -47,6 +47,11 @@ metar_get_historical <- function(airport = "EPWA",
     stop("pmetar package error: Only one airport at once!", call. = FALSE)
   }
 
+  # check whether airpot consist of spaces
+  if(stringr::str_detect(airport, pattern = "\\s")) {
+    stop("pmetar package error: Airport code contains blank(s)!", call. = FALSE)
+  }
+
   # try to find ICAO based on IATA
   if(stringr::str_detect(airport, pattern = "^[A-Za-z]{3}$")){
     airport <- metar_iata_icao(airport)
@@ -117,6 +122,36 @@ metar_get_historical <- function(airport = "EPWA",
                "'. Please use 'ogimet' or 'iastate'.", sep = ""), call. = FALSE)
   }
 
+  # Function for handling problems with the server
+  check_server_status <- function(p) {
+    tryCatch(
+      httr::GET(p, config = httr::timeout(20)),
+      error = function(e) conditionMessage(e),
+      warning = function(w) conditionMessage(w)
+    )
+  }
+
+  # Check internet connection
+  if(!curl::has_internet()) {
+    message("No internet connection!")
+    return(invisible(NULL))
+  }
+
+  server_link <- stringr::str_extract(link, pattern = ".+?/")
+  server_answer <- check_server_status(server_link)
+
+  # Check timeout problems
+  if(class(server_answer) != "response") {
+    message(server_answer)
+    return(invisible(NULL))
+  }
+
+  # Check status > 400
+  if(httr::http_error(server_answer)) {
+    httr::message_for_status(server_answer)
+    return(invisible(NULL))
+  }
+
   tryCatch(
     expr = {
       myfile <- RCurl::getURL(link, ssl.verifyhost = FALSE, ssl.verifypeer = FALSE)
@@ -129,14 +164,6 @@ metar_get_historical <- function(airport = "EPWA",
       }
     }
   )
-
-  if(myfile == "pmetar package error: Malformed Date!"){
-    stop(paste("Message from mesonet.agron.iastate.edu :", "Malformed Date!"), call. = FALSE)
-  }
-
-  if(stringr::str_detect(myfile, pattern = "#Sorry, Your quota limit for slow queries rate has been reached")){
-    stop(paste("Message from www.ogimet.com :", "Sorry, Your quota limit for slow queries rate has been reached."), call. = FALSE)
-  }
 
   ds <- utils::read.csv((textConnection(myfile)), stringsAsFactors = FALSE)
 
