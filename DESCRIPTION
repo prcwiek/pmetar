@@ -1,7 +1,7 @@
 Type: Package
 Package: pmetar
 Title: Processing METAR Weather Reports
-Version: 0.3.1
+Version: 0.3.1.9000
 Authors@R: 
     c(person(given = "Pawel",
              family = "Cwiek",
@@ -30,6 +30,7 @@ Depends:
   utils,
   stats
 Imports:
+  curl,
   dplyr,
   httr,
   lubridate,
@@ -46,4 +47,4 @@ VignetteBuilder: knitr
 LazyData: true
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.1.1
+RoxygenNote: 7.1.2
