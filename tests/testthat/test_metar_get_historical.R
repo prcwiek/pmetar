@@ -1,6 +1,17 @@
 context("METAR get historical")
 
-test_that("Check incorrect dates", {
+testthat::skip_if_offline(host = "www.ogimet.com")
+
+test_that("Check incorrect dates with iastate ogimet", {
+  expect_error(metar_get_historical(airport = "EPWA",
+                                    start_date = "2004-07-01",
+                                    end_date = "2004-07-10",
+                                    from = "ogimet"))
+})
+
+testthat::skip_if_offline(host = "mesonet.agron.iastate.edu")
+
+test_that("Check incorrect dates with iastate option", {
   expect_error(metar_get_historical(airport = "EPWA",
                                     start_date = "2019-01-01",
                                     end_date = "2018-12-31",
@@ -13,10 +24,6 @@ test_that("Check incorrect dates", {
                                     start_date = "2000-05-01",
                                     end_date = "2000-05-31",
                                     from = "iastate"))
-  expect_error(metar_get_historical(airport = "EPWA",
-                                    start_date = "2004-07-01",
-                                    end_date = "2004-07-10",
-                                    from = "ogimet"))
 })
 
 test_that("Check incorrect airport code", {

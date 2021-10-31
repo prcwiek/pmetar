@@ -1,5 +1,7 @@
 context("METAR get")
 
+testthat::skip_if_offline(host = "aviationweather.gov")
+
 x1 <- "EPWA"
 x2 <- "CYUL"
 x3 <- "MAD"
@@ -14,7 +16,6 @@ test_that("Check if output is character", {
 
 x1 <- "aa"
 x2 <- "AcdEE"
-x3 <- "a "
 x4 <- "AAAA"
 x5 <- "EPWAa"
 x6 <- 123
@@ -26,7 +27,6 @@ dx <- data.frame(metar = x)
 test_that("Check incorrect inputs", {
   expect_equal(metar_get(x1), "No METAR found!")
   expect_equal(metar_get(x2), "No METAR found!")
-  expect_equal(metar_get(x3), "No METAR found!")
   expect_equal(metar_get(x4), "No METAR found!")
   expect_equal(metar_get(x5), "No METAR found!")
   expect_equal(metar_get(x6), "No METAR found!")
@@ -34,9 +34,11 @@ test_that("Check incorrect inputs", {
   expect_error(metar_get(dx$metar))
 })
 
+x3 <- "a "
 dxt <- tibble::as_tibble(dx)
 
 test_that("Check invalid input format", {
+  expect_error(metar_get(x3))
   expect_error(metar_get(dx))
   expect_error(metar_get(dxt))
 })
