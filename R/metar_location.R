@@ -5,7 +5,7 @@
 #' ICAO, International Civil Aviation Organization, airport code. Two source of
 #' information about airports are used. First the function search in the list of
 #' airports available at
-#' [https://ourairports.com/data](https://ourairports.com/data)
+#' [https://ourairports.com/data/](https://ourairports.com/data/)
 #' created by David Megginson.
 #' If an airport cannot be found there, the second list of airports is searched, from
 #' [https://www.aviationweather.gov/docs/metar/stations.txt](https://www.aviationweather.gov/docs/metar/stations.txt)
@@ -79,7 +79,7 @@ metar_location <- function(x = "EPWA") {
   }
 
   message("Getting airport informaiton from the file downloaded from")
-  message("https://ourairports.com/data")
+  message("https://ourairports.com/data/")
   message("created by David Megginson")
   # check if x is a data frame
   if(is.data.frame(x)){
