@@ -28,7 +28,7 @@ NULL
 #'#' A dataset containing the list of airports
 #' weather conditions codes. The variables are as follows:
 #'
-#' From <https://ourairports.com/>
+#' From <https://ourairports.com>
 #' A data set is in the public domain according to <https://ourairports.com/data/>
 #'
 #' \itemize{

@@ -12,7 +12,7 @@ A data frame with 29010 rows and 12 variables
 weather conditions codes. The variables are as follows:
 }
 \details{
-From \url{https://ourairports.com/}
+From \url{https://ourairports.com}
 A data set is in the public domain according to \url{https://ourairports.com/data/}
 
 \itemize{
