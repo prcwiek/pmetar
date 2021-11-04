@@ -27,7 +27,7 @@ IATA, International Air Transport Association, or
 ICAO, International Civil Aviation Organization, airport code. Two source of
 information about airports are used. First the function search in the list of
 airports available at
-\url{https://ourairports.com/data}
+\url{https://ourairports.com/data/}
 created by David Megginson.
 If an airport cannot be found there, the second list of airports is searched, from
 \url{https://www.aviationweather.gov/docs/metar/stations.txt}
