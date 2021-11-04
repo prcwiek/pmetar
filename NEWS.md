@@ -1,4 +1,4 @@
-pmetar version 0.3.1.9000 (development)
+pmetar version 0.3.2
 ===========================
 
 ### BUG FIXES
