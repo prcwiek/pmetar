@@ -1,3 +1,10 @@
+pmetar development version 0.3.2.01
+===================================
+
+### BUG FIXES
+
+* fixed metar_decode fails with METAR COR
+
 pmetar version 0.3.2
 ===========================
 

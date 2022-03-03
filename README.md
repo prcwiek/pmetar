@@ -65,7 +65,7 @@ CRAN version
 install.packages("pmetar")
 ```
 
-Get the development version from github:
+Get the development version 0.3.2.01 from github:
 
 ``` r
 # install.packages("devtools")
