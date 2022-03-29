@@ -141,15 +141,19 @@ metar_get_historical <- function(airport = "EPWA",
   server_answer <- check_server_status(server_link)
 
   # Check timeout problems
-  if(class(server_answer) != "response") {
-    message(server_answer)
-    return(invisible(NULL))
+  if (class(server_answer) != "response") {
+    if (!(from == "ogimet" & Sys.info()['sysname'] == "windows"))  {
+      message(server_answer)
+      return(invisible(NULL))
+    }
   }
 
   # Check status > 400
   if(httr::http_error(server_answer)) {
-    httr::message_for_status(server_answer)
-    return(invisible(NULL))
+    if (!(from == "ogimet" & Sys.info()['sysname'] == "windows")) {
+      httr::message_for_status(server_answer)
+      return(invisible(NULL))
+    }
   }
 
   tryCatch(

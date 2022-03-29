@@ -1,7 +1,7 @@
 Type: Package
 Package: pmetar
 Title: Processing METAR Weather Reports
-Version: 0.3.3
+Version: 0.3.3.1
 Authors@R: 
     c(person(given = "Pawel",
              family = "Cwiek",
