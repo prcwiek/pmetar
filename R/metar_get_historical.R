@@ -142,7 +142,7 @@ metar_get_historical <- function(airport = "EPWA",
 
   # Check timeout problems
   if (class(server_answer) != "response") {
-    if (!(from == "ogimet" & Sys.info()['sysname'] == "windows"))  {
+    if (!(from == "ogimet" & server_answer == "argument is of length zero" & Sys.info()['sysname'] == "windows"))  {
       message(server_answer)
       return(invisible(NULL))
     }
@@ -150,7 +150,7 @@ metar_get_historical <- function(airport = "EPWA",
 
   # Check status > 400
   if(httr::http_error(server_answer)) {
-    if (!(from == "ogimet" & Sys.info()['sysname'] == "windows")) {
+    if (!(from == "ogimet" & server_answer == "argument is of length zero" & Sys.info()['sysname'] == "windows")) {
       httr::message_for_status(server_answer)
       return(invisible(NULL))
     }
