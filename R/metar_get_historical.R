@@ -138,26 +138,40 @@ metar_get_historical <- function(airport = "EPWA",
   }
 
   server_link <- stringr::str_extract(link, pattern = ".+?/")
+  #server_link <- stringr::str_remove(server_link, pattern = "/")
+  server_link <- paste0("https://", server_link)
   server_answer <- check_server_status(server_link)
 
   # handling problems with ogimet and windowx
-  if (class(server_answer) != "response" & from == "ogimet" & Sys.info()['sysname'] == "Windows") {
-    if (server_answer != "argument is of length zero") {
-      message("Problems with the Ogimet server!")
-      return(invisible(NULL))
-    }
-  } else {
-    # Check timeout problems
-    if (class(server_answer) != "response") {
-      message(server_answer)
-      return(invisible(NULL))
-    }
+  # if (class(server_answer) != "response" & from == "ogimet" & Sys.info()['sysname'] == "Windows") {
+  #   if (server_answer != "argument is of length zero") {
+  #     message("Problems with the Ogimet server!")
+  #     return(invisible(NULL))
+  #   }
+  # } else {
+  #   # Check timeout problems
+  #   if (class(server_answer) != "response") {
+  #     message(server_answer)
+  #     return(invisible(NULL))
+  #   }
+  #
+  #   # Check status > 400
+  #   if (httr::http_error(server_answer)) {
+  #     httr::message_for_status(server_answer)
+  #     return(invisible(NULL))
+  #   }
+  # }
 
-    # Check status > 400
-    if (httr::http_error(server_answer)) {
-      httr::message_for_status(server_answer)
-      return(invisible(NULL))
-    }
+  # Check timeout problems
+  if(class(server_answer) != "response") {
+    message(server_answer)
+    return(invisible(NULL))
+  }
+
+  # Check status > 400
+  if(httr::http_error(server_answer)) {
+    httr::message_for_status(server_answer)
+    return(invisible(NULL))
   }
 
   tryCatch(
