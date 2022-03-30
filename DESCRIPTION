@@ -1,20 +1,14 @@
 Type: Package
 Package: pmetar
 Title: Processing METAR Weather Reports
-Version: 0.3.3.1
-Authors@R: 
-    c(person(given = "Pawel",
-             family = "Cwiek",
-             role = c("aut", "cre"),
-             email = "prc.altodato@gmail.com"),
-      person(given = "David",
-             family = "Megginson",
-             role = "ctb",
-             comment = "Author of data set with airports list https://ourairports.com/data/"),
-      person(given = "Greg",
-             family = "Thompson",
-             role = "ctb",
-             comment = "Author of data set with airports list https://www.aviationweather.gov/docs/metar/stations.txt"))
+Version: 0.3.3.2
+Authors@R: c(
+    person("Pawel", "Cwiek", , "prc.altodato@gmail.com", role = c("aut", "cre")),
+    person("David", "Megginson", role = "ctb",
+           comment = "Author of data set with airports list https://ourairports.com/data/"),
+    person("Greg", "Thompson", role = "ctb",
+           comment = "Author of data set with airports list https://www.aviationweather.gov/docs/metar/stations.txt")
+  )
 Maintainer: Pawel Cwiek <prc.altodato@gmail.com>
 Description: Allows to download current and historical METAR weather reports
   extract and parse basic parameters and present main weather information. 
