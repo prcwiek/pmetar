@@ -140,17 +140,21 @@ metar_get_historical <- function(airport = "EPWA",
   server_link <- stringr::str_extract(link, pattern = ".+?/")
   server_answer <- check_server_status(server_link)
 
-  # Check timeout problems
-  if (class(server_answer) != "response") {
-    if (!(from == "ogimet" & server_answer == "argument is of length zero" & Sys.info()['sysname'] == "windows"))  {
+  # handling problems with ogimet and windowx
+  if (class(server_answer) != "response" & from == "ogimet" & Sys.info()['sysname'] == "windows") {
+    if (server_answer != "argument is of length zero") {
+      message("Problems with the Ogimet server!")
+      return(invisible(NULL))
+    }
+  } else {
+    # Check timeout problems
+    if (class(server_answer) != "response") {
       message(server_answer)
       return(invisible(NULL))
     }
-  }
 
-  # Check status > 400
-  if(httr::http_error(server_answer)) {
-    if (!(from == "ogimet" & server_answer == "argument is of length zero" & Sys.info()['sysname'] == "windows")) {
+    # Check status > 400
+    if (httr::http_error(server_answer)) {
       httr::message_for_status(server_answer)
       return(invisible(NULL))
     }
