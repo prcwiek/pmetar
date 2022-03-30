@@ -141,7 +141,7 @@ metar_get_historical <- function(airport = "EPWA",
   server_answer <- check_server_status(server_link)
 
   # handling problems with ogimet and windowx
-  if (class(server_answer) != "response" & from == "ogimet" & Sys.info()['sysname'] == "windows") {
+  if (class(server_answer) != "response" & from == "ogimet" & Sys.info()['sysname'] == "Windows") {
     if (server_answer != "argument is of length zero") {
       message("Problems with the Ogimet server!")
       return(invisible(NULL))
