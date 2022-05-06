@@ -1,3 +1,14 @@
+pmetar development version 0.3.3.3 
+===========================
+
+### BUG FIXES
+
+* Fixed problems with downloading historical data from the Ogimet server
+
+### NEW FEATURES
+
+* metar_decode() added parameter numeric_only
+
 pmetar version 0.3.3
 ===========================
 
