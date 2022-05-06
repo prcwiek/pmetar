@@ -4,7 +4,7 @@
 \alias{metar_decode}
 \title{Decode METAR report.}
 \usage{
-metar_decode(x, metric = TRUE, altimeter = FALSE)
+metar_decode(x, metric = TRUE, altimeter = FALSE, numeric_only = FALSE)
 }
 \arguments{
 \item{x}{character vector; a single METAR weather report or\cr
@@ -14,6 +14,8 @@ historical METAR weather reports.}
 If FALSE, wind speeds returned in knots and distances in miles.}
 
 \item{altimeter}{logical; if FLASE pressures returned in hPa, if TRUE in mmHg}
+
+\item{numeric_only}{logical; if TRUE only numeric values are returned}
 }
 \value{
 a tibble with decoded METAR weather report or reports.

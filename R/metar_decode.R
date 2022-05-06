@@ -37,7 +37,8 @@
 #' @param metric logical; if TRUE wind speeds returned in m/s, distances in meters.\cr
 #' If FALSE, wind speeds returned in knots and distances in miles.
 #' @param altimeter logical; if FLASE pressures returned in hPa, if TRUE in mmHg
-#'
+#' @param numeric_only logical; if TRUE only numeric values are returned
+#' 
 #' @return a tibble with decoded METAR weather report or reports.
 #'
 #' @importFrom magrittr %>%
@@ -53,7 +54,7 @@
 #' metar_decode("CYWG 172000Z 30015G25KT 3/4SM R36/4000FT/D -SN M05/M08 A2992")
 #' metar_decode("202103251800 METAR COR NFTL 251800Z 00000KT SCT017TCU BKN290 25/25 Q1014")
 #'
-metar_decode <- function(x, metric = TRUE, altimeter = FALSE){
+metar_decode <- function(x, metric = TRUE, altimeter = FALSE, numeric_only = FALSE){
   tryCatch(
     expr = {
       if(stringr::str_detect(x, pattern = "^[\\d]+ METAR")[1]) {
@@ -81,7 +82,7 @@ metar_decode <- function(x, metric = TRUE, altimeter = FALSE){
                       Gust = metar_gust(out$x, metric = metric),
                       Gust_unit = ifelse(metric, "m/s", "kn"),
                       Wind_shear = metar_windshear(out$x, metric = metric),
-                      Wind_direction = metar_dir(out$x),
+                      Wind_direction = metar_dir(out$x, numeric_only = numeric_only),
                       Temperature = metar_temp(out$x),
                       Dew_point = metar_dew_point(out$x),
                       Pressure = metar_pressure(out$x, altimeter = altimeter),
