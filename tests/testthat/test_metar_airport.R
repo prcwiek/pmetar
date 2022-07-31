@@ -11,7 +11,7 @@ x8 <- "202103251800 METAR COR NFTL 251800Z 00000KT 9999 SCT017TCU BKN290 25/25 Q
 x9 <- "202103251800 SPECI COR NFTL 251800Z 00000KT 9999 SCT017TCU BKN290 25/25 Q1014"
 
 x <- c(x1, x2, x3, x4, x5, x6, x7, x8, x9)
-
+ 
 dx <- data.frame(metar = x)
 
 test_that("Check if airport code has 4 character", {
