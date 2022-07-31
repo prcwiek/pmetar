@@ -41,13 +41,13 @@ x10 <- "201711271930 METAR LEMD 271930Z 0c002KT CAVOK 04/M03 Q1025 NOSIG= NOSIG=
 
 
 test_that("Incorrect METAR reports", {
-  expect_equal(metar_dir(x8), "180, variable from 140 to 200")
+  expect_equal(metar_dir(x8), "")
   expect_equal(metar_dir(x9), "")
   expect_equal(metar_dir(x10), "")
 })
 
 test_that("Incorrect METAR reports, numeric_only", {
-  expect_equal(metar_dir(x8, numeric_only = TRUE), 180)
+  expect_equal(is.na(metar_dir(x8, numeric_only = TRUE)), TRUE)
   expect_equal(is.na(metar_dir(x9, numeric_only = TRUE)), TRUE)
   expect_equal(is.na(metar_dir(x10, numeric_only = TRUE)), TRUE)
 })
@@ -57,11 +57,11 @@ dx <- data.frame(metar = c(x1, x2, x3, x4, x5, x6, x7, x8, x9, x10))
 
 test_that("Correct and incorrect METAR reports", {
   expect_equal(metar_dir(dx$metar),  c("180, variable from 140 to 200", "130", "20", "50", "50", "300", "130",
-                                       "180, variable from 140 to 200", "", ""))
+                                       "", "", ""))
 })
 
 test_that("Correct and incorrect METAR reports, numeric_only", {
-  expect_equal(metar_dir(dx$metar, numeric_only = TRUE),  c(180, 130, 20, 50, 50, 300, 130, 180, NA, NA))
+  expect_equal(metar_dir(dx$metar, numeric_only = TRUE),  c(180, 130, 20, 50, 50, 300, 130, NA, NA, NA))
 })
 
 dxt <- tibble::as_tibble(dx)

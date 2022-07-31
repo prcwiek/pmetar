@@ -25,16 +25,16 @@ metar_dir <- function(x, numeric_only = FALSE){
   if(numeric_only) {
     out[1:length(x)] <- NA
     # look for nnnnnGnnKT or nnnnnKT or nnnnnnMPS
-    fT <- stringr::str_detect(x, pattern = "(\\d{5}G\\d+KT|\\d{5}KT|\\d{5}MPS)")
+    fT <- stringr::str_detect(x, pattern = "(\\s\\d{5}G\\d+KT|\\s\\d{5}KT|\\s\\d{5}MPS)")
     out[fT] <- as.numeric(stringr::str_sub(stringr::str_extract(x[fT], pattern = "(\\d{5}G\\d+KT|\\d{5}KT|\\d{5}MPS)"), 1, 3))
     out
   } else {
     out[1:length(x)] <- ""
     # look for nnnnnGnnKT or nnnnnKT or nnnnnnMPS
-    fT <- stringr::str_detect(x, pattern = "(\\d{5}G\\d+KT|\\d{5}KT|\\d{5}MPS)")
+    fT <- stringr::str_detect(x, pattern = "(\\s\\d{5}G\\d+KT|\\s\\d{5}KT|\\s\\d{5}MPS)")
     out[fT] <- as.numeric(stringr::str_sub(stringr::str_extract(x[fT], pattern = "(\\d{5}G\\d+KT|\\d{5}KT|\\d{5}MPS)"), 1, 3))
     # look for nnnVnnn
-    fT <- stringr::str_detect(x, pattern = "\\d{3}V\\d{3}")
+    fT <- stringr::str_detect(x, pattern = "\\s\\d{3}V\\d{3}\\s")
     out[fT] <- paste0(out[fT], ", variable from ",
                       as.numeric(stringr::str_sub(stringr::str_extract(x[fT], pattern = "\\d{3}V\\d{3}"), 1, 3)),
                       " to ",
