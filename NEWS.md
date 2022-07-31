@@ -1,4 +1,4 @@
-pmetar development version 0.3.3.3 
+pmetar development version 0.3.3.4 
 ===========================
 
 ### BUG FIXES
@@ -7,7 +7,8 @@ pmetar development version 0.3.3.3
 
 ### NEW FEATURES
 
-* metar_decode() added parameter numeric_only
+* Added parameter numeric_only to metar_decode() 
+* Added new function metar_is_correct()
 
 pmetar version 0.3.3
 ===========================
