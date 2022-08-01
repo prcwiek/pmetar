@@ -5,6 +5,9 @@
 #' @param x character vector; METAR weather report or reports.
 #' @param metric logical; the default value is TRUE and a returned wind speed is in m/s;
 #' if it's FALSE then in knots.
+#' @param check logical; the default value is FALSE, if METAR report fails the syntax
+#' check, NA value will be returned. If FALSE, zero values will be returned for 
+#' METAR reports with incorrect syntax. 
 #'
 #' @return a numeric vector. A wind speed in m/s or in knots.
 #'
@@ -16,7 +19,7 @@
 #' metar_speed("201711271930 METAR LEMD 271930Z 02002KT CAVOK 04/M03 Q1025 NOSIG= NOSIG=")
 #' metar_speed("EPKK 141730Z VRB01KT CAVOK 21/16 Q1028")
 #'
-metar_speed <- function(x, metric = TRUE){
+metar_speed <- function(x, metric = TRUE, check = FALSE){
   # check if x is a data frame
   if(is.data.frame(x)){
     stop("pmetar package error: Invalid input format! Argument is not an atomic vector.", call. = FALSE)
@@ -29,13 +32,28 @@ metar_speed <- function(x, metric = TRUE){
     cfm <- 1/0.5144447
     cfi <- 1
   }
-  out <- c(1:length(x))
-  out[c(1:length(x))] <- 0
+  out <- rep(0, length(x))
+  # Remove part after RMK
+  x <- stringr::str_split_fixed(x, pattern = "RMK", n = 2)[,1]
+  # Remove part after TEMPO
+  x <- stringr::str_split_fixed(x, pattern = "TEMPO", n = 2)[,1]
+  if (check) {
+    icorrect <- metar_is_correct(x)
+    out[which(!icorrect)] <- NA
+      
+  } else {
+    icorrect <- rep(TRUE, length(x))
+  }
+  x <- x[which(icorrect)]
+  outx <- c(1:length(x))
+  outx[c(1:length(x))] <- 0
   fMPS <- stringr::str_detect(x, pattern = "(\\d{5}(MPS|G\\d{2}MPS)|VRB\\d{2}MPS)")
   fKT <- stringr::str_detect(x, pattern = "(\\d{5}(KT|G\\d{2}KT)|VRB\\d{2}KT)")
-  out[fMPS] <- as.numeric(stringr::str_sub(stringr::str_extract(x[fMPS],
+  outx[fMPS] <- as.numeric(stringr::str_sub(stringr::str_extract(x[fMPS],
                                                                 pattern = "(\\d{5}(MPS|G\\d{2}MPS)|VRB\\d{2}MPS)"), 4, 5)) * cfm
-  out[fKT] <- as.numeric(stringr::str_sub(stringr::str_extract(x[fKT],
+  outx[fKT] <- as.numeric(stringr::str_sub(stringr::str_extract(x[fKT],
                                                                pattern = "(\\d{5}(KT|G\\d{2}KT)|VRB\\d{2}KT)"), 4, 5)) * cfi
+  out[which(icorrect)] <- outx
+  
   out
 }

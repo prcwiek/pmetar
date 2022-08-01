@@ -4,13 +4,17 @@
 \alias{metar_speed}
 \title{Get wind speed}
 \usage{
-metar_speed(x, metric = TRUE)
+metar_speed(x, metric = TRUE, check = FALSE)
 }
 \arguments{
 \item{x}{character vector; METAR weather report or reports.}
 
 \item{metric}{logical; the default value is TRUE and a returned wind speed is in m/s;
 if it's FALSE then in knots.}
+
+\item{check}{logical; the default value is FALSE, if METAR report fails the syntax
+check, NA value will be returned. If FALSE, zero values will be returned for
+METAR reports with incorrect syntax.}
 }
 \value{
 a numeric vector. A wind speed in m/s or in knots.
