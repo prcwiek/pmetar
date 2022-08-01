@@ -22,6 +22,10 @@ metar_dir <- function(x, numeric_only = FALSE){
     stop("pmetar package error: Invalid input format! Argument is not an atomic vector.", call. = FALSE)
   }
   out <- c(1:length(x))
+  # Remove part after RMK
+  x <- stringr::str_split_fixed(x, pattern = "RMK", n = 2)[,1]
+  # Remove part after TEMPO
+  x <- stringr::str_split_fixed(x, pattern = "TEMPO", n = 2)[,1]
   if(numeric_only) {
     out[1:length(x)] <- NA
     # look for nnnnnGnnKT or nnnnnKT or nnnnnnMPS

@@ -33,6 +33,10 @@ metar_visibility <- function(x, metric = TRUE, numeric_values_only = FALSE) {
   }
   out <- c(1:length(x))
   out[1:length(x)] <- NA
+  # Remove part after RMK
+  x <- stringr::str_split_fixed(x, pattern = "RMK", n = 2)[,1]
+  # Remove part after TEMPO
+  x <- stringr::str_split_fixed(x, pattern = "TEMPO", n = 2)[,1]
   # cases like 1 3/4SM
   fT <- stringr::str_detect(x, pattern = "\\s\\d\\s\\d\\/\\dSM\\s")
   out[fT] <- round((as.numeric(stringr::str_extract(stringr::str_extract(x[fT], pattern = "\\s\\d\\s\\d\\/\\dSM\\s"), pattern = "\\s\\d\\s")) +

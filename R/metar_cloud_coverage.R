@@ -61,6 +61,10 @@ metar_cloud_coverage <- function(x) {
                       stringsAsFactors = FALSE)
   out <- c(1:length(x))
   out[1:length(x)] <- ""
+  # Remove part after RMK
+  x <- stringr::str_split_fixed(x, pattern = "RMK", n = 2)[,1]
+  # Remove part after TEMPO
+  x <- stringr::str_split_fixed(x, pattern = "TEMPO", n = 2)[,1]
   # SKC - "No cloud/Sky clear" used worldwide but in
   # North America is used to indicate a human generated report
   fT <- stringr::str_detect(x, pattern = "SKC")

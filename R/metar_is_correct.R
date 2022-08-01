@@ -54,7 +54,7 @@ metar_is_correct <- function(x, verbose = FALSE) {
   out[!fT] <- FALSE
 
   # check wind direction syntax
-  fT <- stringr::str_detect(x, pattern = "(\\s\\d{5}G\\d+KT|\\s\\d{5}KT|\\s\\d{5}MPS)")
+  fT <- stringr::str_detect(x, pattern = "(\\s\\d{5}G\\d+KT|\\s\\d{5}KT|\\s\\d{5}MPS|VRB[\\d]+KT|[\\d]+MPS|VRB[\\d]+G[\\d]+KT|VRB[\\d]+G[\\d]+MPS)")
   out[!fT] <- FALSE
   fT <- stringr::str_detect(x, pattern = "(\\d{4,}V\\d{4,}|\\d{3}V\\d{4,}|\\d{4,}V\\d{3})")
   out[fT] <- FALSE

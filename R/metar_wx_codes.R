@@ -67,6 +67,11 @@ metar_wx_codes <- function(x) {
 
   out <- c(1:length(x))
   out[1:length(x)] <- ""
+  # Remove part after RMK
+  x <- stringr::str_split_fixed(x, pattern = "RMK", n = 2)[,1]
+  # Remove part after TEMPO
+  x <- stringr::str_split_fixed(x, pattern = "TEMPO", n = 2)[,1]
+  
   pattern_abbrev <- apply(wx_codes, 2, paste, collapse = "|")[2]
 
   # Remove a remark (RMK) part of a METAR weather report

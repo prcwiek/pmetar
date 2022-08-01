@@ -35,7 +35,10 @@ metar_rwy_visibility <- function(x, metric = TRUE) {
   }
   outvis <- c(1:length(x))
   outvis[1:length(x)] <- ""
-
+  # Remove part after RMK
+  x <- stringr::str_split_fixed(x, pattern = "RMK", n = 2)[,1]
+  # Remove part after TEMPO
+  x <- stringr::str_split_fixed(x, pattern = "TEMPO", n = 2)[,1]
   rvr_code_resolve <- function(rvr) {
     if(length(rvr) == 0) {
       return("")
