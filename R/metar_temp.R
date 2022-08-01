@@ -22,6 +22,10 @@ metar_temp <- function(x){
   }
   out <- c(1:length(x))
   out[1:length(x)] <- NA
+  # Remove part after RMK
+  #x <- stringr::str_split_fixed(x, pattern = "RMK", n = 2)[,1]
+  # Remove part after TEMPO
+  x <- stringr::str_split_fixed(x, pattern = "TEMPO", n = 2)[,1]
   # Look for the first part of the pattern nn/.., M for over 0 Celsisus
   fT <- stringr::str_detect(x, pattern = "(\\s\\d{2}/\\d{2}|\\s\\d{2}/M\\d{2})")
   out[fT] <- as.numeric(stringr::str_sub(stringr::str_extract(x[fT], pattern = "(\\s\\d{2}/\\d{2}|\\s\\d{2}/M\\d{2})"), 2, 3))

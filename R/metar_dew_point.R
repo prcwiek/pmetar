@@ -21,6 +21,10 @@ metar_dew_point <- function(x) {
   }
   out <- c(1:length(x))
   out[1:length(x)] <- NA
+  # Remove part after RMK
+  #x <- stringr::str_split_fixed(x, pattern = "RMK", n = 2)[,1]
+  # Remove part after TEMPO
+  x <- stringr::str_split_fixed(x, pattern = "TEMPO", n = 2)[,1]
   # Look for the second part of the pattern nn/Mnn, M for below 0 Celsisus
   fT <- stringr::str_detect(x, pattern = "/M[\\d]+\\s")
   out[fT] <- -1.0 * as.numeric(stringr::str_sub(stringr::str_extract(x[fT], pattern = "/M\\d{2}\\s"), 3, 4))
