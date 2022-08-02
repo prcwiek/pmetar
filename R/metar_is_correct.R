@@ -54,7 +54,7 @@ metar_is_correct <- function(x, verbose = FALSE) {
   fT <- stringr:: str_detect(x, pattern = "/{2,}")
   out[fT] <- FALSE
   
-  # check wind speed syntax
+  # check wind speed and gust syntax
   fT <- stringr::str_detect(x, pattern = "(\\d{5}(MPS|G\\d{2}MPS)|VRB\\d{2}MPS|\\d{5}(KT|G\\d{2}KT)|VRB\\d{2}KT|VRB[\\d]+G[\\d]+KT|VRB[\\d]+G[\\d]+MPS)")
   out[!fT] <- FALSE
 
@@ -64,9 +64,17 @@ metar_is_correct <- function(x, verbose = FALSE) {
   fT <- stringr::str_detect(x, pattern = "(\\d{4,}V\\d{4,}|\\d{3}V\\d{4,}|\\d{4,}V\\d{3})")
   out[fT] <- FALSE
 
+  # check pressure syntax
+  fT <- stringr::str_detect(x, pattern = "(\\sQ\\d{4}|\\sA\\d{4})")
+  out[!fT] <- FALSE
+  
   if (verbose) {
     if (length(out)/sum(out) != 1) {
-      message("Incorrect METAR reports:")
+      if (length(x) == 1) {
+        message("Incorrect METAR report:")  
+      } else {
+        message("Incorrect METAR reports:")  
+      }
       x[!out]  
     } else {
       if (length(x) == 1) {
