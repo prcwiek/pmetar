@@ -31,6 +31,11 @@ metar_is_correct <- function(x, verbose = FALSE) {
   out <- c(1:length(x))
   out[1:length(x)] <- TRUE
   
+  # Remove part after RMK
+  x <- stringr::str_split_fixed(x, pattern = "RMK", n = 2)[,1]
+  # Remove part after TEMPO
+  x <- stringr::str_split_fixed(x, pattern = "TEMPO", n = 2)[,1]
+  
   # check not allowed characters
   fT <- stringr::str_detect(x, pattern = "(\\!|\\?|\\.|\\,|\\;|\\:|\\*|\\#|\\&|\\')")
   out[fT] <- FALSE
