@@ -9,8 +9,9 @@ x6 <- "CYWG 172000Z 30015G25KT 3/4SM R36/4000FT/D -SN BLSN BKN008 OVC040 M05/M08
 x7 <- "METAR KJFK 282355Z AUTO 13009KT 10SM -RA SCT028 SCT035 BKN079 23/20 A2972 RMK T02300200  LTG DSNT SE-SW MADISHF"
 x8 <- "201807141200 METAR EPWA 141200Z 30011G22KT 270V340 9999 -SHRA SCT007 BKN015CB 18/17 Q1011 RESHRA TEMPO BKN007"
 x9 <- "EPKK 141730Z VRB01KT CAVOK 21/16 Q1028"
+x91 <- "202004281415 METAR KEWR 281415Z AUTO VRB05G14KT 10SM CLR 12/00 A3013"
 
-x <- c(x1, x2, x3, x4, x5, x6, x7, x8, x9)
+x <- c(x1, x2, x3, x4, x5, x6, x7, x8, x9, x91)
 
 dx <- data.frame(metar = x)
 
@@ -24,8 +25,9 @@ test_that("Check wind speed in knots", {
   expect_equal(metar_speed(x7, metric = FALSE, check = FALSE), 9)
   expect_equal(metar_speed(x8, metric = FALSE, check = FALSE), 11)
   expect_equal(metar_speed(x9, metric = FALSE, check = FALSE), 1)
-  expect_equal(metar_speed(x, metric = FALSE, check = FALSE), c(9, 8, 2, 10, 10, 15, 9, 11, 1))
-  expect_equal(metar_speed(dx$metar, metric = FALSE, check = FALSE), c(9, 8, 2, 10, 10, 15, 9, 11, 1))
+  expect_equal(metar_speed(x91, metric = FALSE, check = FALSE), 5)
+  expect_equal(metar_speed(x, metric = FALSE, check = FALSE), c(9, 8, 2, 10, 10, 15, 9, 11, 1, 5))
+  expect_equal(metar_speed(dx$metar, metric = FALSE, check = FALSE), c(9, 8, 2, 10, 10, 15, 9, 11, 1, 5))
 })
 
 
@@ -39,14 +41,17 @@ test_that("Check wind speed in m/s", {
   expect_equal(metar_speed(x7, metric = TRUE, check = FALSE), 9 * 0.5144447)
   expect_equal(metar_speed(x8, metric = TRUE, check = FALSE), 11 * 0.5144447)
   expect_equal(metar_speed(x9, metric = TRUE, check = FALSE), 1 * 0.5144447)
+  expect_equal(metar_speed(x91, metric = TRUE, check = FALSE), 5 * 0.5144447)
   expect_equal(metar_speed(x, metric = TRUE, check = FALSE), 
                c(9 * 0.5144447, 8 * 0.5144447, 2 * 0.5144447,
                  10 * 0.5144447, 10 * 0.5144447, 15 * 0.5144447,
-                 9 * 0.5144447, 11 * 0.5144447, 1 * 0.5144447))
+                 9 * 0.5144447, 11 * 0.5144447, 1 * 0.5144447,
+                 5 * 0.5144447))
   expect_equal(metar_speed(dx$metar, metric = TRUE, check = FALSE),
                c(9 * 0.5144447, 8 * 0.5144447, 2 * 0.5144447,
                  10 * 0.5144447, 10 * 0.5144447, 15 * 0.5144447,
-                 9 * 0.5144447, 11 * 0.5144447, 1 * 0.5144447))
+                 9 * 0.5144447, 11 * 0.5144447, 1 * 0.5144447,
+                 5 * 0.5144447))
 })
 
 x8 <- "EPWA 281830Z 1800xKT 140V200 9999 SCT037 03/M01 Q1008 NOSIG"

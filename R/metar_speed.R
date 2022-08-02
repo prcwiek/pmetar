@@ -47,12 +47,14 @@ metar_speed <- function(x, metric = TRUE, check = FALSE){
   x <- x[which(icorrect)]
   outx <- c(1:length(x))
   outx[c(1:length(x))] <- 0
-  fMPS <- stringr::str_detect(x, pattern = "(\\d{5}(MPS|G\\d{2}MPS)|VRB\\d{2}MPS)")
-  fKT <- stringr::str_detect(x, pattern = "(\\d{5}(KT|G\\d{2}KT)|VRB\\d{2}KT)")
+  fMPS <- stringr::str_detect(x, pattern = "(\\d{5}(MPS|G\\d{2}MPS)|VRB\\d{2}MPS|VRB[\\d]+G[\\d]+KT|VRB[\\d]+G[\\d]+MPS)")
+  fKT <- stringr::str_detect(x, pattern = "(\\d{5}(KT|G\\d{2}KT)|VRB\\d{2}KT|VRB[\\d]+G[\\d]+KT|VRB[\\d]+G[\\d]+MPS)")
   outx[fMPS] <- as.numeric(stringr::str_sub(stringr::str_extract(x[fMPS],
-                                                                pattern = "(\\d{5}(MPS|G\\d{2}MPS)|VRB\\d{2}MPS)"), 4, 5)) * cfm
+                                                                pattern = "(\\d{5}(MPS|G\\d{2}MPS)|VRB\\d{2}MPS|VRB[\\d]+G[\\d]+KT|VRB[\\d]+G[\\d]+MPS)")
+                                            , 4, 5)) * cfm
   outx[fKT] <- as.numeric(stringr::str_sub(stringr::str_extract(x[fKT],
-                                                               pattern = "(\\d{5}(KT|G\\d{2}KT)|VRB\\d{2}KT)"), 4, 5)) * cfi
+                                                               pattern = "(\\d{5}(KT|G\\d{2}KT)|VRB\\d{2}KT|VRB[\\d]+G[\\d]+KT|VRB[\\d]+G[\\d]+MPS)")
+                                           , 4, 5)) * cfi
   out[which(icorrect)] <- outx
   
   out
