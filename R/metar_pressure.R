@@ -27,15 +27,15 @@ metar_pressure <- function(x, altimeter = FALSE){
     cf_hPa <- 0.0295333727
     cf_inHg <- 0.01
   }
-  pressure <- c(1:length(x))
-  pressure <- NA
+  out <- c(1:length(x))
+  out <- NA
   # Remove part after RMK
   x <- stringr::str_split_fixed(x, pattern = "RMK", n = 2)[,1]
   # Remove part after TEMPO
   x <- stringr::str_split_fixed(x, pattern = "TEMPO", n = 2)[,1]
   fP <- stringr::str_detect(x, pattern = "\\sQ\\d{4}")
-  pressure[fP] <- round(as.numeric(stringr::str_sub(stringr::str_extract(x[fP], pattern = "\\sQ\\d{4}"), 3, 6)) * cf_hPa, 2)
+  out[fP] <- round(as.numeric(stringr::str_sub(stringr::str_extract(x[fP], pattern = "\\sQ\\d{4}"), 3, 6)) * cf_hPa, 2)
   fP <- stringr::str_detect(x, pattern = "\\sA\\d{4}")
-  pressure[fP] <- round(as.numeric(stringr::str_sub(stringr::str_extract(x[fP], pattern = "\\sA\\d{4}"), 3, 6)) * cf_inHg, 2)
-  pressure
+  out[fP] <- round(as.numeric(stringr::str_sub(stringr::str_extract(x[fP], pattern = "\\sA\\d{4}"), 3, 6)) * cf_inHg, 2)
+  out
 }
