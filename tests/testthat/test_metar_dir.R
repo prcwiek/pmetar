@@ -13,15 +13,15 @@ x <- c(x1, x2, x3, x4, x5, x6, x7)
 dx <- data.frame(metar = x)
 
 test_that("Check wind direction", {
-  expect_equal(metar_dir(x1), "180, variable from 140 to 200")
+  expect_equal(metar_dir(x1), "180; variable from 140 to 200")
   expect_equal(metar_dir(x2), "130")
   expect_equal(metar_dir(x3), "20")
   expect_equal(metar_dir(x4), "50")
   expect_equal(metar_dir(x5), "50")
   expect_equal(metar_dir(x6), "300")
   expect_equal(metar_dir(x7), "130")
-  expect_equal(metar_dir(x), c("180, variable from 140 to 200", "130", "20", "50", "50", "300", "130"))
-  expect_equal(metar_dir(dx$metar), c("180, variable from 140 to 200", "130", "20", "50", "50", "300", "130"))
+  expect_equal(metar_dir(x), c("180; variable from 140 to 200", "130", "20", "50", "50", "300", "130"))
+  expect_equal(metar_dir(dx$metar), c("180; variable from 140 to 200", "130", "20", "50", "50", "300", "130"))
 })
 
 test_that("Check wind direction, numeric_only", {
@@ -56,7 +56,7 @@ test_that("Incorrect METAR reports, numeric_only", {
 dx <- data.frame(metar = c(x1, x2, x3, x4, x5, x6, x7, x8, x9, x10))
 
 test_that("Correct and incorrect METAR reports", {
-  expect_equal(metar_dir(dx$metar),  c("180, variable from 140 to 200", "130", "20", "50", "50", "300", "130",
+  expect_equal(metar_dir(dx$metar),  c("180; variable from 140 to 200", "130", "20", "50", "50", "300", "130",
                                        "", "", ""))
 })
 

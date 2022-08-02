@@ -40,8 +40,8 @@ metar_cloud_coverage <- function(x) {
     }
     dist <- dist * 100
     dist_m <- dist * 0.3048
-    dist <- tidyr::unite(dist, "ft", sep = ", ", na.rm = TRUE)
-    dist_m <- tidyr::unite(dist_m, "m", sep = ", ", na.rm = TRUE)
+    dist <- tidyr::unite(dist, "ft", sep = "; ", na.rm = TRUE)
+    dist_m <- tidyr::unite(dist_m, "m", sep = "; ", na.rm = TRUE)
     return(cbind(dist, dist_m))
   }
 
@@ -68,15 +68,15 @@ metar_cloud_coverage <- function(x) {
   # SKC - "No cloud/Sky clear" used worldwide but in
   # North America is used to indicate a human generated report
   fT <- stringr::str_detect(x, pattern = "SKC")
-  out[fT] <- paste0(out[fT], "No cloud/Sky clear, ")
+  out[fT] <- paste0(out[fT], "No cloud/Sky clear; ")
   # CLR - "No clouds below 12,000 ft (3,700 m) (U.S.) or 25,000 ft (7,600 m) (Canada)",
   # used mainly within North America and indicates a station that is at least partly automated
   fT <- stringr::str_detect(x, pattern = "CLR")
-  out[fT] <- paste0(out[fT], "No clouds below 12,000 ft (3,700 m) (U.S.) or 25,000 ft (7,600 m) (Canada), ")
+  out[fT] <- paste0(out[fT], "No clouds below 12 000 ft (3 700 m) (U.S.) or 25 000 ft (7 600 m) (Canada); ")
   # NSC - "No (nil) significant cloud", i.e., none below 5,000 ft (1,500 m) and no TCU or CB.
   # Not used in North America.
   fT <- stringr::str_detect(x, pattern = "NSC")
-  out[fT] <- paste0(out[fT], "No (nil) significant cloud, ")
+  out[fT] <- paste0(out[fT], "No (nil) significant cloud; ")
   # iterate through FEWnnn, SCTnnn, SCTnnnCB, BKNnnn, BKNnnnCB
   for (i in 1:nrow(lp_dt)) {
     fT <- stringr::str_detect(x, pattern = as.character(lp_dt$pattern_text[i]))
@@ -84,18 +84,18 @@ metar_cloud_coverage <- function(x) {
       df_dist <- as.data.frame(stringr::str_extract_all(x[fT], pattern = as.character(lp_dt$pattern_text[i]), simplify = TRUE),
                                stringsAsFactors = FALSE)
       ldist <- multi_extracting(df_dist, as.character(lp_dt$pattern_text[i]))
-      out[fT] <- paste0(out[fT], as.character(lp_dt$description_text[i]), ldist$ft, " ft (", ldist$m, " m), ")
+      out[fT] <- paste0(out[fT], as.character(lp_dt$description_text[i]), ldist$ft, " ft (", ldist$m, " m); ")
     }
   }
   # OVCnnn
   fT <- stringr::str_detect(x, pattern = "OVC[\\d]+\\s")
   dist <- as.numeric(stringr::str_sub(stringr::str_extract(x[fT], pattern = "OVC[\\d]+\\s"), 4, 6)) * 100
   dist_m <- dist * 0.3048
-  out[fT] <- paste0(out[fT], "Overcast (8 oktas, full cloud coverage) at  ", dist, " ft (", dist_m, " m), ")
+  out[fT] <- paste0(out[fT], "Overcast (8 oktas, full cloud coverage) at  ", dist, " ft (", dist_m, " m); ")
   # VV - Clouds cannot be seen because of fog or heavy precipitation, so vertical visibility is given instead.
   fT <- stringr::str_detect(x, pattern = "\\sVV\\s")
   out[fT] <- paste0(out[fT], "Clouds cannot be seen because of fog or heavy precipitation")
-  fT <- stringr::str_detect(out, pattern = ", $")
+  fT <- stringr::str_detect(out, pattern = "; $")
   out[fT] <- stringr::str_sub(out[fT], 1, (nchar(out[fT]) - 2))
   out
 }

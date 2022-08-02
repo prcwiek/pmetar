@@ -23,9 +23,9 @@ test_that("Check cloud coverage output", {
   expect_equal(metar_cloud_coverage("SPECI CYUL 281800Z 13008KT 30SM BKN240 01/M06 A3005 RMK CI5 SLP180"),
                "Broken (5-7 oktas) at 24000 ft (7315.2 m)")
   expect_equal(metar_cloud_coverage(x7),
-               "Scattered (3-4 oktas) at 2800, 3500 ft (853.44, 1066.8 m), Broken (5-7 oktas) at 7900 ft (2407.92 m)")
+               "Scattered (3-4 oktas) at 2800; 3500 ft (853.44; 1066.8 m); Broken (5-7 oktas) at 7900 ft (2407.92 m)")
   expect_equal(metar_cloud_coverage(x8),
-               "Few (1-2 oktas) at 2500 ft (762 m), Broken clouds at NaN  ft ( m)")
+               "Few (1-2 oktas) at 2500 ft (762 m); Broken clouds at NaN  ft ( m)")
   expect_equal(metar_cloud_coverage("201711271930 METAR LEMD 271930Z 02002KT CAVOK 04/M03 Q1025 NOSIG= NOSIG="), "")
   expect_equal(metar_cloud_coverage("201711271930 SPECI LEMD 271930Z 02002KT CAVOK 04/M03 Q1025 NOSIG= NOSIG="), "")
   expect_is(metar_cloud_coverage(x), "character")

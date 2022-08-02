@@ -21,29 +21,29 @@ test_that("Check WX codes", {
   expect_equal(metar_wx_codes(x3), "Light intensity: Rain; Light intensity: Ice Pellets; Mist (French: Brume)")
   expect_equal(metar_wx_codes(x4), "Mist (French: Brume)")
   expect_equal(metar_wx_codes(x5), "Light intensity: Rain; Mist (French: Brume)")
-  expect_equal(metar_wx_codes(x6), "Light intensity: Snow; Blowing, Snow; Recent: Freezing, Rain")
+  expect_equal(metar_wx_codes(x6), "Light intensity: Snow; Blowing Snow; Recent: Freezing Rain")
   expect_equal(metar_wx_codes(x7), "Light intensity: Rain")
-  expect_equal(metar_wx_codes(x8), "Light intensity: Showers, Rain; Recent: Showers, Rain")
+  expect_equal(metar_wx_codes(x8), "Light intensity: Showers Rain; Recent: Showers Rain")
   expect_equal(metar_wx_codes(x9), "Light intensity: Rain; Light intensity: Snow; Mist (French: Brume)")
-  expect_equal(metar_wx_codes(x10), "Light intensity: Rain, Ice Pellets")
+  expect_equal(metar_wx_codes(x10), "Light intensity: Rain Ice Pellets")
   expect_equal(metar_wx_codes(x), c("", "",
                                     "Light intensity: Rain; Light intensity: Ice Pellets; Mist (French: Brume)",
                                     "Mist (French: Brume)",
                                     "Light intensity: Rain; Mist (French: Brume)",
-                                    "Light intensity: Snow; Blowing, Snow; Recent: Freezing, Rain",
+                                    "Light intensity: Snow; Blowing Snow; Recent: Freezing Rain",
                                     "Light intensity: Rain",
-                                    "Light intensity: Showers, Rain; Recent: Showers, Rain",
+                                    "Light intensity: Showers Rain; Recent: Showers Rain",
                                     "Light intensity: Rain; Light intensity: Snow; Mist (French: Brume)",
-                                    "Light intensity: Rain, Ice Pellets"))
+                                    "Light intensity: Rain Ice Pellets"))
   expect_equal(metar_wx_codes(dx$metar), c("", "",
                                            "Light intensity: Rain; Light intensity: Ice Pellets; Mist (French: Brume)",
                                            "Mist (French: Brume)",
                                            "Light intensity: Rain; Mist (French: Brume)",
-                                           "Light intensity: Snow; Blowing, Snow; Recent: Freezing, Rain",
+                                           "Light intensity: Snow; Blowing Snow; Recent: Freezing Rain",
                                            "Light intensity: Rain",
-                                           "Light intensity: Showers, Rain; Recent: Showers, Rain",
+                                           "Light intensity: Showers Rain; Recent: Showers Rain",
                                            "Light intensity: Rain; Light intensity: Snow; Mist (French: Brume)",
-                                           "Light intensity: Rain, Ice Pellets"))
+                                           "Light intensity: Rain Ice Pellets"))
 
 })
 
@@ -65,11 +65,11 @@ test_that("Correct and incorrect METAR reports", {
                                            "Light intensity: Rain; Light intensity: Ice Pellets; Mist (French: Brume)",
                                            "Mist (French: Brume)",
                                            "Light intensity: Rain; Mist (French: Brume)",
-                                           "Light intensity: Snow; Blowing, Snow; Recent: Freezing, Rain",
+                                           "Light intensity: Snow; Blowing Snow; Recent: Freezing Rain",
                                            "Light intensity: Rain",
-                                           "Light intensity: Showers, Rain; Recent: Showers, Rain",
+                                           "Light intensity: Showers Rain; Recent: Showers Rain",
                                            "Light intensity: Rain; Light intensity: Snow; Mist (French: Brume)",
-                                           "Light intensity: Rain, Ice Pellets",
+                                           "Light intensity: Rain Ice Pellets",
                                            "", "", ""))
 
 })

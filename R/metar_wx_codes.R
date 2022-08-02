@@ -27,7 +27,7 @@ metar_wx_codes <- function(x) {
     for (i in 1:length(xcr)) {
       temp <- unlist(stringr::str_extract_all(as.character(xcr[i]), ".{2}"))
       out_cr[i] <- stringr::str_c(sapply(temp, function(y) metarWXcodes$Meaning[match(y, metarWXcodes$Abbreviation)]),
-                                  collapse = ", ")
+                                  collapse = " ")
     }
     out_cr
   }
