@@ -20,12 +20,14 @@ if verbose = TRUE, all incorrect METAR reports will be printed
 Function checks METRAR reports syntax.
 }
 \details{
-Verify if reports include not allowed elements and characters:\cr
-! \ ? . , ; : * # & ' " ) \cr
-METAR SPECI\cr
-multiple slash\cr
-
-Also it checks if an airport code is the first element or appear
+It checks:\cr
+appearance of not allowed characters: ! \ ? . , ; : * # & ' " ) and
+multiple slash characters\cr
+wind speed syntax\cr
+wind direction syntax\cr
+pressure syntax\cr
+air and dew point temperature syntax\cr
+if an airport code is the first element or appear
 immediately after METAR, SPECI, METAR COR ro SPECI COR.
 }
 \examples{

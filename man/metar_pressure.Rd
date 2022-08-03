@@ -4,7 +4,7 @@
 \alias{metar_pressure}
 \title{Get atmospheric pressure.}
 \usage{
-metar_pressure(x, altimeter = FALSE)
+metar_pressure(x, altimeter = FALSE, check = FALSE)
 }
 \arguments{
 \item{x}{character vector; a METAR weather report or reports.}

@@ -41,15 +41,16 @@ metar_dir <- function(x, numeric_only = FALSE, check = FALSE){
   if(numeric_only) {
     outx[1:length(x)] <- NA
     # look for nnnnnGnnKT or nnnnnKT or nnnnnnMPS
-    fT <- stringr::str_detect(x, pattern = "(\\s\\d{5}G\\d+KT|\\s\\d{5}KT|\\s\\d{5}MPS)")
-    outx[fT] <- as.numeric(stringr::str_sub(stringr::str_extract(x[fT], pattern = "(\\d{5}G\\d+KT|\\d{5}KT|\\d{5}MPS)"), 1, 3))
+    fT <- stringr::str_detect(x, pattern = "(\\s\\d{5}G\\d+KT|\\s\\d{5}KT|\\s\\d{5}MPS|\\s\\d{3}P49MPS|\\s\\d{3}P99KT)")
+    outx[fT] <- as.numeric(stringr::str_sub(stringr::str_extract(x[fT], pattern = "(\\d{5}G\\d+KT|\\d{5}KT|\\d{5}MPS|\\d{3}P49MPS|\\d{3}P99KT)"), 1, 3))
+    
     out[which(icorrect)] <- outx
     out
   } else {
     outx[1:length(x)] <- ""
     # look for nnnnnGnnKT or nnnnnKT or nnnnnnMPS
-    fT <- stringr::str_detect(x, pattern = "(\\s\\d{5}G\\d+KT|\\s\\d{5}KT|\\s\\d{5}MPS)")
-    outx[fT] <- as.numeric(stringr::str_sub(stringr::str_extract(x[fT], pattern = "(\\d{5}G\\d+KT|\\d{5}KT|\\d{5}MPS)"), 1, 3))
+    fT <- stringr::str_detect(x, pattern = "(\\s\\d{5}G\\d+KT|\\s\\d{5}KT|\\s\\d{5}MPS|\\s\\d{3}P49MPS|\\s\\d{3}P99KT)")
+    outx[fT] <- as.numeric(stringr::str_sub(stringr::str_extract(x[fT], pattern = "(\\d{5}G\\d+KT|\\d{5}KT|\\d{5}MPS|\\d{3}P49MPS|\\d{3}P99KT)"), 1, 3))
     # look for nnnVnnn
     fT <- stringr::str_detect(x, pattern = "\\s\\d{3}V\\d{3}\\s")
     outx[fT] <- paste0(outx[fT], "; variable from ",
@@ -57,7 +58,7 @@ metar_dir <- function(x, numeric_only = FALSE, check = FALSE){
                       " to ",
                       as.numeric(stringr::str_sub(stringr::str_extract(x[fT], pattern = "\\d{3}V\\d{3}"), -3, -1))
     )
-    fT <- stringr::str_detect(x, pattern = "(VRB[\\d]+KT|[\\d]+MPS|VRB[\\d]+G[\\d]+KT|VRB[\\d]+G[\\d]+MPS)")
+    fT <- stringr::str_detect(x, pattern = "(VRB[\\d]+KT|VRB[\\d]+MPS|VRB[\\d]+G[\\d]+KT|VRB[\\d]+G[\\d]+MPS)")
     outx[fT] <- "Variable"
     out[which(icorrect)] <- outx
     out

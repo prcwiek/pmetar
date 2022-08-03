@@ -2,12 +2,14 @@
 #' 
 #' Function checks METRAR reports syntax.
 #' 
-#' Verify if reports include not allowed elements and characters:\cr
-#' ! \ ? . , ; : * # & ' " ) \cr
-#' METAR SPECI\cr
-#' multiple slash\cr
-#' 
-#' Also it checks if an airport code is the first element or appear
+#'It checks:\cr
+#' appearance of not allowed characters: ! \ ? . , ; : * # & ' " ) and 
+#' multiple slash characters\cr
+#' wind speed syntax\cr
+#' wind direction syntax\cr
+#' pressure syntax\cr
+#' air and dew point temperature syntax\cr
+#' if an airport code is the first element or appear
 #' immediately after METAR, SPECI, METAR COR ro SPECI COR.
 #' 
 #' @param x character vector; METAR weather report or reports.
@@ -55,17 +57,23 @@ metar_is_correct <- function(x, verbose = FALSE) {
   out[fT] <- FALSE
   
   # check wind speed and gust syntax
-  fT <- stringr::str_detect(x, pattern = "(\\d{5}(MPS|G\\d{2}MPS)|VRB\\d{2}MPS|\\d{5}(KT|G\\d{2}KT)|VRB\\d{2}KT|VRB[\\d]+G[\\d]+KT|VRB[\\d]+G[\\d]+MPS)")
+  fT <- stringr::str_detect(x, pattern = "(\\d{5}(MPS|G\\d{2}MPS)|VRB\\d{2}MPS|\\d{5}(KT|G\\d{2}KT)|VRB\\d{2}KT|VRB[\\d]+G[\\d]+KT|VRB[\\d]+G[\\d]+MPS|\\d{3}P49MPS|\\d{3}P99KT)")
   out[!fT] <- FALSE
+  fT <- stringr::str_detect(x, pattern = "()")
 
   # check wind direction syntax
-  fT <- stringr::str_detect(x, pattern = "(\\s\\d{5}G\\d+KT|\\s\\d{5}KT|\\s\\d{5}MPS|VRB[\\d]+KT|[\\d]+MPS|VRB[\\d]+G[\\d]+KT|VRB[\\d]+G[\\d]+MPS)")
+  fT <- stringr::str_detect(x, pattern = "(\\s\\d{5}G\\d+KT|\\s\\d{5}KT|\\s\\d{5}MPS|VRB[\\d]+KT|[\\d]+MPS|VRB[\\d]+G[\\d]+KT|VRB[\\d]+G[\\d]+MPS|\\d{3}P49MPS|\\d{3}P99KT)")
   out[!fT] <- FALSE
   fT <- stringr::str_detect(x, pattern = "(\\d{4,}V\\d{4,}|\\d{3}V\\d{4,}|\\d{4,}V\\d{3})")
   out[fT] <- FALSE
+  
 
   # check pressure syntax
   fT <- stringr::str_detect(x, pattern = "(\\sQ\\d{4}|\\sA\\d{4})")
+  out[!fT] <- FALSE
+ 
+  # check air and dew point temperature syntax
+  fT <- stringr::str_detect(x, pattern = "(\\s\\d{2}/\\d{2}\\s|\\s\\d{2}/M\\d{2}\\s|M\\d{2}/\\d{2}\\s|\\sM\\d{2}/M\\d{2}\\s)")
   out[!fT] <- FALSE
   
   if (verbose) {

@@ -4,7 +4,7 @@
 \alias{metar_dir}
 \title{Get wind direction.}
 \usage{
-metar_dir(x, numeric_only = FALSE)
+metar_dir(x, numeric_only = FALSE, check = FALSE)
 }
 \arguments{
 \item{x}{character vector; a METAR weather report or reports.}
