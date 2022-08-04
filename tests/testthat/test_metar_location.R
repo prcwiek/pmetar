@@ -51,7 +51,7 @@ x6_output <- tibble::tibble(ICAO_Code = "KEWR", IATA_Code = "EWR",
                     Source = "http://ourairports.com/data/airports.csv")
 x7_output <- tibble::tibble(ICAO_Code = "NCRK", IATA_Code = "Not found!",
                     Airport_Name = "RAKAHANGA ATOLL",
-                    Longitude = -161.08, Latitude = -10.05, Elevation = 5,
+                    Longitude = -161.1, Latitude = -10.02, Elevation = 7,
                     Source = "www.aviationweather.gov/docs/metar/stations.txt")
 
 
