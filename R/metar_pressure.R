@@ -5,6 +5,7 @@
 #' @param x character vector; a METAR weather report or reports.
 #' @param altimeter boolean; if FALSE, the default value, a pressure is returned in hPa,
 #' if TRUE a pressure is returned in inHg (inch of mercury).
+#' @param check logical; if TRUE the syntax of METAR reports will be checked.
 #'
 #' @return a numeric vector with air pressure in inHg or hPa.
 #'

@@ -11,6 +11,8 @@ metar_dir(x, numeric_only = FALSE, check = FALSE)
 
 \item{numeric_only}{logical; the default value is FALSE and information about variability will be included.
 If TRUE only a numeric value of direction will be returned.}
+
+\item{check}{logical; if TRUE the syntax of METAR reports will be checked.}
 }
 \value{
 a numeric vector with a wind direction in degrees.

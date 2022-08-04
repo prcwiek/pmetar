@@ -5,6 +5,7 @@
 #' @param x character vector; a METAR weather report or reports.
 #' @param numeric_only logical; the default value is FALSE and information about variability will be included.
 #' If TRUE only a numeric value of direction will be returned.
+#' @param check logical; if TRUE the syntax of METAR reports will be checked.
 #'
 #' @return a numeric vector with a wind direction in degrees.
 #'

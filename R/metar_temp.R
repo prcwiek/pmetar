@@ -3,6 +3,7 @@
 #' Extract a temperature value from METAR weather report.
 #'
 #' @param x character vector; a METAR weather report or reports.
+#' @param check logical; if TRUE the syntax of METAR reports will be checked.
 #'
 #' @return a numeric vector with temperature in degrees Celsius.
 #'

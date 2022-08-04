@@ -8,6 +8,8 @@ metar_temp(x, check = FALSE)
 }
 \arguments{
 \item{x}{character vector; a METAR weather report or reports.}
+
+\item{check}{logical; if TRUE the syntax of METAR reports will be checked.}
 }
 \value{
 a numeric vector with temperature in degrees Celsius.

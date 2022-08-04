@@ -3,6 +3,7 @@
 #' Extracts a dew point temperature value from a METAR weather report or reports.
 #'
 #' @param x character vector; a METAR weather report or reports.
+#' @param check logical; if TRUE the syntax of METAR reports will be checked.
 #'
 #' @return a numeric vector with a dew point temperature in Celsius degrees.
 #'
