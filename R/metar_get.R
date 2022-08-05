@@ -66,7 +66,7 @@ metar_get <- function(airport = "EPWA"){
   myfile <- answer_POST(link)
 
   # Check timeout problems
-  if(class(myfile) != "response") {
+  if(as.character(class(myfile)) != "response") {
     message(myfile)
     return(invisible(NULL))
   }
