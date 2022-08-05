@@ -4,10 +4,13 @@
 \alias{metar_wx_codes}
 \title{Get weather conditions information.}
 \usage{
-metar_wx_codes(x)
+metar_wx_codes(x, sep = ";")
 }
 \arguments{
 \item{x}{Input character vector}
+
+\item{sep}{character; comma or semicolon, used for separating decoded elements of weather
+conditions information.}
 }
 \value{
 A character vector. with METAR WX codes.
@@ -18,6 +21,7 @@ Extract and parse weather conditions information METAR WX codes.
 \examples{
 metar_wx_codes("METAR EPWA 132100Z 29006KT 260V320 8000 SHRA SCT009 BKN025CB 18/17 Q1011")
 metar_wx_codes("CYUL 101900Z 27015G25KT 15SM DRSN SCT028 BKN090 OVC110 M04/M10 A2973 RMK")
-metar_wx_codes("METAR EPKK 200300Z 23014KT 9999 -SHSN SCT009CB BKN012 01/M00 Q1008")
+metar_wx_codes("METAR EPKK 200300Z 23014KT 9999 -SHSN SCT009CB BKN012 01/M00 Q1008", sep = ",")
+metar_wx_codes("202001190045 METAR KEWR 190045Z 19008KT 4SM -RA -PL BR FEW007 01/M01 A2995")
 
 }

@@ -15,7 +15,7 @@ x <- c(x1, x2, x3, x4, x5, x6, x7, x8, x9, x10)
 
 dx <- data.frame(metar = x)
 
-test_that("Check WX codes", {
+test_that("Check WX codes, default sep = ';'" , {
   expect_equal(metar_wx_codes(x1), "")
   expect_equal(metar_wx_codes(x2), "")
   expect_equal(metar_wx_codes(x3), "Light intensity: Rain; Light intensity: Ice Pellets; Mist (French: Brume)")
@@ -44,21 +44,51 @@ test_that("Check WX codes", {
                                            "Light intensity: Showers Rain; Recent: Showers Rain",
                                            "Light intensity: Rain; Light intensity: Snow; Mist (French: Brume)",
                                            "Light intensity: Rain Ice Pellets"))
-
 })
 
-x_11 <- "202001190045 METAR KEWR 190045Z AUTO 19008KT 4SM /RA PPLBR FEW007 BKN011 OVC016 01/M01 A2995 RMK P0005 T00101010 MADISHF"
+test_that("Check WX codes, sep = ','" , {
+  expect_equal(metar_wx_codes(x1, sep = ","), "")
+  expect_equal(metar_wx_codes(x2, sep = ","), "")
+  expect_equal(metar_wx_codes(x3, sep = ","), "Light intensity: Rain, Light intensity: Ice Pellets, Mist (French: Brume)")
+  expect_equal(metar_wx_codes(x4, sep = ","), "Mist (French: Brume)")
+  expect_equal(metar_wx_codes(x5, sep = ","), "Light intensity: Rain, Mist (French: Brume)")
+  expect_equal(metar_wx_codes(x6, sep = ","), "Light intensity: Snow, Blowing Snow, Recent: Freezing Rain")
+  expect_equal(metar_wx_codes(x7, sep = ","), "Light intensity: Rain")
+  expect_equal(metar_wx_codes(x8, sep = ","), "Light intensity: Showers Rain, Recent: Showers Rain")
+  expect_equal(metar_wx_codes(x9, sep = ","), "Light intensity: Rain, Light intensity: Snow, Mist (French: Brume)")
+  expect_equal(metar_wx_codes(x10, sep = ","), "Light intensity: Rain Ice Pellets")
+  expect_equal(metar_wx_codes(x, sep = ","), c("", "",
+                                    "Light intensity: Rain, Light intensity: Ice Pellets, Mist (French: Brume)",
+                                    "Mist (French: Brume)",
+                                    "Light intensity: Rain, Mist (French: Brume)",
+                                    "Light intensity: Snow, Blowing Snow, Recent: Freezing Rain",
+                                    "Light intensity: Rain",
+                                    "Light intensity: Showers Rain, Recent: Showers Rain",
+                                    "Light intensity: Rain, Light intensity: Snow, Mist (French: Brume)",
+                                    "Light intensity: Rain Ice Pellets"))
+  expect_equal(metar_wx_codes(dx$metar, sep = ","), c("", "",
+                                           "Light intensity: Rain, Light intensity: Ice Pellets, Mist (French: Brume)",
+                                           "Mist (French: Brume)",
+                                           "Light intensity: Rain, Mist (French: Brume)",
+                                           "Light intensity: Snow, Blowing Snow, Recent: Freezing Rain",
+                                           "Light intensity: Rain",
+                                           "Light intensity: Showers Rain, Recent: Showers Rain",
+                                           "Light intensity: Rain, Light intensity: Snow, Mist (French: Brume)",
+                                           "Light intensity: Rain Ice Pellets"))
+})
+
+x11 <- "202001190045 METAR KEWR 190045Z AUTO 19008KT 4SM /RA PPLBR FEW007 BKN011 OVC016 01/M01 A2995 RMK P0005 T00101010 MADISHF"
 x12 <- "202001041051 METAR KEWR 041051Z 07003KT 2SM REEBR FEW006 OVC014 08/08 A2971 RMK TWR VIS 2 1/2 RAE46 SLP058 P0003 T00830078"
 x13 <- "201905121244 SPECI KDCA 121244Z 05010KT 2 1/4SM R01/6000VP6000FT AR RB OVC007 14/12 A2978 RMK AO2 P0002 T11391122"
 
 
 test_that("Incorrect METAR reports", {
-  expect_equal(metar_wx_codes(x_11), "")
+  expect_equal(metar_wx_codes(x11), "")
   expect_equal(metar_wx_codes(x12), "")
   expect_equal(metar_wx_codes(x13), "")
 })
 
-dx <- data.frame(metar = c(x1, x2, x3, x4, x5, x6, x7, x8, x9, x10, x_11, x12, x13))
+dx <- data.frame(metar = c(x1, x2, x3, x4, x5, x6, x7, x8, x9, x10, x11, x12, x13))
 
 test_that("Correct and incorrect METAR reports", {
   expect_equal(metar_wx_codes(dx$metar), c("", "",

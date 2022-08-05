@@ -5,7 +5,9 @@
 #' @param x Input character vector
 #' @param metric logical; if TRUE, the default value, runway(s) visibility is returned in meters,
 #' if FALSE then in feet.
-#'
+#' @param sep character; comma or semicolon, used for separating decoded elements of weather
+#' conditions information.
+#' 
 #' @return A numeric vector. A visibility in m/s or feet.
 #'
 #' @export
@@ -14,14 +16,18 @@
 #'
 #' metar_rwy_visibility("EBBR 040220Z VRB01KT 0150 R25L/1200N R02/P1500 07/06 Q1017")
 #' metar_rwy_visibility("EBBR 040220Z VRB01KT 0150 R25R/0600FT R02/P1500 07/06 Q1017")
-#' metar_rwy_visibility("EDDF 220520Z 26003KT 0500 R25R/0400N R18/0650V1100N FZFG")
+#' metar_rwy_visibility("EDDF 220520Z 26003KT 0500 R25R/0400N R18/0650V1100N FZFG", sep = ",")
 #' metar_rwy_visibility("CYWG 172000Z 30015G25KT 3/4SM R36/4000FT/D -SN M05/M08 A2992")
 #' metar_rwy_visibility("EBBR 040220Z VRB01KT 0150 R25L/1200N R26R/1000 R36/4000FT/D -SN")
 #'
-metar_rwy_visibility <- function(x, metric = TRUE) {
+metar_rwy_visibility <- function(x, metric = TRUE, sep = ";") {
   # check if x is a data frame
   if(is.data.frame(x)){
     stop("pmetar package error: Invalid input format! Argument is not an atomic vector.", call. = FALSE)
+  }
+  # Check sep values
+  if (!stringr::str_detect(sep, pattern = "(^;$|^,$)")) {
+    stop("pmetar package error: Invalid sep value! It must be comma or semicolon!")
   }
   # define conversion coefficients
   if(metric){
@@ -207,8 +213,8 @@ metar_rwy_visibility <- function(x, metric = TRUE) {
 
     out_rce <- c(1:nrow(rvr_extracted))
     for (j in 1:nrow(rvr_extracted)) {
-      out_rce[j] <- paste(rvr_extracted[j,], collapse = "; ")
-      out_rce[j] <- stringr::str_replace(as.character(out_rce[j]), pattern = "[;\\s]+$", replacement =  "")
+      out_rce[j] <- paste(rvr_extracted[j,], collapse = paste0(sep, " "))
+      out_rce[j] <- stringr::str_replace(as.character(out_rce[j]), pattern = "([;\\s]+$|[,\\s]+$)", replacement =  "")
     }
 
     out_rce

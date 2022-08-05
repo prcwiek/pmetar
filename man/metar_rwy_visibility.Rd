@@ -4,13 +4,16 @@
 \alias{metar_rwy_visibility}
 \title{Get runway(s) visibility.}
 \usage{
-metar_rwy_visibility(x, metric = TRUE)
+metar_rwy_visibility(x, metric = TRUE, sep = ";")
 }
 \arguments{
 \item{x}{Input character vector}
 
 \item{metric}{logical; if TRUE, the default value, runway(s) visibility is returned in meters,
 if FALSE then in feet.}
+
+\item{sep}{character; comma or semicolon, used for separating decoded elements of weather
+conditions information.}
 }
 \value{
 A numeric vector. A visibility in m/s or feet.
@@ -22,7 +25,7 @@ Function extracts runway(s) visibility value(s) from METAR weather report.
 
 metar_rwy_visibility("EBBR 040220Z VRB01KT 0150 R25L/1200N R02/P1500 07/06 Q1017")
 metar_rwy_visibility("EBBR 040220Z VRB01KT 0150 R25R/0600FT R02/P1500 07/06 Q1017")
-metar_rwy_visibility("EDDF 220520Z 26003KT 0500 R25R/0400N R18/0650V1100N FZFG")
+metar_rwy_visibility("EDDF 220520Z 26003KT 0500 R25R/0400N R18/0650V1100N FZFG", sep = ",")
 metar_rwy_visibility("CYWG 172000Z 30015G25KT 3/4SM R36/4000FT/D -SN M05/M08 A2992")
 metar_rwy_visibility("EBBR 040220Z VRB01KT 0150 R25L/1200N R26R/1000 R36/4000FT/D -SN")
 

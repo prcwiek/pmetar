@@ -12,7 +12,7 @@ x <- c(x1, x2, x3, x4, x5, x6)
 
 dx <- data.frame(metar = x)
 
-test_that("Check runway visibility in meters", {
+test_that("Check runway visibility in meters, default sep = ';'", {
   expect_equal(metar_rwy_visibility(x1, metric = TRUE),
                "Runway visual range for runway R25L is 1200 meters with static trend; Runway visual range for runway R02 is greater than 1500 meters")
   expect_equal(metar_rwy_visibility(x2, metric = TRUE),
@@ -39,7 +39,34 @@ test_that("Check runway visibility in meters", {
                  "Runway visual range for runway R25R is 400 meters with static trend; Runway visual range for runway R25C is greater than 2000 meters; Runway visual range for runway R25L is greater than 2000 meters; Runway visual range for runway R18 is from 650 to 1100 meters"))
 })
 
-test_that("Check runway visibility in feet", {
+test_that("Check runway visibility in meters, sep = ','", {
+  expect_equal(metar_rwy_visibility(x1, metric = TRUE, sep = ","),
+               "Runway visual range for runway R25L is 1200 meters with static trend, Runway visual range for runway R02 is greater than 1500 meters")
+  expect_equal(metar_rwy_visibility(x2, metric = TRUE, sep = ","),
+               "Runway visual range for runway R25R is 182.88 meters, Runway visual range for runway R02 is greater than 1500 meters")
+  expect_equal(metar_rwy_visibility(x3, metric = TRUE, sep = ","), "")
+  expect_equal(metar_rwy_visibility(x4, metric = TRUE, sep = ","), "Runway visual range for runway R36 is 1219.2 meters with downward trend")
+  expect_equal(metar_rwy_visibility(x5, metric = TRUE, sep = ","),
+               "Runway visual range for runway R25L is 1200 meters with static trend, Runway visual range for runway R25R is 182.88 meters, Runway visual range for runway R02 is greater than 1500 meters")
+  expect_equal(metar_rwy_visibility(x6, metric = TRUE, sep = ","),
+               "Runway visual range for runway R25R is 400 meters with static trend, Runway visual range for runway R25C is greater than 2000 meters, Runway visual range for runway R25L is greater than 2000 meters, Runway visual range for runway R18 is from 650 to 1100 meters")
+  expect_equal(metar_rwy_visibility(x, metric = TRUE, sep = ","),
+               c("Runway visual range for runway R25L is 1200 meters with static trend, Runway visual range for runway R02 is greater than 1500 meters",
+                 "Runway visual range for runway R25R is 182.88 meters, Runway visual range for runway R02 is greater than 1500 meters",
+                 "",
+                 "Runway visual range for runway R36 is 1219.2 meters with downward trend",
+                 "Runway visual range for runway R25L is 1200 meters with static trend, Runway visual range for runway R25R is 182.88 meters, Runway visual range for runway R02 is greater than 1500 meters",
+                 "Runway visual range for runway R25R is 400 meters with static trend, Runway visual range for runway R25C is greater than 2000 meters, Runway visual range for runway R25L is greater than 2000 meters, Runway visual range for runway R18 is from 650 to 1100 meters"))
+  expect_equal(metar_rwy_visibility(dx$metar, metric = TRUE, sep = ","),
+               c("Runway visual range for runway R25L is 1200 meters with static trend, Runway visual range for runway R02 is greater than 1500 meters",
+                 "Runway visual range for runway R25R is 182.88 meters, Runway visual range for runway R02 is greater than 1500 meters",
+                 "",
+                 "Runway visual range for runway R36 is 1219.2 meters with downward trend",
+                 "Runway visual range for runway R25L is 1200 meters with static trend, Runway visual range for runway R25R is 182.88 meters, Runway visual range for runway R02 is greater than 1500 meters",
+                 "Runway visual range for runway R25R is 400 meters with static trend, Runway visual range for runway R25C is greater than 2000 meters, Runway visual range for runway R25L is greater than 2000 meters, Runway visual range for runway R18 is from 650 to 1100 meters"))
+})
+
+test_that("Check runway visibility in feet, default sep = ';", {
   expect_equal(metar_rwy_visibility(x1, metric = FALSE),
                "Runway visual range for runway R25L is 3937.01 ft with static trend; Runway visual range for runway R02 is greater than 4921.26 ft")
   expect_equal(metar_rwy_visibility(x2, metric = FALSE),

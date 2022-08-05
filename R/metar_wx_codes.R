@@ -3,6 +3,8 @@
 #' Extract and parse weather conditions information METAR WX codes.
 #'
 #' @param x Input character vector
+#' @param sep character; comma or semicolon, used for separating decoded elements of weather
+#' conditions information.
 #'
 #' @return A character vector. with METAR WX codes.
 #'
@@ -13,14 +15,18 @@
 #' @examples
 #' metar_wx_codes("METAR EPWA 132100Z 29006KT 260V320 8000 SHRA SCT009 BKN025CB 18/17 Q1011")
 #' metar_wx_codes("CYUL 101900Z 27015G25KT 15SM DRSN SCT028 BKN090 OVC110 M04/M10 A2973 RMK")
-#' metar_wx_codes("METAR EPKK 200300Z 23014KT 9999 -SHSN SCT009CB BKN012 01/M00 Q1008")
+#' metar_wx_codes("METAR EPKK 200300Z 23014KT 9999 -SHSN SCT009CB BKN012 01/M00 Q1008", sep = ",")
+#' metar_wx_codes("202001190045 METAR KEWR 190045Z 19008KT 4SM -RA -PL BR FEW007 01/M01 A2995")
 #'
-metar_wx_codes <- function(x) {
+metar_wx_codes <- function(x, sep = ";") {
   # Check if x is a data frame and stop if yes
   if(is.data.frame(x)){
     stop("pmetar package error: Invalid input format! Argument is not an atomic vector.", call. = FALSE)
   }
-
+  # Check sep values
+  if (!stringr::str_detect(sep, pattern = "(^;$|^,$)")) {
+    stop("pmetar package error: Invalid sep value! It must be comma or semicolon!")
+  }
   # Function matches an extracted code to a description from metarWXcodes data frame
   wx_code_resolve <- function(xcr){
     out_cr <- xcr
@@ -51,10 +57,12 @@ metar_wx_codes <- function(x) {
     }
     out_ce <- c(1:nrow(wx_extracted))
     for (j in 1:nrow(wx_extracted)) {
-      out_ce[j] <- paste(wx_extracted[j,], wx_resolved[j,], collapse = "; ")
-      out_ce[j] <- stringr::str_replace_all(as.character(out_ce[j]), pattern = ";  ", replacement = "; ")
+      out_ce[j] <- paste(wx_extracted[j,], wx_resolved[j,], collapse = paste0(sep, " ")) #collapse = "; "
+      out_ce[j] <- stringr::str_replace_all(as.character(out_ce[j]),
+                                            pattern = paste0(sep, "  "),
+                                            replacement = paste0(sep, " ")) #pattern = ";  ", replacement = "; ")
       out_ce[j] <- stringr::str_trim(as.character(out_ce[j]), side = "left")
-      out_ce[j] <- stringr::str_replace(as.character(out_ce[j]), pattern = "[;\\s]+$", replacement =  "")
+      out_ce[j] <- stringr::str_replace(as.character(out_ce[j]), pattern = "([;\\s]+$|[,\\s]+$)", replacement =  "")
     }
     out_ce
   }

@@ -4,10 +4,13 @@
 \alias{metar_cloud_coverage}
 \title{Get cloud coverage information.}
 \usage{
-metar_cloud_coverage(x)
+metar_cloud_coverage(x, sep = ";")
 }
 \arguments{
 \item{x}{character vector; a METAR weather report or reports.}
+
+\item{sep}{character; comma or semicolon, used for separating decoded elements of weather
+conditions information.}
 }
 \value{
 a character vector with cloud coverage information.
@@ -19,6 +22,6 @@ Extract and parse cloud coverage information from METAR weather report.
 metar_cloud_coverage("EPWA 281830Z 18009KT 140V200 9999 SCT037 03/M01 Q1008 NOSIG")
 metar_cloud_coverage("CYUL 281800Z 13008KT 30SM BKN240 01/M06 A3005 RMK CI5 SLP180")
 metar_cloud_coverage("201711271930 METAR LEMD 271930Z 02002KT CAVOK 04/M03 Q1025")
-metar_cloud_coverage("KEWR 011451Z 26015KT 10SM FEW030 FEW045 BKN065 04/M07 A2977")
+metar_cloud_coverage("KEWR 011451Z 26015KT 10SM FEW030 FEW045 BKN065 04/M07 A2977", sep = ",")
 
 }
