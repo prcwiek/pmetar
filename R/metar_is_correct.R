@@ -51,11 +51,7 @@ metar_is_correct <- function(x, verbose = FALSE) {
   # check if the airport code is placed in the correct place
   fT <- stringr::str_detect(x, pattern = "((METAR|SPECI|METAR COR|SPECI COR)\\s[A-Z]{4}\\s|^[A-Z]{4}\\s\\d{6}[A-Z]\\s)")
   out[!fT] <- FALSE
-  
-  # check duplicated /
-  #fT <- stringr:: str_detect(x, pattern = "/{2,}")
-  #out[fT] <- FALSE
-  
+
   # check wind speed and gust syntax
   fT <- stringr::str_detect(x, pattern = "(\\d{5}(MPS|G\\d{2}MPS)|VRB\\d{2}MPS|\\d{5}(KT|G\\d{2}KT)|VRB\\d{2}KT|VRB[\\d]+G[\\d]+KT|VRB[\\d]+G[\\d]+MPS|\\d{3}P49MPS|\\d{3}P99KT)")
   out[!fT] <- FALSE
