@@ -1,14 +1,23 @@
-pmetar development version 0.3.3.4 
+pmetar development version 0.3.3.6 
 ===========================
 
 ### BUG FIXES
 
 * Fixed problems with downloading historical data from the Ogimet server
+* Fixed several bugs with METAR reports decoding
 
 ### NEW FEATURES
 
-* Added parameter numeric_only to metar_decode() 
+* Added parameter numeric_only to metar_decode()
+* Added parameter check to metar_decode()
+* Added parameter sep to metar_decode()
 * Added new function metar_is_correct()
+* Added new function metar_print()
+* Update of metar_decode() for better handling errors 
+
+### OTHERS
+
+* Update of both airports lists
 
 pmetar version 0.3.3
 ===========================
