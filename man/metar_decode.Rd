@@ -4,7 +4,14 @@
 \alias{metar_decode}
 \title{Decode METAR report.}
 \usage{
-metar_decode(x, metric = TRUE, altimeter = FALSE, numeric_only = FALSE)
+metar_decode(
+  x,
+  metric = TRUE,
+  altimeter = FALSE,
+  numeric_only = FALSE,
+  check = TRUE,
+  sep = ";"
+)
 }
 \arguments{
 \item{x}{character vector; a single METAR weather report or\cr
@@ -13,9 +20,16 @@ historical METAR weather reports.}
 \item{metric}{logical; if TRUE wind speeds returned in m/s, distances in meters.\cr
 If FALSE, wind speeds returned in knots and distances in miles.}
 
-\item{altimeter}{logical; if FLASE pressures returned in hPa, if TRUE in mmHg}
+\item{altimeter}{logical; if FLASE pressures returned in hPa, if TRUE in mmHg.}
 
-\item{numeric_only}{logical; if TRUE only numeric values are returned}
+\item{numeric_only}{logical; if TRUE only numeric values are returned.}
+
+\item{check}{logical; if TRUE the syntax of METAR reports will be checked and incorrect
+reports will be omitted. If FALSE, the incorrect syntax of reports can cause errors and
+breakdown of decoding. The default value is TRUE.}
+
+\item{sep}{character; comma or semicolon, used for separating decoded elements of weather
+conditions information. The default value is ";".}
 }
 \value{
 a tibble with decoded METAR weather report or reports.
@@ -27,6 +41,7 @@ Extract and parse information from a single METAR weather report or several repo
 Decoded METAR weather report consists of:\cr
 \itemize{
 \item Remark: Don't use for flight planning or navigation!
+or Incorrect METAR report! Please check the column Original_METAR.
 \item Airport ICAO
 \item Day of Month
 \item Hour (HH:mm)
