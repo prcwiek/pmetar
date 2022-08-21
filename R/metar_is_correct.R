@@ -73,7 +73,7 @@ metar_is_correct <- function(x, verbose = FALSE) {
   
   if (verbose) {
     if (length(out)/sum(out) != 1) {
-      if (length(x) == 1) {
+      if (length(x) == 1 | (length(out)/(sum(out) + 1)) == 1) {
         message("Incorrect METAR report:")  
       } else {
         message("Incorrect METAR reports:")  
