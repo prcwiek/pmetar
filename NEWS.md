@@ -1,5 +1,5 @@
-pmetar development version 0.3.3.6 
-===========================
+pmetar version 0.4.0 
+====================
 
 ### BUG FIXES
 
@@ -18,30 +18,31 @@ pmetar development version 0.3.3.6
 ### OTHERS
 
 * Update of both airports lists
+* Update of vignettes
 
 pmetar version 0.3.3
-===========================
+====================
 
 ### BUG FIXES
 
 * metar_decode() fixed fails with METAR COR
 
 pmetar version 0.3.2
-===========================
+====================
 
 ### BUG FIXES
 
 * Packages which use Internet resources should fail gracefully with an informative message.
 
 pmetar version 0.3.1
-===========================
+====================
 
 ### BUG FIXES
 
 * metar_get() fixed failures with Rcurl, OpenSSL and TLS on Windows
 
 pmetar version 0.3.0
-===========================
+====================
 
 ### BUG FIXES
 
@@ -57,7 +58,7 @@ pmetar version 0.3.0
 * Added function metar_rwy_visibility for decoding runway(s) visibility
 
 pmetar version 0.2.7.0
-==============
+======================
 
 ### NEW FEATURES
 
