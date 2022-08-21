@@ -61,9 +61,9 @@ blocks too frequent requests for data due to the server overload,
 the requested period is limited to 31 days and for the most of airports
 METAR reports are available from the beginning of the year 2005.
 ```{r, label = "example for Ogimet", eval = FALSE}
-metar_get_historical("JFK", start_date = "2020-06-25", end_date = "2020-06-29", from = "ogimet")
+metar_get_historical("JFK", start_date = "2020-06-27", end_date = "2020-06-29", from = "ogimet")
 ```
-In the package version from 0.3.4 it is possible to check the syntax of downloaded METAR reports with the function metar_is_correct(). Also in several functions the additional parameter *check* was implemented. The default value is TRUE. If it is set to FALSE decoding of METAR reports should work as in the previouse package versions. 
+In the package version from 0.4.0 it is possible to check the syntax of downloaded METAR reports with the function metar_is_correct(). Also in several functions the additional parameter *check* was implemented. The default value is TRUE. If it is set to FALSE decoding of METAR reports should work as in the previouse package versions. 
 ```{r checking the syntax of reports}
 metar_is_correct(dm[1:5])
 ```
@@ -166,7 +166,7 @@ metar_visibility(my_report, metric = FALSE)
 
 ### Weather conditions
 The function metar_wx_codes() extracts and parses the below weather conditions codes.  
-In the package version 0.3.4 the parameter *sep* with the default value ";" was introduce. 
+In the package version 0.4.0 the parameter *sep* with the default value ";" was introduce. 
 It allows to avoid problems with saving output in .csv files. Two values are allowed, 
 comma and semicolon. If you need to get the function output separated by commas just
 set *sep = ","*.
@@ -237,7 +237,7 @@ metar_windshear("CYWG 172000Z 30015G25KT 3/4SM R36/4000FT/D -SN BLSN BKN008 OVC0
 
 ### Runway visibility
 Information about runways visibility can be extracted with the use of the function metar_rwy_visibility(), in meters.  
-In the package version 0.3.4 the parameter *sep* with the default value ";" was introduce. 
+In the package version 0.4.0 the parameter *sep* with the default value ";" was introduce. 
 It allows to avoid problems with saving output in .csv files. Two values are allowed, 
 comma and semicolon. If you need to get the function output separated by commas just
 set *sep = ","*.
@@ -261,7 +261,7 @@ head(dm)
 ```
 Now we can decode all elements and place them in the tibble. It is possible to choose between Metric (the default metric = TRUE) or Imperial (metric = FALSE) systems.
 Pressure values can be decoded in hPa (the default altimeter = FALSE) or in mmHg (altimeter = TRUE).  
-In the package version 0.3.4 the parameter *sep* with the default value ";" was introduce. 
+In the package version 0.4.0 the parameter *sep* with the default value ";" was introduce. 
 It allows to avoid problems with saving output in .csv files. Two values are allowed, 
 comma and semicolon. If you need to get the function output separated by commas just
 set *sep = ","*.
