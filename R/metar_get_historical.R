@@ -141,8 +141,8 @@ metar_get_historical <- function(airport = "EPWA",
   server_link <- paste0("https://", server_link)
   server_answer <- check_server_status(server_link)
 
-  # Check timeout problems
-  if(as.character(class(server_answer)) != "response") {
+  # Check if a status is different than 200
+  if (httr::status_code(server_answer) != 200) {
     message(server_answer)
     return(invisible(NULL))
   }
