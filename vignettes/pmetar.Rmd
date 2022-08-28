@@ -51,10 +51,24 @@ from John F. Kennedy International Airport.
 The function metar_get_historical allows to download METAR weather reports for a defined period of time.
 The default online source of METAR reports, *from = "iastate"* is the Iowa Environmental Mesonet
 web page of Iowa State University ASOS-AWOS-METAR <http://mesonet.agron.iastate.edu/AWOS/>.    
-```{r get historical METAR reports from JFK}
+```{r label = "get historical METAR reports from JFK", eval = FALSE}
 dm <- metar_get_historical("JFK", start_date = "2020-06-27", end_date = "2020-06-29", from = "iastate")
+```
+
+```{r label = "create dm offline", echo = FALSE}
+dm <- c("202006270000 METAR KJFK 270000Z AUTO 19007KT 10SM CLR 23/18 A2990 RMK T02300180 MADISHF",
+        "202006270005 METAR KJFK 270005Z AUTO 19008KT 10SM CLR 24/18 A2990 RMK T02400180 MADISHF",
+        "202006270010 METAR KJFK 270010Z AUTO 20008KT 10SM CLR 24/18 A2990 RMK T02400180 MADISHF",
+        "202006270015 METAR KJFK 270015Z AUTO 21005KT 10SM FEW110 24/18 A2990 RMK T02400180 MADISHF",
+        "202006270020 METAR KJFK 270020Z AUTO 21005KT 10SM SCT110 24/18 A2990 RMK T02400180 MADISHF",
+        "202006270025 METAR KJFK 270025Z AUTO 23008KT 10SM SCT110 24/17 A2990 RMK T02400170 MADISHF")
+```
+
+```{r label = "show head of dm"}
 head(dm)
 ```
+
+
 The second backup source, *from = "ogimet"* is Weather Information Service provided
 by Ogimet <http://www.ogimet.com/>. Please take into consideration that Ogimet usually 
 blocks too frequent requests for data due to the server overload, 
@@ -67,7 +81,7 @@ In the package version from 0.4.0 it is possible to check the syntax of download
 ```{r checking the syntax of reports}
 metar_is_correct(dm[1:5])
 ```
-Let's add one incorrect and check how it works.
+Let's one report with incorrect one and check how it works.
 ```{r adding one incorrect report}
 dc <- c(dm[1:5],
         "202006261625 SPEC KJFK 261625Z AUTO 28009KT 10SM CLR 30/12 A2995 RMK T03000120")
