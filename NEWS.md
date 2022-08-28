@@ -19,6 +19,8 @@ pmetar version 0.4.0
 
 * Update of both airports lists
 * Update of vignettes
+* Improving how the packages which use Internet resources should fail gracefully with 
+an informative message.
 
 pmetar version 0.3.3
 ====================
