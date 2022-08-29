@@ -1,14 +1,13 @@
 ## Test environments, status OK for:
-* local Xubuntu 20.04 LTS, R 4.1.2
+* local Xubuntu 22.04 LTS, R 4.2.1
 * win-builder (development and release)
+* rhub macOS 10.13.6 High Sierra, R-release, brew
 * rhub macOS 10.13.6 High Sierra, R-release, brew
 * rhub Debian Linux, R-release, GCC 
 * rhub Fedora Linux, R-devel, GCC
-* rhub Oracle Solaris 10, x86, 32 bit, R-release 
 
 ## R CMD check results
 * 1 NOTE for the win-builder: Found the following (possibly) invalid URLs https://ourairports.com However the web page is online.
-* Vignette re-building failed on rhub Apple Silicon (M1), macOS 11.6 Big Sur, R-release
 
 ## Others
 
@@ -31,6 +30,6 @@ climatology), a mesonet, portmanteau of mesoscale network, is a network
 of (typically) automated weather and environmental monitoring stations
 designed to observe mesoscale meteorological phenomena."  
 
-This is a new version 0.3.2 release.
+This is a new version 0.4.0 release.
 
 
