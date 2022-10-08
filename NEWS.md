@@ -1,3 +1,10 @@
+pmetar development version 0.4.0.1
+==================================
+
+### BUG FIXES
+
+* Fixed problems with decoding TCU in metar_cloud_coverage()
+
 pmetar version 0.4.0 
 ====================
 

@@ -23,17 +23,17 @@ The main functions scrap data from the below web pages:
 
 1.  For current reports, the function *metar_get*:
 
--   Aviation Weather Center <https://www.aviationweather.gov/metar>
-    </li>
-    <br>
+- Aviation Weather Center <https://www.aviationweather.gov/metar>
+  </li>
+  <br>
 
 2.  For historical reports, the function *metar_get_historical*:
 
--   Iowa Environmental Mesonet web page of Iowa State University
-    ASOS-AWOS-METAR <http://mesonet.agron.iastate.edu/AWOS/>
-    </li>
--   Weather Information Service <http://www.ogimet.com/> developed by
-    Guillermo Ballester Valor
+- Iowa Environmental Mesonet web page of Iowa State University
+  ASOS-AWOS-METAR <http://mesonet.agron.iastate.edu/AWOS/>
+  </li>
+- Weather Information Service <http://www.ogimet.com/> developed by
+  Guillermo Ballester Valor
 
 Please take into consideration that the <http://www.ogimet.com/> can
 block too frequent requests for data due to the server overload. <br>
@@ -65,7 +65,7 @@ CRAN version
 install.packages("pmetar")
 ```
 
-Get the development version 0.4.0 from github:
+Get the development version 0.4.0.1 from github:
 
 ``` r
 # install.packages("devtools")
@@ -78,7 +78,7 @@ library('pmetar')
 
 ## Contributors
 
--   David Megginson, Author of data set with airports list
-    <https://ourairports.com/data/>
--   Greg Thompson, Author of data set with airports list
-    <https://www.aviationweather.gov/docs/metar/stations.txt>
+- David Megginson, Author of data set with airports list
+  <https://ourairports.com/data/>
+- Greg Thompson, Author of data set with airports list
+  <https://www.aviationweather.gov/docs/metar/stations.txt>
