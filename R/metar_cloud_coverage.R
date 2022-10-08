@@ -47,15 +47,15 @@ metar_cloud_coverage <- function(x, sep = ";") {
     }
     dist <- dist * 100
     dist_m <- dist * 0.3048
-#    dist <- tidyr::unite(dist, "ft", sep = "; ", na.rm = TRUE)
     dist <- tidyr::unite(dist, "ft", sep = paste0(sep, " "), na.rm = TRUE)
-#    dist_m <- tidyr::unite(dist_m, "m", sep = "; ", na.rm = TRUE)
     dist_m <- tidyr::unite(dist_m, "m", sep = paste0(sep, " "), na.rm = TRUE)
     return(cbind(dist, dist_m))
   }
 
   # define list of patterns and description texts
   lp_dt <- data.frame(pattern_text = c("FEW\\d{3}\\s",
+                                       "FEW\\d{3}CB",
+                                       "FEW\\d{3}TCU",
                                        "SCT\\d{3}\\s",
                                        "SCT\\d{3}CB",
                                        "SCT\\d{3}TCU",
@@ -64,6 +64,8 @@ metar_cloud_coverage <- function(x, sep = ";") {
                                        "BKN\\d{3}TCU"),
                                        #"BKN\\/{3}"),
                       description_text = c("Few (1-2 oktas) at ",
+                                           "Few (1-2 oktas) cumulonimbus clouds at ",
+                                           "Few (1-2 oktas) towering cumulus clouds at ",
                                            "Scattered (3-4 oktas) at ",
                                            "Scattered (3-4 oktas) cumulonimbus clouds at ",
                                            "Scattered (3-4 oktas) towering cumulus clouds at ",
@@ -110,8 +112,6 @@ metar_cloud_coverage <- function(x, sep = ";") {
   out[fT] <- paste0(out[fT], "Clouds cannot be seen because of fog or heavy precipitation")
   fT <- stringr::str_detect(out, pattern = "(,\\s|;\\s$)")
   out[fT] <- stringr::str_sub(out[fT], 1, (nchar(out[fT]) - 2))
-  # remove double spaces
-  #out <- stringr::str_replace_all(out, pattern = "\\s\\s", replacement = " ")
   out
 }
 
