@@ -16,6 +16,7 @@
 #' metar_cloud_coverage("EPWA 281830Z 18009KT 140V200 9999 SCT037 03/M01 Q1008 NOSIG")
 #' metar_cloud_coverage("CYUL 281800Z 13008KT 30SM BKN240 01/M06 A3005 RMK CI5 SLP180")
 #' metar_cloud_coverage("201711271930 METAR LEMD 271930Z 02002KT CAVOK 04/M03 Q1025")
+#' metar_cloud_coverage("202103251800 METAR COR NFTL 251800Z 00000KT SCT017TCU BKN290 25/25 Q1014")
 #' metar_cloud_coverage("KEWR 011451Z 26015KT 10SM FEW030 FEW045 BKN065 04/M07 A2977", sep = ",")
 #'
 metar_cloud_coverage <- function(x, sep = ";") {
@@ -30,7 +31,7 @@ metar_cloud_coverage <- function(x, sep = ";") {
   # function for extracting several repeating elements, like FEW030 FEW045
   multi_extracting <- function(tdist, tpattern) {
     to_remove_1 <- stringr::str_extract(tpattern, pattern = "^[A-Z]{3}")
-    to_remove_2 <- stringr::str_extract(tpattern, pattern = "[A-Z]{2}$")
+    to_remove_2 <- stringr::str_extract(tpattern, pattern = "(CB$|TCU$)")
     if(tpattern == "BKN\\/{3}") {
       to_remove_1 <- paste0(to_remove_1, "\\/{3}")
     }
@@ -57,14 +58,18 @@ metar_cloud_coverage <- function(x, sep = ";") {
   lp_dt <- data.frame(pattern_text = c("FEW\\d{3}\\s",
                                        "SCT\\d{3}\\s",
                                        "SCT\\d{3}CB",
+                                       "SCT\\d{3}TCU",
                                        "BKN\\d{3}\\s",
-                                       "BKN\\d{3}CB"),
+                                       "BKN\\d{3}CB",
+                                       "BKN\\d{3}TCU"),
                                        #"BKN\\/{3}"),
                       description_text = c("Few (1-2 oktas) at ",
                                            "Scattered (3-4 oktas) at ",
                                            "Scattered (3-4 oktas) cumulonimbus clouds at ",
+                                           "Scattered (3-4 oktas) towering cumulus clouds at ",
                                            "Broken (5-7 oktas) at ",
-                                           "Broken (5-7 oktas) cumulonimbus clouds at "),
+                                           "Broken (5-7 oktas) cumulonimbus clouds at ",
+                                           "Broken (5-7 oktas) towering cumulus clouds at "),
                                            #"Broken clouds at NaN "),
                       stringsAsFactors = FALSE)
   out <- c(1:length(x))
