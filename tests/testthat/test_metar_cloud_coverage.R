@@ -32,7 +32,7 @@ test_that("Check cloud coverage output, default sep = ';'", {
   expect_equal(metar_cloud_coverage(x7),
                "Scattered (3-4 oktas) at 2800; 3500 ft (853.44; 1066.8 m); Broken (5-7 oktas) at 7900 ft (2407.92 m)")
   expect_equal(metar_cloud_coverage(x8),
-               "Few (1-2 oktas) at 2500 ft (762 m)")
+               "Few (1-2 oktas) at 2500 ft (762 m); Broken (5-7 oktas) at unknown ft (unknown m)")
   expect_equal(metar_cloud_coverage(x9), "")
   expect_equal(metar_cloud_coverage(x10), "")
   expect_equal(metar_cloud_coverage(x11),
@@ -57,7 +57,7 @@ test_that("Check cloud coverage output, sep = ','", {
   expect_equal(metar_cloud_coverage(x7, sep = ","),
                "Scattered (3-4 oktas) at 2800, 3500 ft (853.44, 1066.8 m), Broken (5-7 oktas) at 7900 ft (2407.92 m)")
   expect_equal(metar_cloud_coverage(x8, sep = ","),
-               "Few (1-2 oktas) at 2500 ft (762 m)")
+               "Few (1-2 oktas) at 2500 ft (762 m), Broken (5-7 oktas) at unknown ft (unknown m)")
   expect_equal(metar_cloud_coverage(x9, sep = ","), "")
   expect_equal(metar_cloud_coverage(x10, sep = ","), "")
   expect_equal(metar_cloud_coverage(x11, sep = ","),

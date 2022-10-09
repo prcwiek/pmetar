@@ -31,10 +31,7 @@ metar_cloud_coverage <- function(x, sep = ";") {
   # function for extracting several repeating elements, like FEW030 FEW045
   multi_extracting <- function(tdist, tpattern) {
     to_remove_1 <- stringr::str_extract(tpattern, pattern = "^[A-Z]{3}")
-    to_remove_2 <- stringr::str_extract(tpattern, pattern = "(CB$|TCU$)")
-    if(tpattern == "BKN\\/{3}") {
-      to_remove_1 <- paste0(to_remove_1, "\\/{3}")
-    }
+    to_remove_2 <- stringr::str_extract(tpattern, pattern = "(CB$|TCU$|///CB$|///TCU$|///)")
     if(is.na(to_remove_2)) {
       dist <- tdist %>%
         dplyr::mutate_if(is.character, stringr::str_remove, pattern = to_remove_1) %>%
@@ -45,8 +42,12 @@ metar_cloud_coverage <- function(x, sep = ";") {
         dplyr::mutate_if(is.character, stringr::str_remove, pattern = to_remove_2) %>%
         dplyr::mutate_if(is.character, as.numeric)
     }
-    dist <- dist * 100
+ 
+    dist <- dist *100
     dist_m <- dist * 0.3048
+    dist[] <- sapply(dist, function(y) {y[is.na(y)] <- "unknown"; y})
+    dist_m[] <- sapply(dist_m, function(y) {y[is.na(y)] <- "unknown"; y})
+    
     dist <- tidyr::unite(dist, "ft", sep = paste0(sep, " "), na.rm = TRUE)
     dist_m <- tidyr::unite(dist_m, "m", sep = paste0(sep, " "), na.rm = TRUE)
     return(cbind(dist, dist_m))
@@ -56,23 +57,39 @@ metar_cloud_coverage <- function(x, sep = ";") {
   lp_dt <- data.frame(pattern_text = c("FEW\\d{3}\\s",
                                        "FEW\\d{3}CB",
                                        "FEW\\d{3}TCU",
+                                       "FEW///\\s",
+                                       "FEW///CB",
+                                       "FEW///TCU",
                                        "SCT\\d{3}\\s",
                                        "SCT\\d{3}CB",
                                        "SCT\\d{3}TCU",
+                                       "SCT///\\s",
+                                       "SCT///CB",
+                                       "SCT///TCU",
                                        "BKN\\d{3}\\s",
                                        "BKN\\d{3}CB",
-                                       "BKN\\d{3}TCU"),
-                                       #"BKN\\/{3}"),
+                                       "BKN\\d{3}TCU",
+                                       "BKN///\\s",
+                                       "BKN///CB",
+                                       "BKN///TCU"),
                       description_text = c("Few (1-2 oktas) at ",
+                                           "Few (1-2 oktas) cumulonimbus clouds at ",
+                                           "Few (1-2 oktas) towering cumulus clouds at ",
+                                           "Few (1-2 oktas) at ",
                                            "Few (1-2 oktas) cumulonimbus clouds at ",
                                            "Few (1-2 oktas) towering cumulus clouds at ",
                                            "Scattered (3-4 oktas) at ",
                                            "Scattered (3-4 oktas) cumulonimbus clouds at ",
                                            "Scattered (3-4 oktas) towering cumulus clouds at ",
+                                           "Scattered (3-4 oktas) at ",
+                                           "Scattered (3-4 oktas) cumulonimbus clouds at ",
+                                           "Scattered (3-4 oktas) towering cumulus clouds at ",
+                                           "Broken (5-7 oktas) at ",
+                                           "Broken (5-7 oktas) cumulonimbus clouds at ",
+                                           "Broken (5-7 oktas) towering cumulus clouds at ",
                                            "Broken (5-7 oktas) at ",
                                            "Broken (5-7 oktas) cumulonimbus clouds at ",
                                            "Broken (5-7 oktas) towering cumulus clouds at "),
-                                           #"Broken clouds at NaN "),
                       stringsAsFactors = FALSE)
   out <- c(1:length(x))
   out[1:length(x)] <- ""
