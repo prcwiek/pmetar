@@ -44,37 +44,44 @@ metar_location <- function(x = "EPWA") {
     if(length(m_t) > 1){
       m_t <- m_t[1]
     }
-    # extract latitude
-    lat <- stringr::str_extract(m_t, pattern = "[\\d]+\\s[\\d]+(?:N|S)")
-    if(stringr::str_sub(lat, nchar(lat), nchar(lat)) == "N"){
-      mlat <- 1
+    if (length(m_t) != 0) {
+      # extract latitude
+      lat <- stringr::str_extract(m_t, pattern = "[\\d]+\\s[\\d]+(?:N|S)")
+      if(stringr::str_sub(lat, nchar(lat), nchar(lat)) == "N"){
+        mlat <- 1
+      } else {
+        mlat  <- -1
+      }
+      lat <- stringr::str_sub(lat, 1, nchar(lat) - 1)
+      lat <- stringr::str_split(lat, " ")
+      lat <- (as.numeric(lat[[1]][1]) + as.numeric(lat[[1]][2])/60) * mlat
+      # extract longitude
+      lon <- stringr::str_extract(m_t, pattern = "[\\d]+\\s[\\d]+(?:E|W)")
+      if(stringr::str_sub(lon, nchar(lon), nchar(lon)) == "E"){
+        mlon <- 1
+      } else {
+        mlon  <- -1
+      }
+      lon <- stringr::str_sub(lon, 1, nchar(lon) - 1)
+      lon <- stringr::str_split(lon, " ")
+      lon <- (as.numeric(lon[[1]][1]) + as.numeric(lon[[1]][2])/60) * mlon
+      # extract elevation in meters
+      ele <- as.numeric(stringr::str_extract(m_t, pattern = "[\\d]+$"))
+      # extract airport name
+      m_t <- stringr::str_extract(mst, pattern = paste("^(.*?)", p, sep = ""))
+      m_t <- m_t[!is.na(m_t)]
+      apname <- stringr::str_extract(m_t, pattern = paste("^(.*?)", p, sep = ""))
+      apname <- stringr::str_trim(apname)
+      apname <- stringr::str_split(apname, pattern = " ", simplify = TRUE)
+      apname <- apname[1,1:ncol(apname) - 1]
+      apname <- stringr::str_c(apname, collapse = " ")
+      apname <- stringr::str_trim(apname)
     } else {
-      mlat  <- -1
-    }
-    lat <- stringr::str_sub(lat, 1, nchar(lat) - 1)
-    lat <- stringr::str_split(lat, " ")
-    lat <- (as.numeric(lat[[1]][1]) + as.numeric(lat[[1]][2])/60) * mlat
-    # extract longitude
-    lon <- stringr::str_extract(m_t, pattern = "[\\d]+\\s[\\d]+(?:E|W)")
-    if(stringr::str_sub(lon, nchar(lon), nchar(lon)) == "E"){
-      mlon <- 1
-    } else {
-      mlon  <- -1
-    }
-    lon <- stringr::str_sub(lon, 1, nchar(lon) - 1)
-    lon <- stringr::str_split(lon, " ")
-    lon <- (as.numeric(lon[[1]][1]) + as.numeric(lon[[1]][2])/60) * mlon
-    # extract elevation in meters
-    ele <- as.numeric(stringr::str_extract(m_t, pattern = "[\\d]+$"))
-    # extract airport name
-    m_t <- stringr::str_extract(mst, pattern = paste("^(.*?)", p, sep = ""))
-    m_t <- m_t[!is.na(m_t)]
-    apname <- stringr::str_extract(m_t, pattern = paste("^(.*?)", p, sep = ""))
-    apname <- stringr::str_trim(apname)
-    apname <- stringr::str_split(apname, pattern = " ", simplify = TRUE)
-    apname <- apname[1,1:ncol(apname) - 1]
-    apname <- stringr::str_c(apname, collapse = " ")
-    apname <- stringr::str_trim(apname)
+      apname <- "NA"
+      lat <- -999
+      lon <- -999
+      ele <- -999
+    }    
     list(apname, lat, lon, ele)
   }
 
@@ -85,6 +92,8 @@ metar_location <- function(x = "EPWA") {
   if(is.data.frame(x)){
     stop("pmetar package error: Invalid input format! Argument is not an atomic vector.", call. = FALSE)
   }
+  # make a backup of import
+  y <- x
   # all characters to upper cases
   x <- stringr::str_to_upper(x)
   # find IATA codes
@@ -92,6 +101,7 @@ metar_location <- function(x = "EPWA") {
   # convert IATA codes to ICAO codes
   x[fT] <- ourairports$ident[match(x[fT], ourairports$iata_code)]
   nmatched <- match(x, ourairports$ident)
+  x[which(is.na(x))] <- "LLLL"
   if (sum(stringr::str_count(x, pattern = "^[A-Za-z]{4}$")) >= 1) {
     outlocation <- dplyr::tibble(
       ICAO_Code = x,
@@ -113,13 +123,24 @@ metar_location <- function(x = "EPWA") {
     m_l <- c(1:length(x))
     m_l[1:length(x)] <- ""
     nmissing <- which(is.na(outlocation$IATA_Code) & !is.na(outlocation$ICAO_Code))
-    m_l <- sapply(x, mystr_extract)
+    m_l <- sapply(x[nmissing], mystr_extract)
     outlocation$IATA_Code[nmissing] <- "Not found!"
-    outlocation$Airport_Name[nmissing] <- unlist(m_l[1, nmissing])
-    outlocation$Longitude[nmissing] <- round(unlist(m_l[3, nmissing]), 2)
-    outlocation$Latitude[nmissing] <- round(unlist(m_l[2, nmissing]), 2)
-    outlocation$Elevation[nmissing] <- round(unlist(m_l[4, nmissing]), 0)
+    outlocation$Airport_Name[nmissing] <- unlist(m_l[1, ])
+    outlocation$Longitude[nmissing] <- round(unlist(m_l[3, ]), 2)
+    outlocation$Latitude[nmissing] <- round(unlist(m_l[2, ]), 2)
+    outlocation$Elevation[nmissing] <- round(unlist(m_l[4, ]), 0)
     outlocation$Source[nmissing] <- "www.aviationweather.gov/docs/metar/stations.txt"
   }
+  to_clean <- which(outlocation$Latitude == -999)
+  outlocation$ICAO_Code[to_clean] <- y[to_clean]
+  outlocation$IATA_Code[to_clean] <- y[to_clean]
+  outlocation$Longitude[to_clean] <- NA
+  outlocation$Latitude[to_clean] <- NA
+  outlocation$Elevation[to_clean] <- NA
+  outlocation$Source[to_clean] <- "Not found in pmetar sources!"
+  to_clean <- stringr::str_detect(outlocation$ICAO_Code, pattern = "^[A-Za-z]{3}$")
+  outlocation$ICAO_Code[to_clean] <- "Not found!"
+  to_clean <- stringr::str_detect(outlocation$IATA_Code, pattern = "^[A-Za-z]{4}$")
+  outlocation$IATA_Code[to_clean] <- "Not found!"
   outlocation
 }
