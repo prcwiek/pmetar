@@ -1,10 +1,18 @@
-pmetar development version 0.4.0.2
+pmetar development version 0.4.0.3
 ==================================
 
 ### BUG FIXES
 
 * Fixed problems with decoding TCU in metar_cloud_coverage()
 * Fixed problems with unknown airports IATA and ICAO codes
+* Fixed problems with decoding visibility like P6SM
+* Fixed wrong handling of correctnes for METAR without pressure
+
+### NEW FEATURES AND CHANGES
+
+* Changed the parameter name numeric_only in metar_visibility
+* Added numeric_only in metar_decode for metar_visibility
+* Update of vignettes
 
 pmetar version 0.4.0 
 ====================
