@@ -55,7 +55,6 @@ metar_is_correct <- function(x, verbose = FALSE) {
   # check wind speed and gust syntax
   fT <- stringr::str_detect(x, pattern = "(\\d{5}(MPS|G\\d{2}MPS)|VRB\\d{2}MPS|\\d{5}(KT|G\\d{2}KT)|VRB\\d{2}KT|VRB[\\d]+G[\\d]+KT|VRB[\\d]+G[\\d]+MPS|\\d{3}P49MPS|\\d{3}P99KT)")
   out[!fT] <- FALSE
-  fT <- stringr::str_detect(x, pattern = "()")
 
   # check wind direction syntax
   fT <- stringr::str_detect(x, pattern = "(\\s\\d{5}G\\d+KT|\\s\\d{5}KT|\\s\\d{5}MPS|VRB[\\d]+KT|[\\d]+MPS|VRB[\\d]+G[\\d]+KT|VRB[\\d]+G[\\d]+MPS|\\d{3}P49MPS|\\d{3}P99KT)")
@@ -64,7 +63,8 @@ metar_is_correct <- function(x, verbose = FALSE) {
   out[fT] <- FALSE
   
   # check pressure syntax
-  fT <- stringr::str_detect(x, pattern = "(\\sQ\\d{4}|\\sA\\d{4})")
+  # missing pressure does not make METAR incorrect
+  fT <- stringr::str_detect(x, pattern = "(\\sQ\\d{4}|\\sA\\d{4}|$)")
   out[!fT] <- FALSE
  
   # check air and dew point temperature syntax
