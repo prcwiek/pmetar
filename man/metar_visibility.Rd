@@ -4,14 +4,14 @@
 \alias{metar_visibility}
 \title{Get visibility information.}
 \usage{
-metar_visibility(x, metric = TRUE, numeric_values_only = FALSE)
+metar_visibility(x, metric = TRUE, numeric_only = FALSE)
 }
 \arguments{
 \item{x}{character vector; a METAR weather report or reports.}
 
 \item{metric}{For the default metric = TRUE returned distances are in meters. If it's FALSE, in miles.}
 
-\item{numeric_values_only}{logical; if TRUE only a numeric value will be returned}
+\item{numeric_only}{logical; if TRUE only a numeric value will be returned}
 }
 \value{
 a numeric vector with visibility information, in meters or miles.

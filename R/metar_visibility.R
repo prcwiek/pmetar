@@ -4,7 +4,7 @@
 #'
 #' @param x character vector; a METAR weather report or reports.
 #' @param metric For the default metric = TRUE returned distances are in meters. If it's FALSE, in miles.
-#' @param numeric_values_only logical; if TRUE only a numeric value will be returned
+#' @param numeric_only logical; if TRUE only a numeric value will be returned
 #'
 #' @return a numeric vector with visibility information, in meters or miles.
 #'
@@ -17,7 +17,7 @@
 #' metar_visibility("KBLV 011657Z AUTO 25015G30KT 210V290 3/8SM R32L/1000FT FG
 #' BKN005 01/M01 A2984")
 #'
-metar_visibility <- function(x, metric = TRUE, numeric_values_only = FALSE) {
+metar_visibility <- function(x, metric = TRUE, numeric_only = FALSE) {
   # check if x is a data frame
   if(is.data.frame(x)){
     stop("pmetar package error: Invalid input format! Argument is not an atomic vector.", call. = FALSE)
@@ -26,10 +26,12 @@ metar_visibility <- function(x, metric = TRUE, numeric_values_only = FALSE) {
   if(metric){
     cfm <- 1
     cfi <- 1609.344
+    p_text <- " meters"
   } else {
     cfm <- 1/1609.344
     cfi_height <- 1
     cfi <- 1
+    p_text <- " miles"
   }
   out <- c(1:length(x))
   out[1:length(x)] <- NA
@@ -55,11 +57,40 @@ metar_visibility <- function(x, metric = TRUE, numeric_values_only = FALSE) {
   # CAVOK - Ceiling And Visibility OK, indicating no cloud below 5,000 ft (1,500 m) or
   # the highest minimum sector altitude and no cumulonimbus or towering cumulus at any level,
   # a visibility of 10 km (6 mi) or more and no significant weather change
-  fT <- stringr::str_detect(x, pattern = "CAVOK")
-  if (numeric_values_only) {
+  fT <- stringr::str_detect(x, pattern = "CAVOK")  
+
+  if (numeric_only) {
+    # CAVOK first
     out[fT] <- round(10000.00 * cfm, 2)
+    # cases like P6SM
+    fT <- stringr::str_detect(x, pattern = "\\sP[\\d]+SM\\s")
+    out[fT] <- round(as.numeric(stringr::str_sub(stringr::str_remove(stringr::str_extract(x[fT], pattern = "\\sP[\\d]+SM\\s"), pattern = "P"), 1, -4)) * cfi, 2)
+    # cases like P3/4SM
+    fT <- stringr::str_detect(x, pattern = "\\sP\\d\\/\\dSM\\s")
+    out[fT] <- round((as.numeric(stringr::str_sub(stringr::str_extract(x[fT], pattern = "\\sP\\d\\/\\dSM\\s"), 3, 3)) /
+                        as.numeric(stringr::str_sub(stringr::str_extract(x[fT], pattern = "\\sP\\d\\/\\dSM\\s"), 5, 5))) * cfi, 2)
+    # cases like P9000
+    fT <- stringr::str_detect(x, pattern = "\\sP\\d{4}\\s")
+    out[fT] <- round(as.numeric(stringr::str_sub(stringr::str_extract(x[fT], pattern = "\\sP\\d{4}\\s"), 3, 6)) * cfm, 2)
   } else {
+    # CAVOK first
     out[fT] <- "Ceiling And Visibility OK"
+    # cases like P6SM
+    fT <- stringr::str_detect(x, pattern = "\\sP[\\d]+SM\\s")
+    out[fT] <- paste0("greater than ",
+                      round(as.numeric(stringr::str_sub(stringr::str_remove(stringr::str_extract(x[fT], pattern = "\\sP[\\d]+SM\\s"), pattern = "P"), 1, -4)) * cfi, 2),
+                      p_text)
+    # cases like P3/4SM
+    fT <- stringr::str_detect(x, pattern = "\\sP\\d\\/\\dSM\\s")
+    out[fT] <- paste0("greater than ",
+                      round((as.numeric(stringr::str_sub(stringr::str_extract(x[fT], pattern = "\\sP\\d\\/\\dSM\\s"), 3, 3)) /
+                        as.numeric(stringr::str_sub(stringr::str_extract(x[fT], pattern = "\\sP\\d\\/\\dSM\\s"), 5, 5))) * cfi, 2),
+                      p_text)
+    # cases like P9000
+    fT <- stringr::str_detect(x, pattern = "\\sP\\d{4}\\s")
+    out[fT] <- paste0("greater than ",
+                      round(as.numeric(stringr::str_sub(stringr::str_extract(x[fT], pattern = "\\sP\\d{4}\\s"), 3, 6)) * cfm, 2),
+                      p_text)
   }
   out
 }
