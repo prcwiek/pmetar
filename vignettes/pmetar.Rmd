@@ -171,12 +171,23 @@ metar_dir(variable_direction_METAR, numeric_only = TRUE)
 
 ### Visibility
 The part **10SM** is the visibility. In this case it's 10 statue miles. 
-With  the default value of the paremeter *metric= TRUE* we get output in meters.
+With  the default value of the paremeter *metric= TRUE* and *numeric_only = FALSE* we get output in meters.
 For *metric = FALSE* in statute miles. 
 ```{r find visibility}
 metar_visibility(my_report, metric = TRUE)
 metar_visibility(my_report, metric = FALSE)
 ```
+When the visibility is described as CAVOK we have two options to decode it 
+```{r find visibility CAVOK}
+metar_visibility("201711271930 METAR LEMD 271930Z 02002KT CAVOK 04/M03 Q1025 NOSIG= NOSIG=")
+metar_visibility("201711271930 METAR LEMD 271930Z 02002KT CAVOK 04/M03 Q1025 NOSIG= NOSIG=", numeric_only = TRUE)
+```
+When the visibilty is described as for example P6SM we can decode in two ways
+```{r find visibility PdSM}
+metar_visibility("200005120845 METAR METAR MMGL 120845Z 27005KT P6SM FEW230 18/04 A3012 RMK 00190 062 903", metric = FALSE)
+metar_visibility("200005120845 METAR METAR MMGL 120845Z 27005KT P6SM FEW230 18/04 A3012 RMK 00190 062 903", metric = FALSE, numeric_only = TRUE)
+```
+
 
 ### Weather conditions
 The function metar_wx_codes() extracts and parses the below weather conditions codes.  
