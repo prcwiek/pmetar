@@ -1,7 +1,7 @@
 Type: Package
 Package: pmetar
 Title: Processing METAR Weather Reports
-Version: 0.4.0.2
+Version: 0.4.0.3
 Authors@R: c(
     person("Pawel", "Cwiek", , "prc.altodato@gmail.com", role = c("aut", "cre")),
     person("David", "Megginson", role = "ctb",
@@ -41,4 +41,4 @@ VignetteBuilder: knitr
 LazyData: true
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.1
+RoxygenNote: 7.2.3
