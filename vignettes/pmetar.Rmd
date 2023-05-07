@@ -3,8 +3,11 @@ title: "Processing METAR weather reports"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{pmetar}
-  %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
+  %\VignetteEngine{knitr::rmarkdown}
+editor_options: 
+  markdown: 
+    wrap: 72
 ---
 
 ```{r, label = "set options", include = FALSE}
@@ -17,40 +20,51 @@ knitr::opts_chunk$set(
 
 # Package pmetar
 
-Pmetar is an R package that allows to download and parse current or historical METAR 
-(Meteorological Terminal Aviation Routine Weather Report) reports,
-mainly for airports.
+Pmetar is an R package that allows to download and parse current or
+historical METAR (Meteorological Terminal Aviation Routine Weather
+Report) reports, mainly for airports.
 
-**It has to be underlined that the package pmetar is not intended for flight planning or navigation.**
+**It has to be underlined that the package pmetar is not intended for
+flight planning or navigation.**
 
 ## Downloading a current METAR weather report
-For downloading a METAR report we need to know an airport four letters ICAO code, 
-International Civil Aviation Organization, or three letters IATA code,
-International Air Transport Association.  
-Let's download a current METAR weather report for Warsaw Okecie Airport. 
-Its ICAO, International Civil Aviation Organization, code is EPWA. 
-A report can be got from Aviation Weather Center <https://www.aviationweather.gov/metar>
+
+For downloading a METAR report we need to know an airport four letters
+ICAO code, International Civil Aviation Organization, or three letters
+IATA code, International Air Transport Association.\
+Let's download a current METAR weather report for Warsaw Okecie Airport.
+Its ICAO, International Civil Aviation Organization, code is EPWA. A
+report can be got from Aviation Weather Center
+<https://www.aviationweather.gov/metar>
+
 ```{r get a METAR report with ICAO code}
 library(dplyr)
 library(pmetar)
 metar_get("EPWA")
 ```
-Now let's take a look at Newark Liberty International Airport, EWR IATA code. 
-This type of code you find on your airplane tickets.
+
+Now let's take a look at Newark Liberty International Airport, EWR IATA
+code. This type of code you find on your airplane tickets.
+
 ```{r get a METAR report with IATA code}
 metar_get("EWR")
 ```
-The above message is intended for professionals like pilots or air traffic controllers. 
-The first purpose of preparing the pmetar package was the need of extracting wind speed
-and air pressure values from METAR reports for some airports in Poland. 
-Later the package functionality was extended. We will go through
-the main functions with a historical METAR report 
-from John F. Kennedy International Airport.
+
+The above message is intended for professionals like pilots or air
+traffic controllers. The first purpose of preparing the pmetar package
+was the need of extracting wind speed and air pressure values from METAR
+reports for some airports in Poland. Later the package functionality was
+extended. We will go through the main functions with a historical METAR
+report from John F. Kennedy International Airport.
 
 ## Downloading historical METAR weather report
-The function metar_get_historical allows to download METAR weather reports for a defined period of time.
-The default online source of METAR reports, *from = "iastate"* is the Iowa Environmental Mesonet
-web page of Iowa State University ASOS-AWOS-METAR <http://mesonet.agron.iastate.edu/AWOS/>.    
+
+The function *metar_get_historical()* allows to download METAR weather
+reports for a defined period of time. The default online source of METAR
+reports, *from = "iastate"* is the Iowa Environmental Mesonet web page
+of Iowa State University ASOS-AWOS-METAR
+<http://mesonet.agron.iastate.edu/AWOS/>.
+
 ```{r label = "get historical METAR reports from JFK", eval = FALSE}
 dm <- metar_get_historical("JFK", start_date = "2020-06-27", end_date = "2020-06-29", from = "iastate")
 ```
@@ -68,208 +82,289 @@ dm <- c("202006270000 METAR KJFK 270000Z AUTO 19007KT 10SM CLR 23/18 A2990 RMK T
 head(dm)
 ```
 
+The second backup source, *from = "ogimet"* is Weather Information
+Service provided by Ogimet <http://www.ogimet.com/>. Please take into
+consideration that Ogimet usually blocks too frequent requests for data
+due to the server overload, the requested period is limited to 31 days
+and for the most of airports METAR reports are available from the
+beginning of the year 2005.
 
-The second backup source, *from = "ogimet"* is Weather Information Service provided
-by Ogimet <http://www.ogimet.com/>. Please take into consideration that Ogimet usually 
-blocks too frequent requests for data due to the server overload, 
-the requested period is limited to 31 days and for the most of airports
-METAR reports are available from the beginning of the year 2005.
 ```{r, label = "example for Ogimet", eval = FALSE}
 metar_get_historical("JFK", start_date = "2020-06-27", end_date = "2020-06-29", from = "ogimet")
 ```
-In the package version from 0.4.0 it is possible to check the syntax of downloaded METAR reports with the function metar_is_correct(). Also in several functions the additional parameter *check* was implemented. The default value is TRUE. If it is set to FALSE decoding of METAR reports should work as in the previouse package versions. 
+
+In the package version from 0.4.0 it is possible to check the syntax of
+downloaded METAR reports with the function *metar_is_correct()*. Also in
+several functions the additional parameter *check* was implemented. The
+default value is TRUE. If it is set to FALSE decoding of METAR reports
+should work as in the previous package versions.
+
 ```{r checking the syntax of reports}
 metar_is_correct(dm[1:5])
 ```
+
 Let's one report with incorrect one and check how it works.
+
 ```{r adding one incorrect report}
 dc <- c(dm[1:5],
         "202006261625 SPEC KJFK 261625Z AUTO 28009KT 10SM CLR 30/12 A2995 RMK T03000120")
 metar_is_correct(dc)
 ```
+
 It is possible to select incorrect reports from input.
+
 ```{r}
 dc[!metar_is_correct(dc)]
 ```
 
-The function has the parameter verbose which helps to identify incorrect reports. The index and the incorrect METAR are displayed
+The function has the parameter verbose which helps to identify incorrect
+reports. The index and the incorrect METAR are displayed
+
 ```{r checking the syntax of reports with verbose}
 metar_is_correct(dc, verbose = TRUE)
 ```
-The check of syntax was implemented in the following functions, however it must be enabled 
-by setting check = TRUE. Only in the function metar_decode() it is set to TRUE by default.
 
-- metar_decode()
-- metar_dew_point()
-- metar_dir()
-- metar_gust()
-- metar_pressure()
-- metar_speed()
-- metar_temp()
+The check of syntax was implemented in the following functions, however
+it must be enabled by setting *check = TRUE*. Only in the function
+*metar_decode()* it is set to TRUE by default.
 
-We will parse the last report from the above *dm*. In historical reports dates
-and hours are placed at the beginning of texts. Normally it's extracted and parsed,
-but for now let's remove it
+-   metar_decode()
+-   metar_dew_point()
+-   metar_dir()
+-   metar_gust()
+-   metar_pressure()
+-   metar_speed()
+-   metar_temp()
+
+We will parse the last report from the above *dm*. In historical reports
+dates and hours are placed at the beginning of texts. Normally it's
+extracted and parsed, but for now let's remove it
+
 ```{r remove dates at the begining of reports}
 (dm[length(dm)])
 my_report <- substr(dm[length(dm)], 14, nchar(dm[length(dm)]))
 my_report
 ```
-It has to be noted that the report part after the RMK, remarks, is not analyzed, 
-except the temperature information, which is provide more precisely in remarks.
+
+It has to be noted that the report part after the RMK, remarks, is not
+analyzed, except the temperature information, which is provide more
+precisely in remarks.
 
 ## Decoding main informatin from a single METAR weather report
 
-The first element **METAR** indicates the text consist of a METAR weather report. 
-If a report was issued under special circumstances, 
-a text SPECI replaces METAR.
+The first element **METAR** indicates the text consist of a METAR
+weather report. If a report was issued under special circumstances, a
+text SPECI replaces METAR.
 
-### Airport 
-The second four letters element, **KJFK** identifies an airport from which a METAR issued. We can extract it 
+### Airport
+
+The second four letters element, **KJFK** identifies an airport from
+which a METAR issued. We can extract it
+
 ```{r find airport}
 metar_airport(my_report)
 ```
-and find the **KJFK** geographical coordinates, elevation, airport IATA code, airport name and source of information.
+
+and find the **KJFK** geographical coordinates, elevation, airport IATA
+code, airport name and source of information.
+
 ```{r find location}
 metar_location(metar_airport(my_report))
 ```
 
 ### Day and time
-The third element **282355Z** includes a day of a month, a time and a time zone.
+
+The third element **282355Z** includes a day of a month, a time and a
+time zone.
+
 ```{r find day time and zone}
 metar_day(my_report)
 metar_hour(my_report)
 metar_time_zone(my_report)
 ```
-The fourth element, in our case **AUTO** informs that a report was generated automatically. 
-If a report was manually corrected it is **COR**. This element is not taken into
-consideration by the package pmetar.
+
+The fourth element, in our case **AUTO** informs that a report was
+generated automatically. If a report was manually corrected it is
+**COR**. This element is not taken into consideration by the package
+pmetar.
 
 ### Wind speed and wind direction
-Next, there is the text **07007KT** where three first digits informs about a wind direction
-in degrees. Two next digits are a wind speed and the letters the end define units, here KT, 
-hence a wind speed is in knots.
+
+Next, there is the text **07007KT** where three first digits informs
+about a wind direction in degrees. Two next digits are a wind speed and
+the letters the end define units, here KT, hence a wind speed is in
+knots.
+
 ```{r find dir and speed}
 metar_dir(my_report)
 metar_speed(my_report, metric = TRUE)
 metar_speed(my_report, metric = FALSE)
 ```
-The function metar_speed reports a wind speed in m/s with the default value of
-the parameter *metric = TRUE*, or in knots when *metric = FALSE*.  
-When a wind direction varies, a METAR report has additional component, like **140V200**,
-which informs that a wind direction fluctuates from 140 to 200 degrees.
+
+The function *metar_speed()* reports a wind speed in m/s with the
+default value of the parameter *metric = TRUE*, or in knots when *metric
+= FALSE*.\
+When a wind direction varies, a METAR report has additional component,
+like **140V200**, which informs that a wind direction fluctuates from
+140 to 200 degrees.
+
 ```{r variable direction}
 variable_direction_METAR <- "EPWA 281830Z 18009KT 140V200 9999 SCT037 03/M01 Q1008 NOSIG"
 metar_dir(variable_direction_METAR)
 ```
-In this case an output is character what can be useless for statistical calculations.
-If only main direction in the numeric format is needed, 
-it is possible to set the parameter *numeric_only = TRUE*.
+
+In this case an output is character what can be useless for statistical
+calculations. If only main direction in the numeric format is needed, it
+is possible to set the parameter *numeric_only = TRUE*.
+
 ```{r numeric only variable}
 metar_dir(variable_direction_METAR, numeric_only = TRUE)
 ```
 
 ### Visibility
-The part **10SM** is the visibility. In this case it's 10 statue miles. 
-With  the default value of the paremeter *metric= TRUE* and *numeric_only = FALSE* we get output in meters.
-For *metric = FALSE* in statute miles. 
+
+The part **10SM** is the visibility. In this case it's 10 statue miles.
+With the default value of the parameter *metric= TRUE* and *numeric_only
+= FALSE* we get output in meters. For *metric = FALSE* in statute miles.
+
 ```{r find visibility}
 metar_visibility(my_report, metric = TRUE)
 metar_visibility(my_report, metric = FALSE)
 ```
-When the visibility is described as CAVOK we have two options to decode it 
+
+When the visibility is described as CAVOK we have two options to decode
+it
+
 ```{r find visibility CAVOK}
 metar_visibility("201711271930 METAR LEMD 271930Z 02002KT CAVOK 04/M03 Q1025 NOSIG= NOSIG=")
 metar_visibility("201711271930 METAR LEMD 271930Z 02002KT CAVOK 04/M03 Q1025 NOSIG= NOSIG=", numeric_only = TRUE)
 ```
-When the visibilty is described as for example P6SM we can decode in two ways
+
+When the visibility is described as for example P6SM we can decode in
+two ways
+
 ```{r find visibility PdSM}
 metar_visibility("200005120845 METAR METAR MMGL 120845Z 27005KT P6SM FEW230 18/04 A3012 RMK 00190 062 903", metric = FALSE)
 metar_visibility("200005120845 METAR METAR MMGL 120845Z 27005KT P6SM FEW230 18/04 A3012 RMK 00190 062 903", metric = FALSE, numeric_only = TRUE)
 ```
 
-
 ### Weather conditions
-The function metar_wx_codes() extracts and parses the below weather conditions codes.  
-In the package version 0.4.0 the parameter *sep* with the default value ";" was introduce. 
-It allows to avoid problems with saving output in .csv files. Two values are allowed, 
-comma and semicolon. If you need to get the function output separated by commas just
-set *sep = ","*.
+
+The function *metar_wx_codes()* extracts and parses the below weather
+conditions codes.\
+In the package versions starting from 0.4.0 the parameter *sep* with the
+default value ";" was introduce. It allows to avoid problems with saving
+output in .csv files. Two values are allowed, comma and semicolon. If
+you need to get the function output separated by commas just set *sep =
+","*.
+
 ```{r weather condition codes}
 metarWXcodes
 ```
+
 In our METAR examples part **-RA** informs about weather conditions.
+
 ```{r find weather conditions}
 metar_wx_codes(my_report)
 ```
+
 This part of a METAR can be quite complex, like in the below example:
+
 ```{r}
 metar_wx_codes("202002022205 METAR KEWR 022205Z AUTO 24008KT 6SM -RA -SN BR SCT006 BKN014 OVC024 02/01 A2954 RMK T00200010 MADISHF")
 ```
 
 ### Cloud coverage
+
 Next part, **SCT028 SCT035 BKN079**, informs about a cloud coverage
+
 ```{r cloud coverage}
 metar_cloud_coverage(my_report)
 ```
 
 ### Temperature and dew point
-The temperature and the dew point can be extracted from two elements of a METAR report,
-before the RMK remarks marker *23/20* which can be found in the most reports. 
-Or from the part after the RMK remarks marker *T02300200*, more precise but not
-always available.  
-The temperature is coded in Celsius degrees, here **23**/20, or more detailed in T0**230**0200.
+
+The temperature and the dew point can be extracted from two elements of
+a METAR report, before the RMK remarks marker *23/20* which can be found
+in the most reports. Or from the part after the RMK remarks marker
+*T02300200*, more precise but not always available.\
+The temperature is coded in Celsius degrees, here **23**/20, or more
+detailed in T0**230**0200.
+
 ```{r find tempreature}
 metar_temp(my_report)
 ```
-If there is a letter M in the front of two digits, **M**23/00, or there is a digit one after T,
-T**1**230, the temperature is below zero Celsius degrees.  
-The dew point can be decoded from the last two digits 23/**20**, or more detailed from T02300**200**. 
-Dew points below zero Celsius degrees are decoded in the same method as above. For example 04/**M**03
-or T0039**1**033 mean that the dew point temperature is -3 Celsius degrees or more
-precisely -3.3 Celsius degrees.
+
+If there is a letter M in the front of two digits, **M**23/00, or there
+is a digit one after T, T**1**230, the temperature is below zero Celsius
+degrees.\
+The dew point can be decoded from the last two digits 23/**20**, or more
+detailed from T02300**200**. Dew points below zero Celsius degrees are
+decoded in the same method as above. For example 04/**M**03 or
+T0039**1**033 mean that the dew point temperature is -3 Celsius degrees
+or more precisely -3.3 Celsius degrees.
+
 ```{r find dew point}
 metar_dew_point(my_report)
 ```
-Here there is a report with the more precise temperature information in the RMK remarks part.
+
+Here there is a report with the more precise temperature information in
+the RMK remarks part.
+
 ```{r find temperature after RMK}
 metar_temp("202001010851 METAR KEWR 010851Z 27010KT 10SM FEW030 BKN070 BKN100 BKN210 04/M03 A2969 RMK SLP054 T00391033 52012")
 metar_dew_point("202001010851 METAR KEWR 010851Z 27010KT 10SM FEW030 BKN070 BKN100 BKN210 04/M03 A2969 RMK SLP054 T00391033 52012")
 ```
 
 ### Pressure
-In our example a pressure value is coded in the  **A2972** as inHg (inch of mercury).
-With the default parameter *altimeter = FALSE*, the function metar_pressure returns 
-a pressure in hPa.
+
+In our example a pressure value is coded in the **A2972** as inHg (inch
+of mercury). With the default parameter *altimeter = FALSE*, the
+function *metar_pressure()* returns a pressure in hPa.
+
 ```{r find pressure}
 metar_pressure(my_report)
 ```
-The pressure value can be also presented in a METAR report as **Q1008**, already in hPa.
+
+The pressure value can be also presented in a METAR report as **Q1008**,
+already in hPa.
+
 ```{r find pressure hPa}
 metar_pressure("EPWA 281830Z 18009KT 140V200 9999 SCT037 03/M01 Q1008 NOSIG")
 ```
-If a pressure is needed in inHg (inch of mercury), the parameter *altimeter*
-has to be set to TRUE.
+
+If a pressure is needed in inHg (inch of mercury), the parameter
+*altimeter* has to be set to TRUE.
+
 ```{r find pressure inHg}
 metar_pressure("EPWA 281830Z 18009KT 140V200 9999 SCT037 03/M01 Q1008 NOSIG", altimeter = TRUE)
 ```
 
 ### Wind shear
-Information about wind shear can be extracted with the use of the function metar_windshear().
+
+Information about wind shear can be extracted with the use of the
+function *metar_windshear()*.
+
 ```{r find wind shear}
 metar_windshear("CYWG 172000Z 30015G25KT 3/4SM R36/4000FT/D -SN BLSN BKN008 OVC040 M05/M08 A2992 REFZRA WS RWY36 RMK SF5NS3 SLP134")
 ```
 
 ### Runway visibility
-Information about runways visibility can be extracted with the use of the function metar_rwy_visibility(), in meters.  
-In the package version 0.4.0 the parameter *sep* with the default value ";" was introduce. 
-It allows to avoid problems with saving output in .csv files. Two values are allowed, 
-comma and semicolon. If you need to get the function output separated by commas just
-set *sep = ","*.
+
+Information about runways visibility can be extracted with the use of
+the function *metar_rwy_visibility()*, in meters.\
+In the package versions starting from 0.4.0 the parameter *sep* with the
+default value ";" was introduce. It allows to avoid problems with saving
+output in .csv files. Two values are allowed, comma and semicolon. If
+you need to get the function output separated by commas just set *sep =
+","*.
+
 ```{r find runway visibility in m}
 metar_rwy_visibility("CYWG 172000Z 30015G25KT 3/4SM R36/4000FT/D -SN BLSN BKN008 OVC040 M05/M08 A2992 REFZRA WS RWY36 RMK SF5NS3 SLP134")
 ```
+
 or in feet
+
 ```{r find runway visibility in ft}
 metar_rwy_visibility("CYWG 172000Z 30015G25KT 3/4SM R36/4000FT/D -SN BLSN BKN008 OVC040 M05/M08 A2992 REFZRA WS RWY36 RMK SF5NS3 SLP134",
                      metric = FALSE)
@@ -277,41 +372,60 @@ metar_rwy_visibility("CYWG 172000Z 30015G25KT 3/4SM R36/4000FT/D -SN BLSN BKN008
 
 ## Putting all together
 
-### Decoding METAR reports 
-Let's come back to our dm list with historical METAR reports downloaded at the top of this document.
-Please notice that in all rows there are dates and hours in the front of METAR reports. It will be parsed
-and placed in the column *METAR_Date* below.
+### Decoding METAR reports
+
+Let's come back to our dm list with historical METAR reports downloaded
+at the top of this document. Please notice that in all rows there are
+dates and hours in the front of METAR reports. It will be parsed and
+placed in the column *METAR_Date* below.
+
 ```{r}
 head(dm)
 ```
-Now we can decode all elements and place them in the tibble. It is possible to choose between Metric (the default metric = TRUE) or Imperial (metric = FALSE) systems.
-Pressure values can be decoded in hPa (the default altimeter = FALSE) or in mmHg (altimeter = TRUE).  
-In the package version 0.4.0 the parameter *sep* with the default value ";" was introduce. 
-It allows to avoid problems with saving output in .csv files. Two values are allowed, 
-comma and semicolon. If you need to get the function output separated by commas just
-set *sep = ","*.
-Also the parameter check with the default values TRUE was added. It allows to handle
-errors when the function is not able to decode METAR reports.
+
+Now we can decode all elements and place them in the tibble. It is
+possible to choose between Metric (the default *metric =* TRUE) or
+Imperial (*metric =* FALSE) systems. Pressure values can be decoded in
+hPa (the default *altimeter =* FALSE) or in mmHg (*altimeter =* TRUE).\
+In the package versions starting from 0.4.0 the parameter *sep* with the
+default value ";" was introduce. It allows to avoid problems with saving
+output in .csv files. Two values are allowed, comma and semicolon. If
+you need to get the function output separated by commas just set *sep =
+","*. Also the parameter check with the default values TRUE was added.
+It allows to handle errors when the function is not able to decode METAR
+reports.
+
 ```{r decode metars}
 decoded_metars <- metar_decode(dm)
 ```
+
 The following columns were created:
+
 ```{r columns names}
 names(decoded_metars)
 ```
+
 First rows of the tibble with decoded METAR reports:
+
 ```{r}
 print.data.frame(head(decoded_metars))
 ```
-Let's take a look how the function handles the input data with one erroneous report.
+
+Let's take a look how the function handles the input data with one
+erroneous report.
+
 ```{r handling incorrect reports}
 metar_decode(dc)
 ```
-The parameter check can set to FALSE and some values from incorrect reports can decoded. However the function can fail.
+
+The parameter check can set to FALSE and some values from incorrect
+reports can decoded. However the function can fail.
 
 ### Decoding one METAR report with the function *metar_print()*
-The function *metar_print()* it is possible to decode one report and display main parameters
+
+The function *metar_print()* it is possible to decode one report and
+display main parameters
+
 ```{r example of metar_print}
 metar_print(dm[1])
 ```
-
