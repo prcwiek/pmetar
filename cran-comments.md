@@ -1,10 +1,11 @@
 ## Test environments, status OK for:
+* R CMD check --as-cran
 * local Xubuntu 22.04 LTS, R 4.2.1
 * win-builder (development and release)
-* rhub macOS 10.13.6 High Sierra, R-release, brew
-* rhub macOS 10.13.6 High Sierra, R-release, brew
+* rhub macOS 10.13.6 High Sierra, R-release, CRAN's setup
 * rhub Debian Linux, R-release, GCC 
 * rhub Fedora Linux, R-devel, GCC
+* rhub Ubuntu Linux 20.04.1 LTS, R-release, GCC
 
 ## R CMD check results
 * 1 NOTE for the win-builder: Found the following (possibly) invalid URLs https://ourairports.com However the web page is online.
