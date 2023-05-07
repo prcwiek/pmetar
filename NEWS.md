@@ -1,5 +1,5 @@
-pmetar development version 0.4.0.3
-==================================
+pmetar development version 0.4.1
+================================
 
 ### BUG FIXES
 
@@ -10,8 +10,8 @@ pmetar development version 0.4.0.3
 
 ### NEW FEATURES AND CHANGES
 
-* Changed the parameter name numeric_only in metar_visibility
-* Added numeric_only in metar_decode for metar_visibility
+* Changed the parameter name numeric_only in metar_visibility()
+* Added numeric_only in metar_decode for metar_visibility()
 * Update of vignettes
 
 pmetar version 0.4.0 
