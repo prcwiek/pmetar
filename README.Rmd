@@ -30,7 +30,7 @@ The main functions scrap data from the below web pages:
 
 1. For current reports, the function *metar_get*:
 
-* Aviation Weather Center https://aviationweather.gov/data/metar</li><br>
+* Aviation Weather Center https://aviationweather.gov/data/metar/</li><br>
 
 2. For historical reports, the function *metar_get_historical*:
 
