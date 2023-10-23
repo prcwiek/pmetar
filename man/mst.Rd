@@ -5,7 +5,7 @@
 \alias{mst}
 \title{Secondary airport list}
 \format{
-A character vector with the length of 9814 items
+A character vector with the length of 10113 items
 }
 \description{
 A character vector containing the list of airports.
@@ -15,7 +15,7 @@ From \url{https://www.aviationweather.gov/}
 A data set is in the public domain according to \url{https://www.weather.gov/disclaimer}
 }
 \references{
-\url{https://www.aviationweather.gov/docs/metar/stations.txt},
+\url{https://weather.ral.ucar.edu/surface/stations.txt},
 }
 \author{
 Greg Thompson from National Weather Service NCAR/RAP, NOAA National Weather Service

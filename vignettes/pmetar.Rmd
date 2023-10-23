@@ -35,7 +35,7 @@ IATA code, International Air Transport Association.\
 Let's download a current METAR weather report for Warsaw Okecie Airport.
 Its ICAO, International Civil Aviation Organization, code is EPWA. A
 report can be got from Aviation Weather Center
-<https://www.aviationweather.gov/metar>
+<https://aviationweather.gov/data/metar/>
 
 ```{r get a METAR report with ICAO code}
 library(dplyr)

@@ -23,7 +23,7 @@ The main functions scrap data from the below web pages:
 
 1.  For current reports, the function *metar_get*:
 
-- Aviation Weather Center <https://www.aviationweather.gov/metar>
+- Aviation Weather Center <https://aviationweather.gov/data/metar>
   </li>
   <br>
 
@@ -48,7 +48,7 @@ taken from two sources:
 2.  If information can’t be found, the second source is searched, the
     ADDS Station Table prepared by Greg Thompson NCAR/RAP. The file is
     available on the web page of Aviation Weather Center
-    <https://www.aviationweather.gov/docs/metar/stations.txt> from NOAA
+    <https://weather.ral.ucar.edu/surface/stations.txt> from NOAA
     National Weather Service <https://www.weather.gov/>
 
 The both above data sources are in the public domain.
@@ -81,4 +81,4 @@ library('pmetar')
 - David Megginson, Author of data set with airports list
   <https://ourairports.com/data/>
 - Greg Thompson, Author of data set with airports list
-  <https://www.aviationweather.gov/docs/metar/stations.txt>
+  <https://weather.ral.ucar.edu/surface/stations.txt>

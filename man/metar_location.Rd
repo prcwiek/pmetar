@@ -30,7 +30,7 @@ airports available at
 \url{https://ourairports.com/data/}
 created by David Megginson.
 If an airport cannot be found there, the second list of airports is searched, from
-\url{https://www.aviationweather.gov/docs/metar/stations.txt}
+\url{https://weather.ral.ucar.edu/surface/stations.txt}
 prepared by Greg Thompson from \cr
 National Weather Service NCAR/RAP.
 }

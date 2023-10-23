@@ -30,7 +30,7 @@ The main functions scrap data from the below web pages:
 
 1. For current reports, the function *metar_get*:
 
-* Aviation Weather Center https://www.aviationweather.gov/metar</li><br>
+* Aviation Weather Center https://aviationweather.gov/data/metar</li><br>
 
 2. For historical reports, the function *metar_get_historical*:
 
@@ -44,7 +44,7 @@ Please take into consideration that the http://www.ogimet.com/ can block too fre
 Information about the locations of the METAR stations / ariports were taken from two sources:
 
 1. The first choice is the file from https://ourairports.com/data/ created by David Megginson.
-2. If information can't be found, the second source is searched, the ADDS Station Table prepared by Greg Thompson NCAR/RAP. The file is available on the web page of Aviation Weather Center https://www.aviationweather.gov/docs/metar/stations.txt 
+2. If information can't be found, the second source is searched, the ADDS Station Table prepared by Greg Thompson NCAR/RAP. The file is available on the web page of Aviation Weather Center https://weather.ral.ucar.edu/surface/stations.txt 
 from NOAA National Weather Service https://www.weather.gov/
 
 The both above data sources are in the public domain.
@@ -75,5 +75,5 @@ library('pmetar')
 ## Contributors
 
 * David Megginson, Author of data set with airports list https://ourairports.com/data/
-* Greg Thompson, Author of data set with airports list https://www.aviationweather.gov/docs/metar/stations.txt
+* Greg Thompson, Author of data set with airports list https://weather.ral.ucar.edu/surface/stations.txt
 

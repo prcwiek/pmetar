@@ -14,7 +14,7 @@ a character vector with a current METAR weather report.
 }
 \description{
 A current METAR weather report is downloaded from the web page of NOAA National Weather Service
-https://aviationweather.gov/metar/ based on an airport four letters ICAO code, International Civil
+https://aviationweather.gov/data/metar/ based on an airport four letters ICAO code, International Civil
 Aviation Organization, or three letters IATA code, International Air Transport Association.
 }
 \examples{

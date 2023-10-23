@@ -1,7 +1,7 @@
 #' Get a current METAR report for an airport.
 #'
 #' A current METAR weather report is downloaded from the web page of NOAA National Weather Service
-#' https://aviationweather.gov/metar/ based on an airport four letters ICAO code, International Civil
+#' https://aviationweather.gov/data/metar/ based on an airport four letters ICAO code, International Civil
 #' Aviation Organization, or three letters IATA code, International Air Transport Association.
 #'
 #' @param airport character; ICAO or an IATA airport code.
@@ -43,11 +43,12 @@ metar_get <- function(airport = "EPWA"){
   # find IACO codes
   fT <- stringr::str_detect(airport, pattern = "^[A-Z]{4}$")
   # get METAR report for each element
-  message("Getting information from Aviation Weather Center www.aviationweather.gov/metar")
-  link <- paste0("https://aviationweather.gov/metar/data?ids=",
+  message("Getting information from Aviation Weather Center aviationweather.gov/data/metar/")
+
+  link <- paste0("https://aviationweather.gov/api/data/metar?ids=",
                  airport,
                  "&format=raw&date=0&hours=0")
-
+  
   # Function for handling problems with the server
   answer_POST <- function(p) {
     tryCatch(
