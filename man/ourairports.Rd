@@ -5,11 +5,10 @@
 \alias{ourairports}
 \title{Main list of airports}
 \format{
-A data frame with 29010 rows and 12 variables
+A data frame with 28935 rows and 12 variables
 }
 \description{
 #' A dataset containing the list of airports
-weather conditions codes. The variables are as follows:
 }
 \details{
 From \url{https://ourairports.com}
