@@ -1,8 +1,9 @@
-#' pmetar.
-#'
-#' @name pmetar
-#' @docType package
 #' @description  Processing METAR Weather Reports
+#' @keywords internal
+"_PACKAGE"
+
+## usethis namespace: start
+## usethis namespace: end
 NULL
 
 #' METAR WX weather conditions codes
@@ -26,7 +27,6 @@ NULL
 #' Main list of airports
 #'
 #'#' A dataset containing the list of airports
-#' weather conditions codes. The variables are as follows:
 #'
 #' From <https://ourairports.com>
 #' A data set is in the public domain according to <https://ourairports.com/data/>
@@ -51,7 +51,7 @@ NULL
 #' @name ourairports
 #' @author David Megginson
 #' @references [https://ourairports.com/data/](https://ourairports.com/data/)
-#' @format A data frame with 29010 rows and 12 variables
+#' @format A data frame with 28935 rows and 12 variables
 NULL
 
 #' Secondary airport list
@@ -65,6 +65,6 @@ NULL
 #' @keywords datasets
 #' @name mst
 #' @author Greg Thompson from National Weather Service NCAR/RAP, NOAA National Weather Service
-#' @references [https://www.aviationweather.gov/docs/metar/stations.txt](https://www.aviationweather.gov/docs/metar/stations.txt),
-#' @format A character vector with the length of 9814 items
+#' @references [https://weather.ral.ucar.edu/surface/stations.txt](https://weather.ral.ucar.edu/surface/stations.txt),
+#' @format A character vector with the length of 10113 items
 NULL
