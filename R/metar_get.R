@@ -78,10 +78,12 @@ metar_get <- function(airport = "EPWA"){
     return(invisible(NULL))
   }
 
-  metar <- stringr::str_extract(httr::content(myfile, as = "text", encoding = "UTF-8"), pattern = "<code>[:print:]+</code>")
-  metar <- stringr::str_replace(metar, "<code>", "")
-  metar <- stringr::str_replace(metar, "</code>", "")
+  metar <- httr::content(myfile, as = "text", encoding = "UTF-8")
+  metar <- stringr::str_replace(metar, "\n", "")
   metar[is.na(metar)] <- "No METAR found!"
+  if (metar == "") {
+    metar <- "No METAR found!"
+  }
   message("Don't use for flight planning or navigation!")
   metar
 }
