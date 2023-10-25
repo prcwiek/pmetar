@@ -1,4 +1,4 @@
-pmetar development version 0.4.1.2
+pmetar version 0.5.0
 ================================
 
 ### BUG FIXES
@@ -6,7 +6,7 @@ pmetar development version 0.4.1.2
 * PKGNAME-package \alias fixed
 * Change to the new Aviation Weather Center API in metar_get()
 * Change of links to Aviation Weather Center
-* Change a link to the file stations.txt 
+* Change of links to the file stations.txt 
 * Update of a data set containing the list of airports
 
 pmetar version 0.4.1
