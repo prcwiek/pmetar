@@ -1,4 +1,4 @@
-pmetar development version 0.5.1
+pmetar development version 0.5.01
 ================================
 
 ### BUG FIXES
