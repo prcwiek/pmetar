@@ -86,7 +86,9 @@ metar_decode <- function(x, metric = TRUE, altimeter = FALSE,
         mday <- as.numeric(stringr::str_sub(metar_date[icorrect], 7, 8))
         mhour <- as.numeric(stringr::str_sub(metar_date[icorrect], 9, 10))
         mminute <- as.numeric(stringr::str_sub(metar_date[icorrect], 11, 12))
-        metar_date[icorrect] <- as.character(lubridate::make_datetime(myear, mmonth, mday, mhour, mminute, tz = "UTC"))
+        metar_date[icorrect] <- as.character(format(
+          lubridate::make_datetime(myear, mmonth, mday, mhour, mminute, tz = "UTC"),
+          format = "%Y-%m-%d %H:%M:%S"))
         metar_date[!icorrect] <- NA
       } else {
         metar_date <- NA
