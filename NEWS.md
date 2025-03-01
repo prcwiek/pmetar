@@ -1,10 +1,12 @@
-pmetar development version 0.5.01
+pmetar development version 0.5.1
 ================================
 
 ### BUG FIXES
 
 * Added time stamp at midnight when decoding METARs
 
+### UPDATES
+* Updated the list of airports
 
 pmetar version 0.5.0
 ================================
