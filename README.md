@@ -12,6 +12,7 @@ state and is being actively
 developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
 ![monthly](https://cranlogs.r-pkg.org/badges/pmetar)
 ![total](https://cranlogs.r-pkg.org/badges/grand-total/pmetar)
+[![R-CMD-check](https://github.com/prcwiek/pmetar/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/prcwiek/pmetar/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
 Package allows to download current and historical METAR weather reports
