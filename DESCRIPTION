@@ -16,7 +16,7 @@ Description: Allows to download current and historical METAR weather reports
   <https://aviationweather.gov/data/metar/> and historical reports from
   Iowa Environmental Mesonet web page of Iowa State University
   ASOS-AWOS-METAR <http://mesonet.agron.iastate.edu/AWOS/>.
-License: GPL (>= 3)
+License: GPL (>= 3) + file LICENSE
 URL: https://github.com/prcwiek/pmetar
 BugReports: https://github.com/prcwiek/pmetar/issues
 Depends:
