@@ -59,7 +59,7 @@ NULL
 #' A character vector containing the list of airports.
 #'
 #' From <https://www.aviationweather.gov/>
-#' A data set is in the public domain according to <https://www.weather.gov/disclaimer>
+#' A data set is in the public domain according to <https://www.weather.gov/disclaimer/>
 #'
 #' @docType data
 #' @keywords datasets

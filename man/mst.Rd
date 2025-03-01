@@ -12,7 +12,7 @@ A character vector containing the list of airports.
 }
 \details{
 From \url{https://www.aviationweather.gov/}
-A data set is in the public domain according to \url{https://www.weather.gov/disclaimer}
+A data set is in the public domain according to \url{https://www.weather.gov/disclaimer/}
 }
 \references{
 \url{https://weather.ral.ucar.edu/surface/stations.txt},
