@@ -2,6 +2,7 @@
 # pmetar
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
+
 <!-- badges: start -->
 
 [![CRAN](https://www.r-pkg.org/badges/version/pmetar)](https://cran.r-project.org/package=pmetar)
@@ -26,6 +27,7 @@ The main functions scrap data from the below web pages:
 
 - Aviation Weather Center <https://aviationweather.gov/data/metar/>
   </li>
+
   <br>
 
 2.  For historical reports, the function *metar_get_historical*:
@@ -66,11 +68,11 @@ CRAN version
 install.packages("pmetar")
 ```
 
-Get the development version 0.5.1 from github:
+Get the development version from github:
 
 ``` r
 # install.packages("devtools")
-devtools::install_github("prcwiek/pmetar")
+devtools::install_github("prcwiek/pmetar", ref = "develop")
 ```
 
 ``` r
