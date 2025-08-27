@@ -92,6 +92,14 @@ metar_location <- function(x = "EPWA") {
   if(is.data.frame(x)){
     stop("pmetar package error: Invalid input format! Argument is not an atomic vector.", call. = FALSE)
   }
+  # fuse for unknown single ICAO code as input
+  one_record <- FALSE
+  if(length(x) == 1) {
+#    x <- stringr::str_replace(x, pattern = "[:digit:]+", replacement = "NA")
+    x <- stringr::str_replace(x, pattern = "[:digit:]{4,}", replacement = "NA")
+    x <- c(x, x)
+    one_record <- TRUE
+  }
   # make a backup of import
   y <- x
   # all characters to upper cases
@@ -99,10 +107,16 @@ metar_location <- function(x = "EPWA") {
   # find IATA codes
   fT <- stringr::str_detect(x, pattern = "^[A-Z]{3}$")
   # convert IATA codes to ICAO codes
-  x[fT] <- ourairports$ident[match(x[fT], ourairports$iata_code)]
-  nmatched <- match(x, ourairports$ident)
-  x[which(is.na(x))] <- "LLLL"
-  if (sum(stringr::str_count(x, pattern = "^[A-Za-z]{4}$")) >= 1) {
+  x[fT] <- ourairports$ident[match(x[fT], ourairports$iata_code, nomatch = NA)]
+  nmatched <- match(x, ourairports$ident, nomatch = NA)
+  x[which(is.na(x))] <- "Not found!"
+  if (length(fT) == 1) {
+    if (!fT) {
+      nmatched <- NA
+      x <- "Not found!" 
+    }
+  }
+  if (sum(stringr::str_count(x, pattern = "^[0-9A-Za-z]{4}$")) >= 1) {
     outlocation <- dplyr::tibble(
       ICAO_Code = x,
       IATA_Code = ourairports$iata_code[nmatched],
@@ -110,8 +124,16 @@ metar_location <- function(x = "EPWA") {
       Longitude = round(ourairports$longitude_deg[nmatched], 5),
       Latitude = round(ourairports$latitude_deg[nmatched], 5),
       Elevation = round(ourairports$elevation_m[nmatched], 4),
-      Source = "http://ourairports.com/data/airports.csv"
-    )
+      Source = "http://ourairports.com/data/airports.csv")
+  } else {
+      outlocation <- dplyr::tibble(
+        ICAO_Code = "Not found!",
+        IATA_Code = "Not found!",
+        Airport_Name = NA,
+        Longitude = NA,
+        Latitude = NA,
+        Elevation = NA,
+        Source = "Not found in pmetar sources!")
   }
   # try to use the other source of airports locations
   # IATA code is available
@@ -122,9 +144,10 @@ metar_location <- function(x = "EPWA") {
     message("prepared by Greg Thompson National Weather Service NCAR/RAP")
     m_l <- c(1:length(x))
     m_l[1:length(x)] <- ""
-    nmissing <- which(is.na(outlocation$IATA_Code) & !is.na(outlocation$ICAO_Code))
+    nmissing <- which(!is.na(outlocation$ICAO_Code) & is.na(outlocation$IATA_Code))
     m_l <- sapply(x[nmissing], mystr_extract)
-    outlocation$IATA_Code[nmissing] <- "Not found!"
+    #outlocation$ICAO_Code[nmissing] <- "Not found!"
+    outlocation$IATA_Code[nmissing]<- "Not found!"
     outlocation$Airport_Name[nmissing] <- unlist(m_l[1, ])
     outlocation$Longitude[nmissing] <- round(unlist(m_l[3, ]), 2)
     outlocation$Latitude[nmissing] <- round(unlist(m_l[2, ]), 2)
@@ -132,8 +155,11 @@ metar_location <- function(x = "EPWA") {
     outlocation$Source[nmissing] <- "www.aviationweather.gov/docs/metar/stations.txt"
   }
   to_clean <- which(outlocation$Latitude == -999)
-  outlocation$ICAO_Code[to_clean] <- y[to_clean]
-  outlocation$IATA_Code[to_clean] <- y[to_clean]
+  # outlocation$ICAO_Code[to_clean] <- y[to_clean]
+  # outlocation$ICAO_Code[to_clean] <- y[to_clean]
+  outlocation$IATA_Code[to_clean] <- "Not found!"
+  outlocation$IATA_Code[to_clean] <- "Not found!"
+  outlocation$Airport_Name[to_clean] <- NA
   outlocation$Longitude[to_clean] <- NA
   outlocation$Latitude[to_clean] <- NA
   outlocation$Elevation[to_clean] <- NA
@@ -142,5 +168,8 @@ metar_location <- function(x = "EPWA") {
   outlocation$ICAO_Code[to_clean] <- "Not found!"
   to_clean <- stringr::str_detect(outlocation$IATA_Code, pattern = "^[A-Za-z]{4}$")
   outlocation$IATA_Code[to_clean] <- "Not found!"
+  if (one_record) {
+    outlocation <- outlocation[1,]
+  }
   outlocation
 }
