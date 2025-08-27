@@ -20,6 +20,7 @@
 metar_iata_icao <- function(code = "WAW") {
   message("Getting airport informaiton from the file downloaded from")
   message("http://ourairports.com/data/airports.csv")
+  message("created by David Megginson")
   # check if x is a data frame
   if(is.data.frame(code)){
     stop("pmetar package error: Invalid input format! Argument is not an atomic vector.", call. = FALSE)
@@ -29,10 +30,10 @@ metar_iata_icao <- function(code = "WAW") {
   # all characters to upper cases
   x <- stringr::str_to_upper(code)
   # convert ICAO to IATA
-  fT <- stringr::str_detect(x, pattern = "^[A-Z]{4}$")
+  fT <- stringr::str_detect(x, pattern = "^[0-9A-Z]{4}$")
   out[fT] <- ourairports$iata_code[match(x[fT], ourairports$ident)]
   # convert IATA to ICAO
-  fT <- stringr::str_detect(x, pattern = "^[A-Z]{3}$")
+  fT <- stringr::str_detect(x, pattern = "^[0-9A-Z]{3}$")
   out[fT] <- ourairports$ident[match(x[fT], ourairports$iata_code)]
   out[is.na(out)] <- "Incorrect ICAO or IATA airport code!"
   out[out == ""] <- "Not found!"

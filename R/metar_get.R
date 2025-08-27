@@ -41,7 +41,7 @@ metar_get <- function(airport = "EPWA"){
   # convert IATA codes to ICAO codes
   airport[fT] <- metar_iata_icao(airport[fT])
   # find IACO codes
-  fT <- stringr::str_detect(airport, pattern = "^[A-Z]{4}$")
+  fT <- stringr::str_detect(airport, pattern = "^[0-9A-Z]{4}$")
   # get METAR report for each element
   message("Getting information from Aviation Weather Center aviationweather.gov/data/metar/")
 
