@@ -95,7 +95,6 @@ metar_location <- function(x = "EPWA") {
   # fuse for unknown single ICAO code as input
   one_record <- FALSE
   if(length(x) == 1) {
-#    x <- stringr::str_replace(x, pattern = "[:digit:]+", replacement = "NA")
     x <- stringr::str_replace(x, pattern = "[:digit:]{4,}", replacement = "NA")
     x <- c(x, x)
     one_record <- TRUE
@@ -146,7 +145,6 @@ metar_location <- function(x = "EPWA") {
     m_l[1:length(x)] <- ""
     nmissing <- which(!is.na(outlocation$ICAO_Code) & is.na(outlocation$IATA_Code))
     m_l <- sapply(x[nmissing], mystr_extract)
-    #outlocation$ICAO_Code[nmissing] <- "Not found!"
     outlocation$IATA_Code[nmissing]<- "Not found!"
     outlocation$Airport_Name[nmissing] <- unlist(m_l[1, ])
     outlocation$Longitude[nmissing] <- round(unlist(m_l[3, ]), 2)
@@ -155,8 +153,6 @@ metar_location <- function(x = "EPWA") {
     outlocation$Source[nmissing] <- "www.aviationweather.gov/docs/metar/stations.txt"
   }
   to_clean <- which(outlocation$Latitude == -999)
-  # outlocation$ICAO_Code[to_clean] <- y[to_clean]
-  # outlocation$ICAO_Code[to_clean] <- y[to_clean]
   outlocation$IATA_Code[to_clean] <- "Not found!"
   outlocation$IATA_Code[to_clean] <- "Not found!"
   outlocation$Airport_Name[to_clean] <- NA
