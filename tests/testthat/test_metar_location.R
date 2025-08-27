@@ -7,8 +7,9 @@ x4 <- "WAW"
 x5 <- "jfk"
 x6 <- "kewr"
 x7 <- "NCRK"
+x8 <- "LLL"
 
-x <- c(x1, x2, x3, x4, x5, x6, x7)
+x <- c(x1, x2, x3, x4, x5, x6, x7, x8)
 
 dx <- data.frame(metar = x)
 
@@ -20,6 +21,7 @@ test_that("Check if output is a data frame", {
   expect_equal(is.data.frame(metar_location(x5)), TRUE)
   expect_equal(is.data.frame(metar_location(x6)), TRUE)
   expect_equal(is.data.frame(metar_location(x7)), TRUE)
+  expect_equal(is.data.frame(metar_location(x8)), TRUE)
   expect_equal(is.data.frame(metar_location(x)), TRUE)
   expect_equal(is.data.frame(metar_location(dx$metar)), TRUE)
 })
@@ -53,11 +55,14 @@ x7_output <- tibble::tibble(ICAO_Code = "NCRK", IATA_Code = "Not found!",
                     Airport_Name = "RAKAHANGA ATOLL",
                     Longitude = -161.1, Latitude = -10.02, Elevation = 7,
                     Source = "www.aviationweather.gov/docs/metar/stations.txt")
-
+x8_output <- tibble::tibble(ICAO_Code = "Not found!", IATA_Code = "Not found!",
+                            Airport_Name = NA,
+                            Longitude = NA, Latitude = NA, Elevation = NA,
+                            Source = "Not found in pmetar sources!")
 
 x_output <- rbind(x1_output, x2_output, x3_output,
                   x4_output, x5_output, x6_output,
-                  x7_output)
+                  x7_output, x8_output)
 
 test_that("Check correct output", {
   expect_equal(metar_location(x1), x1_output)
@@ -67,6 +72,7 @@ test_that("Check correct output", {
   expect_equal(metar_location(x5), x5_output)
   expect_equal(metar_location(x6), x6_output)
   expect_equal(metar_location(x7), x7_output)
+  expect_equal(metar_location(x8), x8_output)
   expect_equal(metar_location(x), x_output)
   expect_equal(metar_location(dx$metar), x_output)
 })
