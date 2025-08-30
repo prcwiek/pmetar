@@ -1,3 +1,14 @@
+pmetar version 0.5.1.02
+================================
+
+### BUG FIXES
+
+* Added processing IATA and ICAO codes with digits
+* Correction of output in *metar_location* and *metar_get* for invalid ICAO and IATA codes
+
+### UPDATES
+* Updated the list of airports
+
 pmetar version 0.5.1
 ================================
 
