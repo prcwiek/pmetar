@@ -16,6 +16,8 @@
 #' metar_visibility("201711271930 METAR LEMD 271930Z 02002KT CAVOK 04/M03 Q1025")
 #' metar_visibility("KBLV 011657Z AUTO 25015G30KT 210V290 3/8SM R32L/1000FT FG
 #' BKN005 01/M01 A2984")
+#' metar_visibility("METAR EPWA 211025Z 31015G27KT 280V350 4000 1400SW R24/P2000 +SHRA",
+#' numeric_only = FALSE)
 #'
 metar_visibility <- function(x, metric = TRUE, numeric_only = FALSE) {
   # check if x is a data frame
@@ -91,6 +93,22 @@ metar_visibility <- function(x, metric = TRUE, numeric_only = FALSE) {
     out[fT] <- paste0("greater than ",
                       round(as.numeric(stringr::str_sub(stringr::str_extract(x[fT], pattern = "\\sP\\d{4}\\s"), 3, 6)) * cfm, 2),
                       p_text)
+    # Directional variation in visibility cases with three letters directions i.e. SWW
+    fT <- stringr::str_detect(x, pattern = "\\s\\d{4}\\s\\d{4}\\w{3}\\s")
+    out[fT] <- paste0(round(as.numeric(stringr::str_sub(stringr::str_extract(x[fT], pattern = "\\s\\d{4}\\s"), 2, 5)) * cfm, 2),
+                      p_text, ", ",
+                      round(as.numeric(stringr::str_sub(stringr::str_extract(x[fT], pattern = "\\s\\d{4}\\s\\d{4}\\w{2}"), -6, -3)) * cfm, 2),
+                      p_text, " from ",
+                      stringr::str_sub(stringr::str_extract(x[fT], pattern = "\\s\\d{4}\\s\\d{4}\\w{3}\\s"), -4, -2)
+    )
+    # Directional variation in visibility cases with two letters directions i.e. NW
+    fT <- stringr::str_detect(x, pattern = "\\s\\d{4}\\s\\d{4}\\w{2}\\s")
+    out[fT] <- paste0(round(as.numeric(stringr::str_sub(stringr::str_extract(x[fT], pattern = "\\s\\d{4}\\s"), 2, 5)) * cfm, 2),
+                      p_text, ", ",
+                      round(as.numeric(stringr::str_sub(stringr::str_extract(x[fT], pattern = "\\s\\d{4}\\s\\d{4}\\w{2}\\s"), -7, -4)) * cfm, 2),
+                      p_text, " from ",
+                      stringr::str_sub(stringr::str_extract(x[fT], pattern = "\\s\\d{4}\\s\\d{4}\\w{2}\\s"), -3, -2)
+                      )
   }
   out
 }
