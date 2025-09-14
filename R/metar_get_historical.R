@@ -124,8 +124,9 @@ metar_get_historical <- function(airport = "EPWA",
 
   # Function for handling problems with the server
   check_server_status <- function(p) {
+    req_link <- httr2::request(p)
     tryCatch(
-      httr::GET(p, config = httr::timeout(20)),
+      httr2::req_perform(req_link),
       error = function(e) conditionMessage(e),
       warning = function(w) conditionMessage(w)
     )
@@ -141,15 +142,9 @@ metar_get_historical <- function(airport = "EPWA",
   server_link <- paste0("https://", server_link)
   server_answer <- check_server_status(server_link)
 
-  # Check if a status is different than 200
-  if (httr::status_code(server_answer) != 200) {
-    message(server_answer)
-    return(invisible(NULL))
-  }
-
-  # Check status > 400
-  if(httr::http_error(server_answer)) {
-    httr::message_for_status(server_answer)
+  # Check if status > 200
+  if (server_answer$status_code > 200) {
+    message(paste0(server_answer$status_code, " ", httr2::resp_status_desc(server_answer)))
     return(invisible(NULL))
   }
 

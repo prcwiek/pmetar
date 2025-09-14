@@ -47,12 +47,12 @@ metar_get <- function(airport = "EPWA"){
 
   link <- paste0("https://aviationweather.gov/api/data/metar?ids=",
                  airport,
-                 "&format=raw&date=0&hours=0")
-  
-  # Function for handling problems with the server
+                 "&format=raw&hours=0")
+
   answer_POST <- function(p) {
+    req_link <- httr2::request(p)
     tryCatch(
-      httr::POST(url = p, config = httr::timeout(20)),
+      httr2::req_perform(req_link),
       error = function(e) conditionMessage(e),
       warning = function(w) conditionMessage(w)
     )
@@ -64,21 +64,21 @@ metar_get <- function(airport = "EPWA"){
     return(invisible(NULL))
   }
 
-  myfile <- answer_POST(link)
+  resp_link <- answer_POST(link)
 
-  # Check if a status is different than 200
-  if (httr::status_code(myfile) != 200) {
-      message(myfile)
+  # Case for the status '204 No Content'
+  if (resp_link$status_code == 204) {
+    message(paste0(resp_link$status_code, " ", httr2::resp_status_desc(resp_link)))
+    return("No METAR found!")
+  }
+  
+  # Check if status > 200
+  if(resp_link$status_code > 200) {
+    message(paste0(resp_link$status_code, " ", httr2::resp_status_desc(resp_link)))
     return(invisible(NULL))
   }
 
-  # Check status > 400
-  if(httr::http_error(myfile)) {
-    httr::message_for_status(myfile)
-    return(invisible(NULL))
-  }
-
-  metar <- httr::content(myfile, as = "text", encoding = "UTF-8")
+  metar <- httr2::resp_body_string(resp_link)
   metar <- stringr::str_replace(metar, "\n", "")
   metar[is.na(metar)] <- "No METAR found!"
   if (metar == "") {
