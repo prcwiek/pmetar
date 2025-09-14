@@ -1,7 +1,7 @@
 Type: Package
 Package: pmetar
 Title: Processing METAR Weather Reports
-Version: 0.5.1.02
+Version: 0.6.0
 Authors@R: c(
     person("Pawel", "Cwiek", , "prc.altodato@gmail.com", role = c("aut", "cre")),
     person("David", "Megginson", role = "ctb",
@@ -26,7 +26,7 @@ Depends:
 Imports:
   curl,
   dplyr,
-  httr,
+  httr2,
   lubridate,
   magrittr,
   RCurl,

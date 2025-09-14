@@ -1,4 +1,4 @@
-pmetar version 0.5.1.02
+pmetar version 0.6.0
 ================================
 
 ### BUG FIXES
@@ -8,6 +8,7 @@ pmetar version 0.5.1.02
 
 ### UPDATES
 * Updated the list of airports
+* Migration from httr to httr2 
 
 pmetar version 0.5.1
 ================================
