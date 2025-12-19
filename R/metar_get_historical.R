@@ -161,7 +161,7 @@ metar_get_historical <- function(airport = "EPWA",
   )
   
   header <- from != "ogimet"
-  ds <- utils::read.csv((textConnection(myfile)), header=header, stringsAsFactors = FALSE)
+  ds <- utils::read.csv((textConnection(myfile)), header=header, colClasses = "character", stringsAsFactors = FALSE)
 
   if(from == "ogimet"){
     ds[,6] <- stringr::str_c(ds$V2,ds$V3,ds$V4,ds$V5,ds$V6)
