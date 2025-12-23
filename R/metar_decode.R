@@ -59,7 +59,8 @@
 #' metar_decode("CYUL 281800Z 13008KT 30SM BKN240 01/M06 A3005", altimeter = TRUE)
 #' metar_decode("CYWG 172000Z 30015G25KT 3/4SM R36/4000FT/D -SN M05/M08 A2992")
 #' metar_decode("202103251800 METAR COR NFTL 251800Z 00000KT SCT017TCU BKN290 25/25 Q1014")
-#'
+#' metar_decode("202509251120 SPECI CYUL 251120Z 06007KT 6SM RA BKN015 OVC065 16/15 A2995 RMK SC5SC3 SLP145=")
+#' 
 metar_decode <- function(x, metric = TRUE, altimeter = FALSE,
                          numeric_only = FALSE, check = TRUE,
                          sep = ";"){
@@ -78,9 +79,9 @@ metar_decode <- function(x, metric = TRUE, altimeter = FALSE,
   
   tryCatch(
     expr = {
-      if(sum(stringr::str_detect(x[icorrect], pattern = "^[\\d]+ METAR")) > 0) {
+      if(sum(stringr::str_detect(x[icorrect], pattern = "^[\\d]+ (METAR|SPECI)")) > 0) {
         metar_date <- rep("", length(x))
-        metar_date[icorrect] <- stringr::str_extract(x[icorrect], pattern = "^[\\d]+ METAR")
+        metar_date[icorrect] <- stringr::str_extract(x[icorrect], pattern = "^[\\d]+ (METAR|SPECI)")
         myear <- as.numeric(stringr::str_sub(metar_date[icorrect], 1, 4))
         mmonth <- as.numeric(stringr::str_sub(metar_date[icorrect], 5, 6))
         mday <- as.numeric(stringr::str_sub(metar_date[icorrect], 7, 8))
