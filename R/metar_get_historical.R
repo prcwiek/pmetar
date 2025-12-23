@@ -91,14 +91,10 @@ metar_get_historical <- function(airport = "EPWA",
     eyear <- stringr::str_sub(end_date, 1, 4)
     emonth <- stringr::str_sub(end_date, 6, 7)
     eday <- stringr::str_sub(end_date, 9, 10)
-    link <- paste0("www.ogimet.com/display_metars2.php?lang=en&lugar=",
-                   airport,"&tipo=SA&ord=DIR&nil=NO&fmt=txt&ano=",
-                   syear, "&mes=",
-                   smonth, "&day=",
-                   sday, "&hora=00&anof=",
-                   eyear, "&mesf=",
-                   emonth, "&dayf=",
-                   eday, "&horaf=23&minf=59&enviar=Ver")
+    link <- paste0("www.ogimet.com/cgi-bin/getmetar?lang=eng&header=yes",
+                   "&begin=", syear, smonth, sday, "0000",
+                   "&end=", eyear, emonth, eday, "2359",
+                   "&icao=", airport)
     message("Getting information from Weather Information Service http://www.ogimet.com/")
     message("developed by Guillermo Ballester Valor")
   } else if(from == "iastate"){
@@ -164,29 +160,17 @@ metar_get_historical <- function(airport = "EPWA",
     }
   )
 
-  ds <- utils::read.csv((textConnection(myfile)), stringsAsFactors = FALSE)
+
 
   if(from == "ogimet"){
-    text_pattern <- paste("#  METAR/SPECI from", airport)
-    ids <- which(ds[,1] == text_pattern) + 2
-    ide <- which(ds[,1] == "</pre>") - 1
-    ds <- as.data.frame(ds[ids:ide,1], stringsAsFactors = FALSE)
-    colnames(ds) <- c("x")
-    pattern <- "^[\\d]+\\s(?:METAR|SPECI)"
-    ds$x <- stringr::str_trim(ds$x)
-    idd <- stringr::str_detect(ds$x, pattern = pattern)
-    i <- 1
-    out <- data.frame(metar = "empty", stringsAsFactors = FALSE)
-    metartext <- "empty"
-    while(i < length(idd)){
-      if(idd[i]){
-        out <- rbind(out, metartext)
-        metartext <- ds[i,1]
-      } else metartext <- paste(metartext, ds[i,1])
-      i <- i + 1
-    }
-    out <- out[3:nrow(out),]
+    ds <- utils::read.csv((textConnection(myfile)), stringsAsFactors = FALSE,
+                          colClasses = rep("character", 7))
+    out <- ds %>% 
+      dplyr::mutate(metar = paste0(ANO, MES, DIA, HORA, MINUTO, " ", PARTE)) %>% 
+      dplyr::select(metar)
+    out <- out[,1]
   } else {
+    ds <- utils::read.csv((textConnection(myfile)), stringsAsFactors = FALSE)
     ds[,2] <- stringr::str_replace_all(ds[,2], "[[:punct:]]", "")
     ds[,2] <- stringr::str_replace_all(ds[,2], " ", "")
     ds[,3] <- stringr::str_trim(ds[,3])
