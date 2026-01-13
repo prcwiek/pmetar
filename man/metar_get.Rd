@@ -16,11 +16,13 @@ a character vector with a current METAR weather report.
 A current METAR weather report is downloaded from the web page of NOAA National Weather Service
 https://aviationweather.gov/data/metar/ based on an airport four letters ICAO code, International Civil
 Aviation Organization, or three letters IATA code, International Air Transport Association.
+
+Also users can download the current METAR along with a 24-hour history of recent reports.
 }
 \examples{
 metar_get("EPWA")
 metar_get("CYUL")
 metar_get("MAD")
 metar_get("WAW")
-
+metar_get("EPWR", hours = 4)
 }

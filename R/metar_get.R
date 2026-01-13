@@ -5,8 +5,8 @@
 #' Aviation Organization, or three letters IATA code, International Air Transport Association.
 #'
 #' @param airport character; ICAO or an IATA airport code.
-#'
-#' @return a character vector with a current METAR weather report.
+#' @param hours numeric; hours back to get METAR reports, limited do 24.
+#' @return a character vector(s) with a current METAR weather report or recent reports.
 #'
 #' @export
 #'
@@ -15,8 +15,9 @@
 #' metar_get("CYUL")
 #' metar_get("MAD")
 #' metar_get("WAW")
+#' metar_get("EPWR", hours = 4)
 #'
-metar_get <- function(airport = "EPWA"){
+metar_get <- function(airport = "EPWA", hours = 0){
   # check if x is a data frame
   if(is.data.frame(airport)){
     stop("pmetar package error: Invalid input format! Argument is not an atomic vector.", call. = FALSE)
@@ -32,6 +33,26 @@ metar_get <- function(airport = "EPWA"){
     stop("pmetar package error: Airport code contains blank(s)!", call. = FALSE)
   }
 
+  #  check if hour is numeric
+  if(!is.numeric(hours)) {
+    stop("pmetar package error: Parameter hours is not numeric!", call. = FALSE)
+  }
+  
+  # check if hours is negative
+  if(hours < 0) {
+    stop("pmetar package error: Parameter hours is negative!", call. = FALSE)
+  }
+  
+  # check if hours is negative
+  if(hours > 24) {
+    stop("pmetar package error: Parameter hours is greater than 24!", call. = FALSE)
+  }
+  
+  # check if hours is integer
+  if(hours%%2 != 0) {
+    stop("pmetar package error: Parameter hours must be integer!", call. = FALSE)
+  }
+  
   out <- c(1:length(airport))
   out[1:length(airport)] <- NA
   # all characters to upper cases
@@ -47,7 +68,7 @@ metar_get <- function(airport = "EPWA"){
 
   link <- paste0("https://aviationweather.gov/api/data/metar?ids=",
                  airport,
-                 "&format=raw&hours=0")
+                 "&format=raw&hours=", hours)
 
   answer_POST <- function(p) {
     req_link <- httr2::request(p)
@@ -84,9 +105,15 @@ metar_get <- function(airport = "EPWA"){
   metar <- httr2::resp_body_string(resp_link)
   metar <- stringr::str_replace(metar, "\n", "")
   metar[is.na(metar)] <- "No METAR found!"
+  
   if (metar == "") {
     metar <- "No METAR found!"
   }
+  
+  if (hours > 0) {
+    metar <- stringr::str_split(metar, pattern = "\n")
+  }
+
   message("Don't use for flight planning or navigation!")
   metar
 }

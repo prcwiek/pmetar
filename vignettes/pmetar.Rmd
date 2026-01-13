@@ -50,12 +50,19 @@ code. This type of code you find on your airplane tickets.
 metar_get("EWR")
 ```
 
-The above message is intended for professionals like pilots or air
+## Download the current METAR plus reports from the last 24 hours.
+
+Users can download the current METAR along with a 24-hour history of recent reports.
+```{r get a current report and recent }
+
+```
+
+The METAR messages are intended for professionals like pilots or air
 traffic controllers. The first purpose of preparing the pmetar package
 was the need of extracting wind speed and air pressure values from METAR
-reports for some airports in Poland. Later the package functionality was
-extended. We will go through the main functions with a historical METAR
-report from John F. Kennedy International Airport.
+reports for airports. Later the package functionality was
+extended. The following demonstration covers its core features using
+historical METAR reports from John F. Kennedy International Airport (JFK).
 
 ## Downloading historical METAR weather report
 
@@ -85,7 +92,7 @@ head(dm)
 The second backup source, *from = "ogimet"* is Weather Information
 Service provided by Ogimet <http://www.ogimet.com/>. Please take into
 consideration that Ogimet usually blocks too frequent requests for data
-due to the server overload, the requested period is limited to 31 days
+due to the server overload, the requested period is limited to 365 days
 and for the most of airports METAR reports are available from the
 beginning of the year 2005.
 
