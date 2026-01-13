@@ -35,7 +35,7 @@ Mesonet web page of Iowa State University ASOS-AWOS-METAR\cr
 \url{https://mesonet.agron.iastate.edu/AWOS/}\cr
 The secondary source of METAR reports is Weather Information Service provided by Ogimet
 \url{https://www.ogimet.com/}. However for this source
-the requested period is limited to 31 days. METAR reports are available from
+the requested period is limited to 365 days. METAR reports are available from
 the year 2005.
 }
 \examples{

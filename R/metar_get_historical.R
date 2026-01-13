@@ -6,7 +6,7 @@
 #' [https://mesonet.agron.iastate.edu/AWOS/](https://mesonet.agron.iastate.edu/AWOS/)\cr
 #' The secondary source of METAR reports is Weather Information Service provided by Ogimet
 #' [https://www.ogimet.com/](https://www.ogimet.com/). However for this source
-#' the requested period is limited to 31 days. METAR reports are available from
+#' the requested period is limited to 365 days. METAR reports are available from
 #' the year 2005.
 #'
 #' @param airport character;  ICAO or IATA airport code.
@@ -73,8 +73,8 @@ metar_get_historical <- function(airport = "EPWA",
   }
 
   # check the maximum period of 31 days for Ogimet web page
-  if(from == "ogimet" & (as.Date(end_date) - as.Date(start_date) > 31)) {
-    stop("pmetar package error: Period longer than 31 days for the Ogimet source!", call. = FALSE)
+  if(from == "ogimet" & (as.Date(end_date) - as.Date(start_date) > 365)) {
+    stop("pmetar package error: Period longer than 365 days for the Ogimet source!", call. = FALSE)
   }
 
   # check if start_date is not earlier than January 2005 for Ogimet web page
