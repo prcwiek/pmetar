@@ -44,7 +44,7 @@ x4_output <- tibble::tibble(ICAO_Code = "EPWA", IATA_Code = "WAW",
                     Longitude = 20.9671, Latitude = 52.1657, Elevation = 110.3376,
                     Source = "http://ourairports.com/data/airports.csv")
 x5_output <- tibble::tibble(ICAO_Code = "KJFK", IATA_Code = "JFK",
-                    Airport_Name = "John F Kennedy International Airport",
+                    Airport_Name = "John F. Kennedy International Airport",
                     Longitude = -73.77932, Latitude = 40.63945, Elevation = 3.9624,
                     Source = "http://ourairports.com/data/airports.csv")
 x6_output <- tibble::tibble(ICAO_Code = "KEWR", IATA_Code = "EWR",
