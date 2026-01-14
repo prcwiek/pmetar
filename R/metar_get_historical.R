@@ -166,8 +166,8 @@ metar_get_historical <- function(airport = "EPWA",
     ds <- utils::read.csv((textConnection(myfile)), stringsAsFactors = FALSE,
                           colClasses = rep("character", 7))
     out <- ds %>% 
-      dplyr::mutate(metar = paste0(ANO, MES, DIA, HORA, MINUTO, " ", PARTE)) %>% 
-      dplyr::select(metar)
+      dplyr::mutate(metar_reports = paste0(ANO, MES, DIA, HORA, MINUTO, " ", PARTE)) %>% 
+      dplyr::select(metar_reports)
     out <- out[,1]
   } else {
     ds <- utils::read.csv((textConnection(myfile)), stringsAsFactors = FALSE)
