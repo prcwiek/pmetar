@@ -23,6 +23,6 @@ climatology), a mesonet, portmanteau of mesoscale network, is a network
 of (typically) automated weather and environmental monitoring stations
 designed to observe mesoscale meteorological phenomena."  
 
-This is a new version 0.5.1 release.
+This is a new version 0.7.0 release.
 
 

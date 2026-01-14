@@ -1,3 +1,20 @@
+pmetar version 0.7.0
+================================
+
+### BUG FIXES
+
+* Update of *metar_get_historical* to the new API of OGIMET
+
+### NEW FEATURES AND CHANGES
+
+* New option hours in *metar_get* allows to download recent METAR reports
+* Extended the requested period to 365 days for historical reports from OGIMET
+
+### UPDATES
+
+* Updated the list of airports
+
+
 pmetar version 0.6.0
 ================================
 
