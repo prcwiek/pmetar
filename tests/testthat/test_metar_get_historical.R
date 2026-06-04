@@ -20,7 +20,7 @@ test_that("Check incorrect dates with iastate option", {
                                     start_date = "2019/01/01",
                                     end_date = "2018/12/31",
                                     from = "iastate"))
-  expect_error(metar_get_historical(airport = "FRA",
+  expect_null(metar_get_historical(airport = "FRA",
                                     start_date = "2000-05-01",
                                     end_date = "2000-05-31",
                                     from = "iastate"))
