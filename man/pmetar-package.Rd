@@ -19,6 +19,11 @@ Useful links:
 \author{
 \strong{Maintainer}: Pawel Cwiek \email{prc.altodato@gmail.com}
 
+Authors:
+\itemize{
+  \item Pawel Cwiek \email{prc.altodato@gmail.com}
+}
+
 Other contributors:
 \itemize{
   \item David Megginson (Author of data set with airports list https://ourairports.com/data/) [contributor]
