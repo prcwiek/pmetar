@@ -6,3 +6,5 @@
 ^NEWS\.md$
 ^README\.Rmd$
 ^\.github$
+^\.positai$
+^\.claude$
