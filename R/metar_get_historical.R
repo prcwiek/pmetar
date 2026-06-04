@@ -160,15 +160,24 @@ metar_get_historical <- function(airport = "EPWA",
 
 
 
-  if(from == "ogimet"){
+  if (from == "ogimet") {
     ds <- utils::read.csv((textConnection(myfile)), stringsAsFactors = FALSE,
                           colClasses = rep("character", 7))
+    if (!is.data.frame(ds) | nrow(ds) == 0 |
+        !("ANO" %in% names(ds)) | !("MES" %in% names(ds)) | !("DIA" %in% names(ds)) |
+        !("HORA" %in% names(ds)) | !("MINUTO" %in% names(ds)) | !("PARTE" %in% names(ds))) {
+      stop("pmetar package error: Malformed answer from the server www.ogimet.com! ", call. = FALSE)
+    }
     out <- ds %>% 
       dplyr::mutate(metar_reports = paste0(ANO, MES, DIA, HORA, MINUTO, " ", PARTE)) %>% 
       dplyr::select(metar_reports)
     out <- out[,1]
   } else {
     ds <- utils::read.csv((textConnection(myfile)), stringsAsFactors = FALSE)
+    if (!is.data.frame(ds) | ncol(ds) != 3 | sum(names(ds) == c("station", "valid", "metar")) != 3
+        | nrow(ds) == 0) {
+      stop("pmetar package error: Malformed answer from the server mesonet.agron.iastate.edu! ", call. = FALSE)
+    }
     ds[,2] <- stringr::str_replace_all(ds[,2], "[[:punct:]]", "")
     ds[,2] <- stringr::str_replace_all(ds[,2], " ", "")
     ds[,3] <- stringr::str_trim(ds[,3])
