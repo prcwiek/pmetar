@@ -163,10 +163,15 @@ metar_get_historical <- function(airport = "EPWA",
   if (from == "ogimet") {
     ds <- utils::read.csv((textConnection(myfile)), stringsAsFactors = FALSE,
                           colClasses = rep("character", 7))
-    if (!is.data.frame(ds) | nrow(ds) == 0 |
-        !("ANO" %in% names(ds)) | !("MES" %in% names(ds)) | !("DIA" %in% names(ds)) |
-        !("HORA" %in% names(ds)) | !("MINUTO" %in% names(ds)) | !("PARTE" %in% names(ds))) {
+    # check if ds is a data frame and number of rows is greater than 0
+    if (!is.data.frame(ds) | nrow(ds) == 0) {
       stop("pmetar package error: Malformed answer from the server www.ogimet.com! ", call. = FALSE)
+    }
+    # check if there are all columns needed in ds
+    if (!("ANO" %in% names(ds)) | !("MES" %in% names(ds)) | !("DIA" %in% names(ds)) |
+        !("HORA" %in% names(ds)) | !("MINUTO" %in% names(ds)) | !("PARTE" %in% names(ds))) {
+      stop("pmetar package error: Missing columns in the answer from the server www.ogimet.com! ",
+           call. = FALSE)
     }
     out <- ds %>% 
       dplyr::mutate(metar_reports = paste0(ANO, MES, DIA, HORA, MINUTO, " ", PARTE)) %>% 
@@ -174,9 +179,14 @@ metar_get_historical <- function(airport = "EPWA",
     out <- out[,1]
   } else {
     ds <- utils::read.csv((textConnection(myfile)), stringsAsFactors = FALSE)
-    if (!is.data.frame(ds) | ncol(ds) != 3 | sum(names(ds) == c("station", "valid", "metar")) != 3
-        | nrow(ds) == 0) {
+    # check if ds is a data frame and number of rows is greater than 0
+    if (!is.data.frame(ds) | ncol(ds) != 3 | nrow(ds) == 0) {
       stop("pmetar package error: Malformed answer from the server mesonet.agron.iastate.edu! ", call. = FALSE)
+    }
+    # check if there are all columns needed in ds
+    if (!("station" %in% names(ds)) | !("valid" %in% names(ds)) | !("metar" %in% names(ds))) {
+      stop("pmetar package error: Missing columns in the answer from the server www.ogimet.com! ",
+           call. = FALSE)
     }
     ds[,2] <- stringr::str_replace_all(ds[,2], "[[:punct:]]", "")
     ds[,2] <- stringr::str_replace_all(ds[,2], " ", "")
