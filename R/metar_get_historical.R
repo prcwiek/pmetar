@@ -181,7 +181,7 @@ metar_get_historical <- function(airport = "EPWA",
     ds <- utils::read.csv((textConnection(myfile)), stringsAsFactors = FALSE)
     # check if ds is a data frame and number of rows is greater than 0
     if (!is.data.frame(ds) | ncol(ds) != 3 | nrow(ds) == 0) {
-      stop("pmetar package error: Malformed answer from the server mesonet.agron.iastate.edu! ", call. = FALSE)
+      stop("pmetar package error: Malformed answer from the server mesonet.agron.iastate.edu!", call. = FALSE)
     }
     # check if there are all columns needed in ds
     if (!("station" %in% names(ds)) | !("valid" %in% names(ds)) | !("metar" %in% names(ds))) {
