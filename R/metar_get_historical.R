@@ -139,7 +139,9 @@ metar_get_historical <- function(airport = "EPWA",
     tryCatch(
       httr2::req_perform(req_link),
       error = function(e) {
-        stop("httr2_failure: Error during request performing!", call. = FALSE)
+        #stop("httr2_failure: Error during request performing!", call. = FALSE)
+        message("httr2_failure: Error during request performing!")
+        return(invisible(NULL))
       },
       warning = function(w) conditionMessage(w)
     )
@@ -167,9 +169,13 @@ metar_get_historical <- function(airport = "EPWA",
     },
     error = function(e){
       if (from == "ogimet") {
-        stop("pmetar package error: Cannot connect to the server www.ogimet.com!", call. = FALSE)
+        #stop("pmetar package error: Cannot connect to the server www.ogimet.com!", call. = FALSE)
+        message("pmetar package error: Cannot connect to the server www.ogimet.com!")
+        return(invisible(NULL))
       } else {
-        stop("pmetar package error: Cannot connect to the server mesonet.agron.iastate.edu!", call. = FALSE)
+        #stop("pmetar package error: Cannot connect to the server mesonet.agron.iastate.edu!", call. = FALSE)
+        message("pmetar package error: Cannot connect to the server mesonet.agron.iastate.edu!", call. = FALSE)
+        return(invisible(NULL))
       }
     }
   )
@@ -181,14 +187,13 @@ metar_get_historical <- function(airport = "EPWA",
                           colClasses = rep("character", 7))
     # check if ds is a data frame and number of rows is greater than 0
     if (!is.data.frame(ds) | nrow(ds) == 0) {
-      #stop("pmetar package error: Malformed answer from the server www.ogimet.com! ", call. = FALSE)
+      message("pmetar package error: Malformed answer from the server www.ogimet.com! ", call. = FALSE)
       return(invisible(NULL))
     }
     # check if there are all columns needed in ds
     if (!("ANO" %in% names(ds)) | !("MES" %in% names(ds)) | !("DIA" %in% names(ds)) |
         !("HORA" %in% names(ds)) | !("MINUTO" %in% names(ds)) | !("PARTE" %in% names(ds))) {
-      # stop("pmetar package error: Missing columns in the answer from the server www.ogimet.com! ",
-      #      call. = FALSE)
+      message("pmetar package error: Missing columns in the answer from the server www.ogimet.com! ")
       return(invisible(NULL))
     }
     out <- ds %>% 
@@ -199,13 +204,12 @@ metar_get_historical <- function(airport = "EPWA",
     ds <- utils::read.csv((textConnection(myfile)), stringsAsFactors = FALSE)
     # check if ds is a data frame and number of rows is greater than 0
     if (!is.data.frame(ds) | ncol(ds) != 3 | nrow(ds) == 0) {
-      #stop("pmetar package error: Malformed answer from the server mesonet.agron.iastate.edu!", call. = FALSE)
+      message("pmetar package error: Malformed answer from the server mesonet.agron.iastate.edu!", call. = FALSE)
       return(invisible(NULL))
     }
     # check if there are all columns needed in ds
     if (!("station" %in% names(ds)) | !("valid" %in% names(ds)) | !("metar" %in% names(ds))) {
-      # stop("pmetar package error: Missing columns in the answer from the server www.ogimet.com! ",
-      #      call. = FALSE)
+      message("pmetar package error: Missing columns in the answer from the server www.ogimet.com! ")
       return(invisible(NULL))
     }
     ds[,2] <- stringr::str_replace_all(ds[,2], "[[:punct:]]", "")
@@ -216,7 +220,9 @@ metar_get_historical <- function(airport = "EPWA",
 
   # check out consists of data for mesonet.agron.iastate.edu
   if(from == "iastate" & out[1] == " METAR ") {
-    stop("pmetar package error: Data not available on mesonet.agron.iastate.edu!", call. = FALSE)
+    #stop("pmetar package error: Data not available on mesonet.agron.iastate.edu!", call. = FALSE)
+    message("pmetar package error: Data not available on mesonet.agron.iastate.edu!")
+    return(invisible(NULL))
   }
 
   message("Don't use for flight planning or navigation!")
