@@ -139,7 +139,6 @@ metar_get_historical <- function(airport = "EPWA",
     tryCatch(
       httr2::req_perform(req_link),
       error = function(e) {
-        #stop("httr2_failure: Error during request performing!", call. = FALSE)
         message("httr2_failure: Error during request performing!")
         return(invisible(NULL))
       },
@@ -169,11 +168,9 @@ metar_get_historical <- function(airport = "EPWA",
     },
     error = function(e){
       if (from == "ogimet") {
-        #stop("pmetar package error: Cannot connect to the server www.ogimet.com!", call. = FALSE)
         message("pmetar package error: Cannot connect to the server www.ogimet.com!")
         return(invisible(NULL))
       } else {
-        #stop("pmetar package error: Cannot connect to the server mesonet.agron.iastate.edu!", call. = FALSE)
         message("pmetar package error: Cannot connect to the server mesonet.agron.iastate.edu!", call. = FALSE)
         return(invisible(NULL))
       }
@@ -220,7 +217,6 @@ metar_get_historical <- function(airport = "EPWA",
 
   # check out consists of data for mesonet.agron.iastate.edu
   if(from == "iastate" & out[1] == " METAR ") {
-    #stop("pmetar package error: Data not available on mesonet.agron.iastate.edu!", call. = FALSE)
     message("pmetar package error: Data not available on mesonet.agron.iastate.edu!")
     return(invisible(NULL))
   }
