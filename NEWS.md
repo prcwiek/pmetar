@@ -1,3 +1,16 @@
+pmetar version 0.7.1
+================================
+
+### BUG FIXES
+
+* Update of *metar_get_historical* to allow packages which use Internet resources fail gracefully
+* Update of *metar_get* to allow packages which use Internet resources fail gracefully
+
+### UPDATES
+
+* Updated the list of airports
+
+
 pmetar version 0.7.0
 ================================
 

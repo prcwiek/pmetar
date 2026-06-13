@@ -70,13 +70,15 @@ metar_get <- function(airport = "EPWA", hours = 0){
                  airport,
                  "&format=raw&hours=", hours)
 
+  # Function for handling problems with the server
   answer_POST <- function(p) {
     req_link <- httr2::request(p)
     req_link <- httr2::req_timeout(req_link, 20)    
     tryCatch(
       httr2::req_perform(req_link),
       error = function(e) {
-        stop("httr2_failure: Error during request performing!", call. = FALSE)
+        message("httr2_failure: Error during request performing!")
+        return(invisible(NULL))
       },
       warning = function(w) conditionMessage(w)
     )

@@ -37,7 +37,7 @@ x2_output <- tibble::tibble(ICAO_Code = "CYUL", IATA_Code = "YUL",
                     Source = "http://ourairports.com/data/airports.csv")
 x3_output <- tibble::tibble(ICAO_Code = "LEMD", IATA_Code = "MAD",
                     Airport_Name = "Adolfo Suarez Madrid-Barajas Airport",
-                    Longitude = -3.56264, Latitude = 40.47193, Elevation = 608.9904,
+                    Longitude = -3.57225, Latitude = 40.49341, Elevation = 608.9904,
                     Source = "http://ourairports.com/data/airports.csv")
 x4_output <- tibble::tibble(ICAO_Code = "EPWA", IATA_Code = "WAW",
                     Airport_Name = "Warsaw Chopin Airport",
@@ -49,7 +49,7 @@ x5_output <- tibble::tibble(ICAO_Code = "KJFK", IATA_Code = "JFK",
                     Source = "http://ourairports.com/data/airports.csv")
 x6_output <- tibble::tibble(ICAO_Code = "KEWR", IATA_Code = "EWR",
                     Airport_Name = "Newark Liberty International Airport",
-                    Longitude = -74.1687, Latitude = 40.6925, Elevation = 5.4864,
+                    Longitude = -74.17054, Latitude = 40.6894, Elevation = 5.4864,
                     Source = "http://ourairports.com/data/airports.csv")
 x7_output <- tibble::tibble(ICAO_Code = "NCRK", IATA_Code = "Not found!",
                     Airport_Name = "RAKAHANGA ATOLL",
