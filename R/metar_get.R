@@ -92,6 +92,11 @@ metar_get <- function(airport = "EPWA", hours = 0){
 
   resp_link <- answer_POST(link)
 
+  # Check if the function answer_POST returned NULL
+  if (is.null(resp_link)) {
+    return(invisible(NULL))
+  }
+  
   # Case for the status '204 No Content'
   if (resp_link$status_code == 204) {
     message(paste0(resp_link$status_code, " ", httr2::resp_status_desc(resp_link)))
